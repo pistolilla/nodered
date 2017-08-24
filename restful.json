@@ -1,0 +1,144 @@
+[
+    {
+        "id": "2d5f5389.852a1c",
+        "type": "http in",
+        "z": "7a28a6e7.9eca28",
+        "name": "prueba",
+        "url": "/prueba",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 103.5,
+        "y": 69.25,
+        "wires": [
+            [
+                "d296c9b3.77a74"
+            ]
+        ]
+    },
+    {
+        "id": "792493d5.cab79c",
+        "type": "http response",
+        "z": "7a28a6e7.9eca28",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 586.5,
+        "y": 47.5,
+        "wires": []
+    },
+    {
+        "id": "d296c9b3.77a74",
+        "type": "function",
+        "z": "7a28a6e7.9eca28",
+        "name": "Hello World",
+        "func": "msg.payload = \"Ole\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 271.5,
+        "y": 69.75,
+        "wires": [
+            [
+                "792493d5.cab79c"
+            ]
+        ]
+    },
+    {
+        "id": "d08a790f.9821c",
+        "type": "template",
+        "z": "7a28a6e7.9eca28",
+        "name": "format html page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<h1>Drinks available on : {{payload.day}}</h1>\n\n<ul>\n{{#payload.drinks}}\n<li>{{drink}}</li>    \n{{/payload.drinks}}\n</ul>\n\n<h3>Specials:</h3> \n<hr>\n<ul>\n{{^payload.specials}}\nNone today, sorry      \n{{/payload.specials}}\n\n{{#payload.specials}}\n<li>{{drink}}</li>\n{{/payload.specials}}\n</ul>",
+        "x": 469,
+        "y": 158,
+        "wires": [
+            [
+                "b3557497.037f4"
+            ]
+        ]
+    },
+    {
+        "id": "288aa909.feb946",
+        "type": "function",
+        "z": "7a28a6e7.9eca28",
+        "name": "Drinks",
+        "func": "msg.payload =   \n         {'day':'Monday',\n          'drinks':[{'drink': 'coffee'}, \n                    {'drink': 'tea'}, \n                    {'drink': 'orange juice'}]\n         };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 289,
+        "y": 138,
+        "wires": [
+            [
+                "d08a790f.9821c"
+            ]
+        ]
+    },
+    {
+        "id": "7f11408b.d4758",
+        "type": "function",
+        "z": "7a28a6e7.9eca28",
+        "name": "Specials",
+        "func": "msg.payload = \n         {'day':'Monday',\n          'drinks':[{'drink': 'coffee'}, \n                    {'drink': 'tea'}, \n                    {'drink': 'orange juice'}],\n          'specials':[{'drink': 'hot chocolate'}, \n                      {'drink': 'espresso'}]\n         };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 279,
+        "y": 178,
+        "wires": [
+            [
+                "d08a790f.9821c"
+            ]
+        ]
+    },
+    {
+        "id": "d499ef79.351ec8",
+        "type": "http in",
+        "z": "7a28a6e7.9eca28",
+        "name": "/menu",
+        "url": "/menu",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 109,
+        "y": 138,
+        "wires": [
+            [
+                "288aa909.feb946"
+            ]
+        ]
+    },
+    {
+        "id": "d7d8fc10.bb2bf",
+        "type": "http in",
+        "z": "7a28a6e7.9eca28",
+        "name": "/specials",
+        "url": "/specials",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 119,
+        "y": 178,
+        "wires": [
+            [
+                "7f11408b.d4758"
+            ]
+        ]
+    },
+    {
+        "id": "b3557497.037f4",
+        "type": "function",
+        "z": "7a28a6e7.9eca28",
+        "name": "setHTTPheader",
+        "func": "// If sending JSON data the content type is:\n//msg.headers={\"Content-Type\":\"application/json\"}\n\n// For HTML use the content type line below:\nmsg.headers={\"Content-Type\":\"text/html\"}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 541,
+        "y": 112,
+        "wires": [
+            [
+                "792493d5.cab79c"
+            ]
+        ]
+    }
+]
