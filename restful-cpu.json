@@ -1,0 +1,211 @@
+[
+    {
+        "id": "b5083b7.9e5c0c8",
+        "type": "http in",
+        "z": "b6e154ff.d575a8",
+        "name": "/hola",
+        "url": "/hola",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 70,
+        "y": 100,
+        "wires": [
+            [
+                "f39ff358.9a10b"
+            ]
+        ]
+    },
+    {
+        "id": "6ddb0f61.ceb44",
+        "type": "http response",
+        "z": "b6e154ff.d575a8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 710,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "f39ff358.9a10b",
+        "type": "function",
+        "z": "b6e154ff.d575a8",
+        "name": "hola mundo",
+        "func": "msg.payload = \"Hola mundo\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 230,
+        "y": 100,
+        "wires": [
+            [
+                "6ddb0f61.ceb44"
+            ]
+        ]
+    },
+    {
+        "id": "93f69adb.6d8f78",
+        "type": "function",
+        "z": "b6e154ff.d575a8",
+        "name": "setHTTPheader",
+        "func": "// If sending JSON data the content type is:\n//msg.headers={\"Content-Type\":\"application/json\"}\n\n// For HTML use the content type line below:\nmsg.headers={\"Content-Type\":\"text/html\"}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 140,
+        "wires": [
+            [
+                "6ddb0f61.ceb44"
+            ]
+        ]
+    },
+    {
+        "id": "3eb395b5.e7279a",
+        "type": "cpu",
+        "z": "b6e154ff.d575a8",
+        "name": "",
+        "x": 230,
+        "y": 280,
+        "wires": [
+            [
+                "5c34ce24.ffaa",
+                "446463c0.8b5df4"
+            ]
+        ]
+    },
+    {
+        "id": "d767e4a7.f0e14",
+        "type": "http in",
+        "z": "b6e154ff.d575a8",
+        "name": "/cpu",
+        "url": "/cpu",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 70,
+        "y": 260,
+        "wires": [
+            [
+                "3eb395b5.e7279a",
+                "b85731d9.b49f6"
+            ]
+        ]
+    },
+    {
+        "id": "5c34ce24.ffaa",
+        "type": "join",
+        "z": "b6e154ff.d575a8",
+        "name": "join as array",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "4",
+        "x": 430,
+        "y": 300,
+        "wires": [
+            [
+                "924ae3b6.06568"
+            ]
+        ]
+    },
+    {
+        "id": "924ae3b6.06568",
+        "type": "debug",
+        "z": "b6e154ff.d575a8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 690,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "446463c0.8b5df4",
+        "type": "join",
+        "z": "b6e154ff.d575a8",
+        "name": "join as object",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "5",
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "924ae3b6.06568",
+                "efc2ece0.452c6"
+            ]
+        ]
+    },
+    {
+        "id": "efc2ece0.452c6",
+        "type": "template",
+        "z": "b6e154ff.d575a8",
+        "name": "plantilla html",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<h1>Consumo de CPU:</h1>\n\n<ul>\n<li>Core 1: {{payload.core_1}}%</li>\n<li>Core 2: {{payload.core_2}}%</li>\n<li>Core 3: {{payload.core_3}}%</li>\n<li>Core 4: {{payload.core_4}}%</li>\n</ul>",
+        "output": "str",
+        "x": 490,
+        "y": 200,
+        "wires": [
+            [
+                "93f69adb.6d8f78"
+            ]
+        ]
+    },
+    {
+        "id": "b85731d9.b49f6",
+        "type": "function",
+        "z": "b6e154ff.d575a8",
+        "name": ".topic",
+        "func": "msg.topic = \"http\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 210,
+        "y": 240,
+        "wires": [
+            [
+                "446463c0.8b5df4"
+            ]
+        ],
+        "inputLabels": [
+            "http request"
+        ]
+    },
+    {
+        "id": "3583b864.420bd",
+        "type": "comment",
+        "z": "b6e154ff.d575a8",
+        "name": "leyendo uso de cpu mediante GET",
+        "info": "",
+        "x": 160,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "d6dc4153.daa46",
+        "type": "comment",
+        "z": "b6e154ff.d575a8",
+        "name": "hola mundo",
+        "info": "",
+        "x": 90,
+        "y": 60,
+        "wires": []
+    }
+]
