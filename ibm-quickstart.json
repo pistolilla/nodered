@@ -1,100 +1,94 @@
 [
     {
-        "id": "df72149e.2e1fc",
-        "type": "inject",
-        "z": "d9dc81ee.4b2ab",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "str",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 83.5,
-        "y": 89.25,
-        "wires": [
-            [
-                "731c30e6.0fc3f"
-            ]
-        ]
-    },
-    {
-        "id": "731c30e6.0fc3f",
-        "type": "random",
-        "z": "d9dc81ee.4b2ab",
-        "name": "",
-        "low": "1",
-        "high": "10",
-        "inte": "true",
-        "x": 219.5,
-        "y": 158.75,
-        "wires": [
-            [
-                "9ed1ee04.6e35a",
-                "b43f8f3c.f102a8"
-            ]
-        ]
-    },
-    {
-        "id": "b43f8f3c.f102a8",
-        "type": "debug",
-        "z": "d9dc81ee.4b2ab",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "payload",
-        "x": 374.5,
-        "y": 284.5,
-        "wires": []
-    },
-    {
-        "id": "9ed1ee04.6e35a",
-        "type": "function",
-        "z": "d9dc81ee.4b2ab",
-        "name": "",
-        "func": "msg.payload = {\"d\" : {\"evento\" : msg.payload}};\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 349.5,
-        "y": 88.75,
-        "wires": [
-            [
-                "aed0bc8c.4c8e88"
-            ]
-        ]
-    },
-    {
-        "id": "aed0bc8c.4c8e88",
+        "id": "d16eb137.2363a",
         "type": "wiotp out",
-        "z": "d9dc81ee.4b2ab",
+        "z": "10a96090.f7e6df",
         "authType": "d",
         "qs": "true",
-        "qsDeviceId": "aed0bc8c.4c8e88",
+        "qsDeviceId": "d16eb137.2363a",
         "deviceKey": "",
         "deviceType": "",
         "deviceId": "",
         "event": "event",
         "format": "json",
-        "name": "",
-        "x": 486.5,
-        "y": 209.5,
+        "qos": "",
+        "name": "IBM quickstart",
+        "x": 520,
+        "y": 180,
         "wires": []
     },
     {
-        "id": "581dba88.9620ac",
-        "type": "inject",
-        "z": "d9dc81ee.4b2ab",
+        "id": "974ad26a.d0241",
+        "type": "random",
+        "z": "10a96090.f7e6df",
         "name": "",
+        "low": "1",
+        "high": "10",
+        "inte": "true",
+        "x": 180,
+        "y": 140,
+        "wires": [
+            [
+                "5e8920a0.31ba3"
+            ]
+        ]
+    },
+    {
+        "id": "741217ed.ff5dc8",
+        "type": "inject",
+        "z": "10a96090.f7e6df",
+        "name": "cada 5 seg",
         "topic": "",
         "payload": "",
-        "payloadType": "str",
+        "payloadType": "date",
         "repeat": "5",
         "crontab": "",
-        "once": false,
-        "x": 81.5,
-        "y": 226.25,
+        "once": true,
+        "x": 110,
+        "y": 80,
         "wires": [
-            []
+            [
+                "974ad26a.d0241"
+            ]
         ]
+    },
+    {
+        "id": "d637eeee.35735",
+        "type": "debug",
+        "z": "10a96090.f7e6df",
+        "name": "payload.d.lectura",
+        "active": false,
+        "console": "false",
+        "complete": "payload.d.lectura",
+        "x": 530,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "5e8920a0.31ba3",
+        "type": "function",
+        "z": "10a96090.f7e6df",
+        "name": "formato json",
+        "func": "msg.payload = {'d' : {'lectura' : msg.payload}};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 160,
+        "wires": [
+            [
+                "d16eb137.2363a",
+                "d637eeee.35735"
+            ]
+        ]
+    },
+    {
+        "id": "6c4e2fc8.710ae",
+        "type": "comment",
+        "z": "10a96090.f7e6df",
+        "name": "inyección inicial",
+        "info": "",
+        "x": 100,
+        "y": 40,
+        "wires": []
     }
 ]
