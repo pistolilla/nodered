@@ -40,12 +40,11 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": true,
-        "x": 218,
-        "y": 148,
+        "x": 220,
+        "y": 140,
         "wires": [
             [
-                "d7320d16.37734",
-                "b405c67e.eb4f68"
+                "d7320d16.37734"
             ]
         ]
     },
@@ -72,11 +71,11 @@
         "type": "function",
         "z": "d707a82.5960858",
         "name": "formato json",
-        "func": "// Leyendo variables\nvar temperatura = msg.payload.temperature;\nvar humedad = msg.payload.humidity;\n\n// Agregando variación +/- 5%\ntemperatura += Math.random() * 0.1 - 0.05;\nhumedad += Math.random() * 0.1 - 0.05;\n\nmsg.payload = {'d' : {'temperatura' : parseFloat(temperatura.toFixed(2)), 'humedad' : parseFloat(humedad.toFixed(2))}};\nreturn msg;",
+        "func": "// Leyendo variables\nvar temperatura = msg.payload.temperature;\nvar humedad = msg.payload.humidity;\nvar presion = msg.payload.pressure;\n\n// Agregando variación +/- 5%\ntemperatura += Math.random() * 0.1 - 0.05;\nhumedad += Math.random() * 0.1 - 0.05;\npresion += Math.random() * 0.1 - 0.05;\n\nmsg.payload = {'d' : {'temperatura' : parseFloat(temperatura.toFixed(2)), 'humedad' : parseFloat(humedad.toFixed(2)), 'presion' : parseFloat(presion.toFixed(2))}};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 410,
-        "y": 160,
+        "y": 140,
         "wires": [
             [
                 "3be31a44.aad366",
@@ -115,35 +114,6 @@
         "wires": []
     },
     {
-        "id": "b405c67e.eb4f68",
-        "type": "function",
-        "z": "d707a82.5960858",
-        "name": "formato json",
-        "func": "// Leyendo variables\nvar presion = msg.payload.pressure;\n\n// Agregando variación +/- 5%\npresion += Math.random() * 0.1 - 0.05;\n\nmsg.payload = {'d' : {'presion' : parseFloat(presion.toFixed(2))}};\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 410,
-        "y": 280,
-        "wires": [
-            [
-                "8972c641.49cf3",
-                "cd21d8e2.064088"
-            ]
-        ]
-    },
-    {
-        "id": "8972c641.49cf3",
-        "type": "debug",
-        "z": "d707a82.5960858",
-        "name": "",
-        "active": false,
-        "console": "false",
-        "complete": "false",
-        "x": 590,
-        "y": 280,
-        "wires": []
-    },
-    {
         "id": "cd21d8e2.064088",
         "type": "wiotp out",
         "z": "d707a82.5960858",
@@ -158,7 +128,7 @@
         "qos": "",
         "name": "Bluemix con gateway",
         "x": 620,
-        "y": 320,
+        "y": 260,
         "wires": []
     },
     {
