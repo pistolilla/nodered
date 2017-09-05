@@ -1,0 +1,192 @@
+[
+    {
+        "id": "c53a518.28cadb",
+        "type": "rpi-sensehatsim in",
+        "z": "d707a82.5960858",
+        "name": "simulador SenseHAT",
+        "motion": false,
+        "env": true,
+        "stick": false,
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "2c2aec3b.9cb5f4"
+            ]
+        ]
+    },
+    {
+        "id": "6bf7f4ae.1ee38c",
+        "type": "comment",
+        "z": "d707a82.5960858",
+        "name": "lectura de sensor ambiental",
+        "info": "temperatura\nhumedad\npresión atmosférica",
+        "x": 140,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "2c2aec3b.9cb5f4",
+        "type": "delay",
+        "z": "d707a82.5960858",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 218,
+        "y": 148,
+        "wires": [
+            [
+                "d7320d16.37734",
+                "b405c67e.eb4f68"
+            ]
+        ]
+    },
+    {
+        "id": "601e565f.948bf8",
+        "type": "wiotp out",
+        "z": "d707a82.5960858",
+        "authType": "d",
+        "qs": "true",
+        "qsDeviceId": "601e565f.948bf8",
+        "deviceKey": "",
+        "deviceType": "",
+        "deviceId": "",
+        "event": "event",
+        "format": "json",
+        "qos": "",
+        "name": "Quickstart",
+        "x": 590,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "d7320d16.37734",
+        "type": "function",
+        "z": "d707a82.5960858",
+        "name": "formato json",
+        "func": "// Leyendo variables\nvar temperatura = msg.payload.temperature;\nvar humedad = msg.payload.humidity;\n\n// Agregando variación +/- 5%\ntemperatura += Math.random() * 0.1 - 0.05;\nhumedad += Math.random() * 0.1 - 0.05;\n\nmsg.payload = {'d' : {'temperatura' : parseFloat(temperatura.toFixed(2)), 'humedad' : parseFloat(humedad.toFixed(2))}};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 160,
+        "wires": [
+            [
+                "3be31a44.aad366",
+                "efc13363.1a1cc"
+            ]
+        ]
+    },
+    {
+        "id": "efc13363.1a1cc",
+        "type": "debug",
+        "z": "d707a82.5960858",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 590,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "3be31a44.aad366",
+        "type": "wiotp out",
+        "z": "d707a82.5960858",
+        "authType": "d",
+        "qs": "false",
+        "qsDeviceId": "",
+        "deviceKey": "345e0228.05709e",
+        "deviceType": "",
+        "deviceId": "",
+        "event": "event",
+        "format": "json",
+        "qos": "",
+        "name": "Bluemix con dispositivo",
+        "x": 630,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "b405c67e.eb4f68",
+        "type": "function",
+        "z": "d707a82.5960858",
+        "name": "formato json",
+        "func": "// Leyendo variables\nvar presion = msg.payload.pressure;\n\n// Agregando variación +/- 5%\npresion += Math.random() * 0.1 - 0.05;\n\nmsg.payload = {'d' : {'presion' : parseFloat(presion.toFixed(2))}};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 280,
+        "wires": [
+            [
+                "8972c641.49cf3",
+                "cd21d8e2.064088"
+            ]
+        ]
+    },
+    {
+        "id": "8972c641.49cf3",
+        "type": "debug",
+        "z": "d707a82.5960858",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 590,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "cd21d8e2.064088",
+        "type": "wiotp out",
+        "z": "d707a82.5960858",
+        "authType": "g",
+        "qs": "false",
+        "qsDeviceId": "",
+        "deviceKey": "f3c9629b.4d6e18",
+        "deviceType": "senseHat",
+        "deviceId": "sensehat01",
+        "event": "event",
+        "format": "json",
+        "qos": "",
+        "name": "Bluemix con gateway",
+        "x": 620,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "345e0228.05709e",
+        "type": "wiotp-credentials",
+        "z": "",
+        "name": "sensehat01",
+        "org": "nzqcwc",
+        "serverName": "",
+        "devType": "senseHat",
+        "devId": "sensehat01",
+        "keepalive": "60",
+        "cleansession": true,
+        "tls": "",
+        "usetls": false
+    },
+    {
+        "id": "f3c9629b.4d6e18",
+        "type": "wiotp-credentials",
+        "z": "",
+        "name": "raspberryPi",
+        "org": "nzqcwc",
+        "serverName": "",
+        "devType": "raspberryPi",
+        "devId": "raspberrypi01",
+        "keepalive": "60",
+        "cleansession": true,
+        "tls": "",
+        "usetls": false
+    }
+]

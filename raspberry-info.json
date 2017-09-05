@@ -1,0 +1,159 @@
+[
+    {
+        "id": "3e465c0e.0ab63c",
+        "type": "exec",
+        "z": "4c42ee82.6b9558",
+        "command": "ip",
+        "addpay": false,
+        "append": "address",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "ip address",
+        "x": 270,
+        "y": 120,
+        "wires": [
+            [
+                "d6f6cf49.8bd52"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d02e301.f85e35",
+        "type": "inject",
+        "z": "4c42ee82.6b9558",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "x": 130,
+        "y": 40,
+        "wires": [
+            [
+                "3e465c0e.0ab63c",
+                "9e0e2518.a6af58"
+            ]
+        ]
+    },
+    {
+        "id": "d6f6cf49.8bd52",
+        "type": "function",
+        "z": "4c42ee82.6b9558",
+        "name": "formato json",
+        "func": "var str = msg.payload;\n// Quitando saltos de línea\nstr = str.replace(/\\n/gi, \" \");\n// Extrayendo dirección ip\nstr = str.replace(/.*inet (\\d+\\.\\d+\\.\\d+\\.\\d+).+?global.*/i, \"$1\");\n\nmsg.payload = {'d' : {'ipaddress' : str}};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "4b7cbd9a.b6da94",
+                "425126e3.ba147"
+            ]
+        ]
+    },
+    {
+        "id": "4b7cbd9a.b6da94",
+        "type": "debug",
+        "z": "4c42ee82.6b9558",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 630,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "425126e3.ba147",
+        "type": "wiotp out",
+        "z": "4c42ee82.6b9558",
+        "authType": "g",
+        "qs": "false",
+        "qsDeviceId": "",
+        "deviceKey": "f3c9629b.4d6e18",
+        "deviceType": "raspberryPi",
+        "deviceId": "raspberrypi01",
+        "event": "event",
+        "format": "json",
+        "qos": "",
+        "name": "Bluemix a gateway",
+        "x": 650,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "9e0e2518.a6af58",
+        "type": "exec",
+        "z": "4c42ee82.6b9558",
+        "command": "vcgencmd",
+        "addpay": false,
+        "append": "measure_temp",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "cpu temp",
+        "x": 280,
+        "y": 200,
+        "wires": [
+            [
+                "cdaa7b5d.44b8b"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "cdaa7b5d.44b8b",
+        "type": "function",
+        "z": "4c42ee82.6b9558",
+        "name": "formato json",
+        "func": "var temperatura = msg.payload.replace(\"temp=\", \"\").replace(\"'C\\n\", \"\");\nmsg.payload = {'d' : { 'temperatura' : parseFloat(temperatura)}}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "cfbe9bbb.81e16"
+            ]
+        ]
+    },
+    {
+        "id": "cfbe9bbb.81e16",
+        "type": "wiotp out",
+        "z": "4c42ee82.6b9558",
+        "authType": "g",
+        "qs": "false",
+        "qsDeviceId": "",
+        "deviceKey": "f3c9629b.4d6e18",
+        "deviceType": "raspberryPi",
+        "deviceId": "raspberrypi01",
+        "event": "event",
+        "format": "json",
+        "qos": "",
+        "name": "Bluemix a gateway",
+        "x": 650,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "f3c9629b.4d6e18",
+        "type": "wiotp-credentials",
+        "z": "",
+        "name": "raspberryPi",
+        "org": "nzqcwc",
+        "serverName": "",
+        "devType": "raspberryPi",
+        "devId": "raspberrypi01",
+        "keepalive": "60",
+        "cleansession": true,
+        "tls": "",
+        "usetls": false
+    }
+]

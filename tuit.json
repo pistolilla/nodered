@@ -1,0 +1,116 @@
+[
+    {
+        "id": "2f7b9b2f.ff0084",
+        "type": "twitter out",
+        "z": "2285b103.0c0aee",
+        "twitter": "",
+        "name": "Tweet",
+        "x": 650,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d5553d13.8a05c",
+        "type": "random",
+        "z": "2285b103.0c0aee",
+        "name": "",
+        "low": "1",
+        "high": "10",
+        "inte": "true",
+        "x": 160,
+        "y": 140,
+        "wires": [
+            [
+                "bc4ede90.b9574",
+                "b010d7c8.cc1b38"
+            ]
+        ]
+    },
+    {
+        "id": "d04d9766.787d68",
+        "type": "inject",
+        "z": "2285b103.0c0aee",
+        "name": "cada 5 seg",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "d5553d13.8a05c"
+            ]
+        ]
+    },
+    {
+        "id": "bc4ede90.b9574",
+        "type": "switch",
+        "z": "2285b103.0c0aee",
+        "name": "alarma",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "5",
+                "vt": "num"
+            },
+            {
+                "t": "neq",
+                "v": "5",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "b96c911f.dbf2c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b96c911f.dbf2c",
+        "type": "function",
+        "z": "2285b103.0c0aee",
+        "name": "mensaje",
+        "func": "msg.payload = \"hola mundo!\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 160,
+        "wires": [
+            [
+                "2f7b9b2f.ff0084"
+            ]
+        ]
+    },
+    {
+        "id": "b010d7c8.cc1b38",
+        "type": "debug",
+        "z": "2285b103.0c0aee",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 330,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "90b368a7.1ff06",
+        "type": "comment",
+        "z": "2285b103.0c0aee",
+        "name": "envía un tuit si la lectura es 5",
+        "info": "",
+        "x": 580,
+        "y": 120,
+        "wires": []
+    }
+]
