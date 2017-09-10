@@ -1,0 +1,165 @@
+[
+    {
+        "id": "8742dbab.7ac3b8",
+        "type": "http request",
+        "z": "ced3911c.f8024",
+        "name": "btc a mxn",
+        "method": "GET",
+        "ret": "obj",
+        "url": "https://api.bitso.com/v3/ticker/?book=btc_mxn",
+        "tls": "",
+        "x": 280,
+        "y": 100,
+        "wires": [
+            [
+                "ca473a11.061b88",
+                "d4a9cd24.5f8908"
+            ]
+        ]
+    },
+    {
+        "id": "9448472b.8a9f88",
+        "type": "inject",
+        "z": "ced3911c.f8024",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "8742dbab.7ac3b8",
+                "462b9f19.3e161"
+            ]
+        ]
+    },
+    {
+        "id": "d4a9cd24.5f8908",
+        "type": "debug",
+        "z": "ced3911c.f8024",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload.payload.last",
+        "x": 490,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "ca473a11.061b88",
+        "type": "switch",
+        "z": "ced3911c.f8024",
+        "name": "< 75000",
+        "property": "payload.payload.last",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "75000",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 440,
+        "y": 100,
+        "wires": [
+            [
+                "c0c17889.98fde8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "6a61fcc5.39522c",
+        "type": "comment",
+        "z": "ced3911c.f8024",
+        "name": "monitor de bitcoin y ethereum",
+        "info": "",
+        "x": 140,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "b2547435.97b5f",
+        "type": "e-mail",
+        "z": "ced3911c.f8024",
+        "server": "smtp.sendgrid.net",
+        "port": "465",
+        "secure": true,
+        "name": "pistolilla58@hotmail.com",
+        "dname": "",
+        "x": 530,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "462b9f19.3e161",
+        "type": "http request",
+        "z": "ced3911c.f8024",
+        "name": "eth a mxn",
+        "method": "GET",
+        "ret": "obj",
+        "url": "https://api.bitso.com/v3/ticker/?book=eth_mxn",
+        "tls": "",
+        "x": 280,
+        "y": 140,
+        "wires": [
+            [
+                "d4a9cd24.5f8908",
+                "ecdebfb7.729d"
+            ]
+        ]
+    },
+    {
+        "id": "ecdebfb7.729d",
+        "type": "switch",
+        "z": "ced3911c.f8024",
+        "name": "< 5000",
+        "property": "payload.payload.last",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "5000",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 440,
+        "y": 140,
+        "wires": [
+            [
+                "c0c17889.98fde8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c0c17889.98fde8",
+        "type": "function",
+        "z": "ced3911c.f8024",
+        "name": "mensaje",
+        "func": "msg.from = \"Bot criptomoneda <no-reply@polushon.com>\"\nmsg.payload = \"alerta critpomoneda\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 600,
+        "y": 120,
+        "wires": [
+            [
+                "b2547435.97b5f"
+            ]
+        ]
+    }
+]
