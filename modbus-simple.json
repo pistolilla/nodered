@@ -191,8 +191,8 @@
     {
         "id": "d6558d01.ba1a38",
         "type": "modbus-client",
-        "z": "4574539e.e58574",
-        "name": "MiServidorLocal",
+        "z": "",
+        "name": "",
         "clienttype": "tcp",
         "bufferCommands": true,
         "stateLogEnabled": false,
