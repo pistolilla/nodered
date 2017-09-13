@@ -1,8 +1,8 @@
 [
     {
-        "id": "85443658.408ac8",
+        "id": "1b68475.2a7b339",
         "type": "modbus-read",
-        "z": "4574539e.e58574",
+        "z": "2b149f87.d873b",
         "name": "",
         "showStatusActivities": false,
         "showErrors": false,
@@ -12,20 +12,20 @@
         "quantity": "4",
         "rate": "5",
         "rateUnit": "s",
-        "server": "d6558d01.ba1a38",
+        "server": "621264de.aa089c",
         "x": 430,
-        "y": 300,
+        "y": 320,
         "wires": [
             [],
             [
-                "dc7669bd.1fcfc8"
+                "c30d1852.d3375"
             ]
         ]
     },
     {
-        "id": "570fd563.fc6d4c",
+        "id": "30f255d0.fbb1c2",
         "type": "modbus-write",
-        "z": "4574539e.e58574",
+        "z": "2b149f87.d873b",
         "name": "",
         "showStatusActivities": false,
         "showErrors": false,
@@ -33,20 +33,20 @@
         "dataType": "MHoldingRegisters",
         "adr": "0",
         "quantity": "3",
-        "server": "d6558d01.ba1a38",
+        "server": "621264de.aa089c",
         "x": 440,
-        "y": 210,
+        "y": 230,
         "wires": [
             [],
             [
-                "40d77e8f.0864e8"
+                "ed9e29a0.2113b8"
             ]
         ]
     },
     {
-        "id": "6e057a0.f8a4b88",
+        "id": "558058c4.fb9c",
         "type": "modbus-server",
-        "z": "4574539e.e58574",
+        "z": "2b149f87.d873b",
         "name": "",
         "logEnabled": false,
         "serverPort": 10502,
@@ -56,23 +56,23 @@
         "holdingBufferSize": 1024,
         "inputBufferSize": 1024,
         "x": 440,
-        "y": 80,
+        "y": 100,
         "wires": [
             [
-                "e726ce15.cd0f9"
+                "19ac60c0.555e77"
             ],
             [
-                "e726ce15.cd0f9"
+                "19ac60c0.555e77"
             ],
             [
-                "e726ce15.cd0f9"
+                "19ac60c0.555e77"
             ]
         ]
     },
     {
-        "id": "149f60ae.f02a5f",
+        "id": "d66e37a.06fc148",
         "type": "inject",
-        "z": "4574539e.e58574",
+        "z": "2b149f87.d873b",
         "name": "",
         "topic": "",
         "payload": "",
@@ -81,39 +81,39 @@
         "crontab": "",
         "once": false,
         "x": 100,
-        "y": 80,
+        "y": 100,
         "wires": [
             [
-                "6e057a0.f8a4b88"
+                "558058c4.fb9c"
             ]
         ]
     },
     {
-        "id": "e726ce15.cd0f9",
+        "id": "19ac60c0.555e77",
         "type": "debug",
-        "z": "4574539e.e58574",
+        "z": "2b149f87.d873b",
         "name": "",
         "active": true,
         "console": "false",
         "complete": "false",
         "x": 630,
-        "y": 80,
+        "y": 100,
         "wires": []
     },
     {
-        "id": "dc7669bd.1fcfc8",
+        "id": "c30d1852.d3375",
         "type": "modbus-response",
-        "z": "4574539e.e58574",
+        "z": "2b149f87.d873b",
         "name": "",
         "registerShowMax": 20,
         "x": 650,
-        "y": 300,
+        "y": 320,
         "wires": []
     },
     {
-        "id": "43fb9427.849a1c",
+        "id": "c8e91cd5.0f0f08",
         "type": "template",
-        "z": "4574539e.e58574",
+        "z": "2b149f87.d873b",
         "name": "array value",
         "field": "payload",
         "fieldType": "msg",
@@ -122,27 +122,27 @@
         "template": "[44, 2, 65535]",
         "output": "json",
         "x": 260,
-        "y": 210,
+        "y": 230,
         "wires": [
             [
-                "570fd563.fc6d4c"
+                "30f255d0.fbb1c2"
             ]
         ]
     },
     {
-        "id": "40d77e8f.0864e8",
+        "id": "ed9e29a0.2113b8",
         "type": "modbus-response",
-        "z": "4574539e.e58574",
+        "z": "2b149f87.d873b",
         "name": "",
         "registerShowMax": 20,
         "x": 650,
-        "y": 210,
+        "y": 230,
         "wires": []
     },
     {
-        "id": "c58a49e9.5ced2",
+        "id": "fb1d32bd.379dd",
         "type": "inject",
-        "z": "4574539e.e58574",
+        "z": "2b149f87.d873b",
         "name": "",
         "topic": "",
         "payload": "",
@@ -151,52 +151,52 @@
         "crontab": "",
         "once": false,
         "x": 100,
-        "y": 210,
+        "y": 230,
         "wires": [
             [
-                "43fb9427.849a1c"
+                "c8e91cd5.0f0f08"
             ]
         ]
     },
     {
-        "id": "e7d28bcb.44d66",
+        "id": "3c85b360.88a4d4",
         "type": "comment",
-        "z": "4574539e.e58574",
+        "z": "2b149f87.d873b",
         "name": "Simulador Modbus TCP en puerto IP: 10502",
         "info": "",
         "x": 530,
-        "y": 30,
+        "y": 50,
         "wires": []
     },
     {
-        "id": "a29c8157.44c6c",
+        "id": "5b89f717.0fd9c",
         "type": "comment",
-        "z": "4574539e.e58574",
+        "z": "2b149f87.d873b",
         "name": "Escritura de 3 valores en puerto TCP: 0",
         "info": "",
         "x": 350,
-        "y": 170,
+        "y": 190,
         "wires": []
     },
     {
-        "id": "9816c7d3.37629",
+        "id": "adb79ee0.3cc1f8",
         "type": "comment",
-        "z": "4574539e.e58574",
+        "z": "2b149f87.d873b",
         "name": "Lectura de 4 valores en puerto TCP: 0",
         "info": "",
         "x": 510,
-        "y": 260,
+        "y": 280,
         "wires": []
     },
     {
-        "id": "d6558d01.ba1a38",
+        "id": "621264de.aa089c",
         "type": "modbus-client",
-        "z": "",
+        "z": "2b149f87.d873b",
         "name": "",
         "clienttype": "tcp",
         "bufferCommands": true,
         "stateLogEnabled": false,
-        "tcpHost": "127.0.0.1",
+        "tcpHost": "localhost",
         "tcpPort": "10502",
         "tcpType": "DEFAULT",
         "serialPort": "/dev/ttyUSB",
