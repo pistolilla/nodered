@@ -9,7 +9,7 @@
         "url": "https://api.bitso.com/v3/ticker/?book=btc_mxn",
         "tls": "",
         "x": 280,
-        "y": 100,
+        "y": 160,
         "wires": [
             [
                 "ca473a11.061b88",
@@ -25,11 +25,11 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "repeat": "60",
+        "repeat": "300",
         "crontab": "",
         "once": false,
         "x": 110,
-        "y": 80,
+        "y": 180,
         "wires": [
             [
                 "8742dbab.7ac3b8",
@@ -42,25 +42,25 @@
         "type": "debug",
         "z": "ced3911c.f8024",
         "name": "",
-        "active": true,
+        "active": false,
         "console": "false",
-        "complete": "payload.payload.last",
-        "x": 490,
-        "y": 40,
+        "complete": "true",
+        "x": 460,
+        "y": 80,
         "wires": []
     },
     {
         "id": "ca473a11.061b88",
         "type": "switch",
         "z": "ced3911c.f8024",
-        "name": "< 75000",
+        "name": "btc < X",
         "property": "payload.payload.last",
         "propertyType": "msg",
         "rules": [
             {
                 "t": "lt",
-                "v": "75000",
-                "vt": "num"
+                "v": "btc",
+                "vt": "flow"
             },
             {
                 "t": "else"
@@ -68,11 +68,12 @@
         ],
         "checkall": "true",
         "outputs": 2,
-        "x": 440,
-        "y": 100,
+        "x": 450,
+        "y": 160,
         "wires": [
             [
-                "c0c17889.98fde8"
+                "c0c17889.98fde8",
+                "d4a9cd24.5f8908"
             ],
             []
         ]
@@ -83,8 +84,8 @@
         "z": "ced3911c.f8024",
         "name": "monitor de bitcoin y ethereum",
         "info": "",
-        "x": 140,
-        "y": 40,
+        "x": 160,
+        "y": 120,
         "wires": []
     },
     {
@@ -96,8 +97,8 @@
         "secure": true,
         "name": "pistolilla58@hotmail.com",
         "dname": "",
-        "x": 530,
-        "y": 200,
+        "x": 540,
+        "y": 290,
         "wires": []
     },
     {
@@ -110,7 +111,7 @@
         "url": "https://api.bitso.com/v3/ticker/?book=eth_mxn",
         "tls": "",
         "x": 280,
-        "y": 140,
+        "y": 200,
         "wires": [
             [
                 "d4a9cd24.5f8908",
@@ -122,14 +123,14 @@
         "id": "ecdebfb7.729d",
         "type": "switch",
         "z": "ced3911c.f8024",
-        "name": "< 5000",
+        "name": "eth < X",
         "property": "payload.payload.last",
         "propertyType": "msg",
         "rules": [
             {
                 "t": "lt",
-                "v": "5000",
-                "vt": "num"
+                "v": "eth",
+                "vt": "flow"
             },
             {
                 "t": "else"
@@ -137,8 +138,8 @@
         ],
         "checkall": "true",
         "outputs": 2,
-        "x": 440,
-        "y": 140,
+        "x": 460,
+        "y": 200,
         "wires": [
             [
                 "c0c17889.98fde8"
@@ -151,15 +152,58 @@
         "type": "function",
         "z": "ced3911c.f8024",
         "name": "mensaje",
-        "func": "msg.from = \"Bot criptomoneda <no-reply@polushon.com>\"\nmsg.payload = \"alerta critpomoneda\";\nreturn msg;",
+        "func": "var moneda = (msg.payload.payload.book).substring(0,3);\nvar valor = parseFloat(msg.payload.payload.last);\n\n// Mensaje\nmsg.from = \"Bot criptomoneda <no-reply@polushon.com>\"\nmsg.payload = \"Alerta \" + moneda + \": \" + valor + \" < \" + flow.get(moneda);\n\n// Cambiar alerta\nflow.set(moneda, valor);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 600,
-        "y": 120,
+        "x": 640,
+        "y": 180,
         "wires": [
             [
                 "b2547435.97b5f"
             ]
         ]
+    },
+    {
+        "id": "1d6c2e58.3955e2",
+        "type": "inject",
+        "z": "ced3911c.f8024",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 90,
+        "y": 70,
+        "wires": [
+            [
+                "6d6f509b.50e718"
+            ]
+        ]
+    },
+    {
+        "id": "6d6f509b.50e718",
+        "type": "function",
+        "z": "ced3911c.f8024",
+        "name": "flow variables",
+        "func": "flow.set(\"btc\", 70000);\nflow.set(\"eth\", 5000)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 260,
+        "y": 70,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e1e56f8b.0cc1b8",
+        "type": "comment",
+        "z": "ced3911c.f8024",
+        "name": "inicializando alertas",
+        "info": "",
+        "x": 130,
+        "y": 30,
+        "wires": []
     }
 ]
