@@ -1,0 +1,104 @@
+[
+    {
+        "id": "e3b9bdc9.af738",
+        "type": "link in",
+        "z": "1ff70e3c.8adc5a",
+        "name": "",
+        "links": [
+            "fcacba5.f375c48"
+        ],
+        "x": 45,
+        "y": 110,
+        "wires": [
+            [
+                "776a286c.10211"
+            ]
+        ]
+    },
+    {
+        "id": "ef575866.1dd1e",
+        "type": "sqlite",
+        "z": "1ff70e3c.8adc5a",
+        "mydb": "bcb20cf5.6d2a58",
+        "name": "db",
+        "x": 450,
+        "y": 90,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "89fcb9bb.e9ab4",
+        "type": "function",
+        "z": "1ff70e3c.8adc5a",
+        "name": "sql CREATE",
+        "func": "msg.topic = `\nCREATE TABLE IF NOT EXISTS ${msg.payload} (\n    device TEXT NOT NULL,\n    parameter TEXT NOT NULL,\n    value NUMERIC NOT NULL,\n    timestamp DATETIME NOT NULL DEFAULT (DATETIME('now','localtime'))\n)`;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 90,
+        "wires": [
+            [
+                "ef575866.1dd1e"
+            ]
+        ]
+    },
+    {
+        "id": "776a286c.10211",
+        "type": "switch",
+        "z": "1ff70e3c.8adc5a",
+        "name": "",
+        "property": "error.message",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "no such table",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 140,
+        "y": 110,
+        "wires": [
+            [
+                "89fcb9bb.e9ab4"
+            ],
+            [
+                "1bd38ee6.bd0fb9"
+            ]
+        ]
+    },
+    {
+        "id": "1bd38ee6.bd0fb9",
+        "type": "debug",
+        "z": "1ff70e3c.8adc5a",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 270,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "57c944d0.a9d0dc",
+        "type": "comment",
+        "z": "1ff70e3c.8adc5a",
+        "name": "identifying errors",
+        "info": "",
+        "x": 110,
+        "y": 70,
+        "wires": []
+    },
+    {
+        "id": "bcb20cf5.6d2a58",
+        "type": "sqlitedb",
+        "z": "",
+        "db": "C:\\Users\\usuario\\Desktop\\node-red.db"
+    }
+]

@@ -1,0 +1,195 @@
+[
+    {
+        "id": "145e6bc4.707a84",
+        "type": "catch",
+        "z": "6bb1218b.463b1",
+        "name": "",
+        "scope": null,
+        "x": 160,
+        "y": 90,
+        "wires": [
+            [
+                "2c39c906.8e88c6"
+            ]
+        ]
+    },
+    {
+        "id": "f2b40195.890c",
+        "type": "comment",
+        "z": "6bb1218b.463b1",
+        "name": "flow and database init connected with master",
+        "info": "",
+        "x": 270,
+        "y": 50,
+        "wires": []
+    },
+    {
+        "id": "fcacba5.f375c48",
+        "type": "link out",
+        "z": "6bb1218b.463b1",
+        "name": "db CREATE",
+        "links": [
+            "e3b9bdc9.af738"
+        ],
+        "x": 425,
+        "y": 90,
+        "wires": []
+    },
+    {
+        "id": "b6f391d4.67e0f8",
+        "type": "inject",
+        "z": "6bb1218b.463b1",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 90,
+        "y": 190,
+        "wires": [
+            [
+                "eb611b92.e4d3e"
+            ]
+        ]
+    },
+    {
+        "id": "eb611b92.e4d3e",
+        "type": "function",
+        "z": "6bb1218b.463b1",
+        "name": "sql SELECT",
+        "func": "msg.topic = `\nSELECT device, parameter, value, timestamp\nFROM ${flow.get(\"dbTable\")}`;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 340,
+        "y": 190,
+        "wires": [
+            [
+                "23b2a295.fb6efe"
+            ]
+        ]
+    },
+    {
+        "id": "23b2a295.fb6efe",
+        "type": "sqlite",
+        "z": "6bb1218b.463b1",
+        "mydb": "bcb20cf5.6d2a58",
+        "name": "db",
+        "x": 480,
+        "y": 190,
+        "wires": [
+            [
+                "c9519d19.35854"
+            ]
+        ]
+    },
+    {
+        "id": "c9519d19.35854",
+        "type": "csv",
+        "z": "6bb1218b.463b1",
+        "name": "",
+        "sep": "\\t",
+        "hdrin": "",
+        "hdrout": true,
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "device,parameter,value,timestamp",
+        "x": 610,
+        "y": 190,
+        "wires": [
+            [
+                "790de0e2.9f769",
+                "b538303d.9b23c"
+            ]
+        ]
+    },
+    {
+        "id": "790de0e2.9f769",
+        "type": "debug",
+        "z": "6bb1218b.463b1",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 750,
+        "y": 170,
+        "wires": []
+    },
+    {
+        "id": "2c39c906.8e88c6",
+        "type": "function",
+        "z": "6bb1218b.463b1",
+        "name": "dbTable",
+        "func": "msg.payload = \"relational_simple\";\nflow.set(\"dbTable\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 90,
+        "wires": [
+            [
+                "fcacba5.f375c48"
+            ]
+        ]
+    },
+    {
+        "id": "35314d6c.d972c2",
+        "type": "http in",
+        "z": "6bb1218b.463b1",
+        "name": "/csv",
+        "url": "/csv",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 230,
+        "wires": [
+            [
+                "8cf38652.2f6d"
+            ]
+        ]
+    },
+    {
+        "id": "b538303d.9b23c",
+        "type": "http response",
+        "z": "6bb1218b.463b1",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 730,
+        "y": 230,
+        "wires": []
+    },
+    {
+        "id": "8cf38652.2f6d",
+        "type": "function",
+        "z": "6bb1218b.463b1",
+        "name": "http headers",
+        "func": "msg.headers={\n    \"Content-Type\":\"application/csv\",\n    \"Content-disposition\": `attachment; filename=${flow.get(\"dbTable\")}.txt`\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 230,
+        "y": 230,
+        "wires": [
+            [
+                "eb611b92.e4d3e"
+            ]
+        ]
+    },
+    {
+        "id": "33f3a6a1.1c8612",
+        "type": "comment",
+        "z": "6bb1218b.463b1",
+        "name": "creates a tab delimited file from table via GET",
+        "info": "",
+        "x": 220,
+        "y": 150,
+        "wires": []
+    },
+    {
+        "id": "bcb20cf5.6d2a58",
+        "type": "sqlitedb",
+        "z": "",
+        "db": "C:\\Users\\usuario\\Desktop\\node-red.db"
+    }
+]
