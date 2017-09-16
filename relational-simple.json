@@ -1,0 +1,204 @@
+[
+    {
+        "id": "e0a7f4d4.fdec68",
+        "type": "random",
+        "z": "1136d5e6.f4d182",
+        "name": "",
+        "low": "1",
+        "high": "10",
+        "inte": "false",
+        "x": 140,
+        "y": 220,
+        "wires": [
+            [
+                "61b89f1e.7f9cd"
+            ]
+        ]
+    },
+    {
+        "id": "8704f7d5.409a88",
+        "type": "inject",
+        "z": "1136d5e6.f4d182",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 110,
+        "y": 170,
+        "wires": [
+            [
+                "e0a7f4d4.fdec68"
+            ]
+        ]
+    },
+    {
+        "id": "61b89f1e.7f9cd",
+        "type": "function",
+        "z": "1136d5e6.f4d182",
+        "name": "json format",
+        "func": "msg.payload = {\n    'device' : 'My Device',\n    'parameter' : 'Random Number',\n    'value' : msg.payload\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 220,
+        "wires": [
+            [
+                "4c713276.1ba63c"
+            ]
+        ]
+    },
+    {
+        "id": "e0f53cf9.3cb38",
+        "type": "sqlite",
+        "z": "1136d5e6.f4d182",
+        "mydb": "bcb20cf5.6d2a58",
+        "name": "db",
+        "x": 630,
+        "y": 160,
+        "wires": [
+            [
+                "20cb3cc8.1b59b4"
+            ]
+        ]
+    },
+    {
+        "id": "4c713276.1ba63c",
+        "type": "function",
+        "z": "1136d5e6.f4d182",
+        "name": "sql INSERT",
+        "func": "msg.topic = `\nINSERT INTO ${flow.get(\"dbName\")} (device,parameter,value)\nVALUES (\n    '${msg.payload.device}',\n    '${msg.payload.parameter}',\n    '${msg.payload.value}'\n)`;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 220,
+        "wires": [
+            [
+                "e0f53cf9.3cb38"
+            ]
+        ]
+    },
+    {
+        "id": "20cb3cc8.1b59b4",
+        "type": "debug",
+        "z": "1136d5e6.f4d182",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 690,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9de09579.d0e438",
+        "type": "function",
+        "z": "1136d5e6.f4d182",
+        "name": "sql CREATE",
+        "func": "msg.topic = `\nCREATE TABLE IF NOT EXISTS ${msg.payload} (\n    device TEXT NOT NULL,\n    parameter TEXT NOT NULL,\n    value NUMERIC NOT NULL,\n    timestamp DATETIME NOT NULL DEFAULT (DATETIME('now','localtime'))\n)`;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 80,
+        "wires": [
+            [
+                "e0f53cf9.3cb38"
+            ]
+        ]
+    },
+    {
+        "id": "666f939b.a800b4",
+        "type": "catch",
+        "z": "1136d5e6.f4d182",
+        "name": "db",
+        "scope": [
+            "e0f53cf9.3cb38"
+        ],
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "8ceb83b5.ef224"
+            ]
+        ]
+    },
+    {
+        "id": "a3790bfb.832688",
+        "type": "inject",
+        "z": "1136d5e6.f4d182",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 110,
+        "y": 270,
+        "wires": [
+            [
+                "469893ba.91c564"
+            ]
+        ]
+    },
+    {
+        "id": "469893ba.91c564",
+        "type": "function",
+        "z": "1136d5e6.f4d182",
+        "name": "sql SELECT",
+        "func": "msg.topic = `SELECT * FROM ${flow.get(\"dbName\")}`;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 270,
+        "wires": [
+            [
+                "e0f53cf9.3cb38"
+            ]
+        ]
+    },
+    {
+        "id": "8ceb83b5.ef224",
+        "type": "function",
+        "z": "1136d5e6.f4d182",
+        "name": "dbName",
+        "func": "msg.payload = \"relational_simple\";\nflow.set(\"dbName\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 80,
+        "wires": [
+            [
+                "9de09579.d0e438"
+            ]
+        ]
+    },
+    {
+        "id": "7d271006.b05b68",
+        "type": "comment",
+        "z": "1136d5e6.f4d182",
+        "name": "flow and database init",
+        "info": "",
+        "x": 330,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "2ae71be7.f539f4",
+        "type": "comment",
+        "z": "1136d5e6.f4d182",
+        "name": "sql queries",
+        "info": "",
+        "x": 100,
+        "y": 130,
+        "wires": []
+    },
+    {
+        "id": "bcb20cf5.6d2a58",
+        "type": "sqlitedb",
+        "z": "",
+        "db": "C:\\Users\\usuario\\Desktop\\node-red.db"
+    }
+]
