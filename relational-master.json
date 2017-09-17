@@ -8,7 +8,7 @@
             "fcacba5.f375c48"
         ],
         "x": 45,
-        "y": 110,
+        "y": 80,
         "wires": [
             [
                 "776a286c.10211"
@@ -22,7 +22,7 @@
         "mydb": "bcb20cf5.6d2a58",
         "name": "db",
         "x": 450,
-        "y": 90,
+        "y": 80,
         "wires": [
             []
         ]
@@ -32,11 +32,11 @@
         "type": "function",
         "z": "1ff70e3c.8adc5a",
         "name": "sql CREATE",
-        "func": "msg.topic = `\nCREATE TABLE IF NOT EXISTS ${msg.payload} (\n    device TEXT NOT NULL,\n    parameter TEXT NOT NULL,\n    value NUMERIC NOT NULL,\n    timestamp DATETIME NOT NULL DEFAULT (DATETIME('now','localtime'))\n)`;\nreturn msg;",
+        "func": "msg.topic = `\nCREATE TABLE IF NOT EXISTS ${msg.payload} (\n    device TEXT NOT NULL,\n    parameter TEXT NOT NULL,\n    value NUMERIC NOT NULL,\n    timestamp DATETIME NOT NULL DEFAULT (DATETIME('now','localtime'))\n);`;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 290,
-        "y": 90,
+        "y": 80,
         "wires": [
             [
                 "ef575866.1dd1e"
@@ -62,8 +62,8 @@
         ],
         "checkall": "true",
         "outputs": 2,
-        "x": 140,
-        "y": 110,
+        "x": 130,
+        "y": 80,
         "wires": [
             [
                 "89fcb9bb.e9ab4"
@@ -82,17 +82,17 @@
         "console": "false",
         "complete": "true",
         "x": 270,
-        "y": 140,
+        "y": 120,
         "wires": []
     },
     {
         "id": "57c944d0.a9d0dc",
         "type": "comment",
         "z": "1ff70e3c.8adc5a",
-        "name": "identifying errors",
+        "name": "catching errors from slaves",
         "info": "",
-        "x": 110,
-        "y": 70,
+        "x": 150,
+        "y": 40,
         "wires": []
     },
     {
