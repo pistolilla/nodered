@@ -1,24 +1,24 @@
 [
     {
-        "id": "f75c1dfb.6971c",
+        "id": "b857715f.317ff",
         "type": "random",
-        "z": "aeca535d.09aeb8",
+        "z": "1136d5e6.f4d182",
         "name": "",
         "low": "1",
         "high": "10",
         "inte": "false",
         "x": 130,
-        "y": 170,
+        "y": 190,
         "wires": [
             [
-                "90a01c88.f73618"
+                "a4ef41bc.d8fb8"
             ]
         ]
     },
     {
-        "id": "8892b78f.f3f74",
+        "id": "ad65fb77.cdb148",
         "type": "inject",
-        "z": "aeca535d.09aeb8",
+        "z": "1136d5e6.f4d182",
         "name": "",
         "topic": "",
         "payload": "",
@@ -27,64 +27,64 @@
         "crontab": "",
         "once": false,
         "x": 100,
-        "y": 120,
+        "y": 140,
         "wires": [
             [
-                "f75c1dfb.6971c"
+                "b857715f.317ff"
             ]
         ]
     },
     {
-        "id": "90a01c88.f73618",
+        "id": "a4ef41bc.d8fb8",
         "type": "function",
-        "z": "aeca535d.09aeb8",
+        "z": "1136d5e6.f4d182",
         "name": "json format",
         "func": "msg.payload = {\n    'device' : 'My Device',\n    'parameter' : 'Random Number',\n    'value' : msg.payload\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 290,
-        "y": 170,
+        "y": 190,
         "wires": [
             [
-                "ea67d2fa.be3f58",
-                "c3506fdf.463fb8"
+                "c62e976a.2d0318",
+                "b9731532.a20ff"
             ]
         ]
     },
     {
-        "id": "ea67d2fa.be3f58",
+        "id": "c62e976a.2d0318",
         "type": "function",
-        "z": "aeca535d.09aeb8",
+        "z": "1136d5e6.f4d182",
         "name": "sql INSERT",
         "func": "var dbTable = flow.get(\"dbTable\");\n// SQL Query\nmsg.topic = `INSERT INTO ${dbTable}(device,parameter,value)\nVALUES (\n    '${msg.payload.device}',\n    '${msg.payload.parameter}',\n    '${msg.payload.value}'\n)`;\n// Error check\nif(dbTable){ return msg; }\nnode.error(\"null dbTable\", msg);",
         "outputs": 1,
         "noerr": 0,
         "x": 460,
-        "y": 170,
+        "y": 190,
         "wires": [
             [
-                "3e5273a4.6921ec"
+                "f1b2ca64.371148"
             ]
         ]
     },
     {
-        "id": "337dd5dc.9a07e2",
+        "id": "c0bde554.0182a8",
         "type": "catch",
-        "z": "aeca535d.09aeb8",
+        "z": "1136d5e6.f4d182",
         "name": "",
         "scope": null,
         "x": 380,
         "y": 40,
         "wires": [
             [
-                "440de2f.f45be9c"
+                "1b765883.c4eaff"
             ]
         ]
     },
     {
-        "id": "744d1b2e.f89084",
+        "id": "c9117c97.e4684",
         "type": "inject",
-        "z": "aeca535d.09aeb8",
+        "z": "1136d5e6.f4d182",
         "name": "",
         "topic": "",
         "payload": "",
@@ -93,33 +93,33 @@
         "crontab": "",
         "once": false,
         "x": 100,
-        "y": 220,
+        "y": 240,
         "wires": [
             [
-                "305f0cae.cc30dc"
+                "cf91b5dc.42785"
             ]
         ]
     },
     {
-        "id": "305f0cae.cc30dc",
+        "id": "cf91b5dc.42785",
         "type": "function",
-        "z": "aeca535d.09aeb8",
+        "z": "1136d5e6.f4d182",
         "name": "sql SELECT",
         "func": "var dbTable = flow.get(\"dbTable\");\n// SQL Query\nmsg.topic = `SELECT * FROM ${dbTable}`;\n// Error check\nif(dbTable){ return msg; }\nnode.error(\"null dbTable\", msg);",
         "outputs": 1,
         "noerr": 0,
         "x": 460,
-        "y": 220,
+        "y": 240,
         "wires": [
             [
-                "3e5273a4.6921ec"
+                "f1b2ca64.371148"
             ]
         ]
     },
     {
-        "id": "440de2f.f45be9c",
+        "id": "1b765883.c4eaff",
         "type": "function",
-        "z": "aeca535d.09aeb8",
+        "z": "1136d5e6.f4d182",
         "name": "flow init",
         "func": "flow.set(\"dbTable\", \"relational_simple\");\nreturn msg;",
         "outputs": 1,
@@ -131,51 +131,51 @@
         ]
     },
     {
-        "id": "efeae9bc.b3c778",
+        "id": "5c53d3c9.edef64",
         "type": "comment",
-        "z": "aeca535d.09aeb8",
-        "name": "sql queries",
+        "z": "1136d5e6.f4d182",
+        "name": "INSERTs can also trigger DELETEs in a circular implementation",
         "info": "",
-        "x": 90,
-        "y": 80,
+        "x": 260,
+        "y": 100,
         "wires": []
     },
     {
-        "id": "3e5273a4.6921ec",
+        "id": "f1b2ca64.371148",
         "type": "link out",
-        "z": "aeca535d.09aeb8",
+        "z": "1136d5e6.f4d182",
         "name": "",
         "links": [
-            "877329cb.6367a8"
+            "32acb9e.d4b0fc6"
         ],
         "x": 575,
-        "y": 190,
+        "y": 210,
         "wires": []
     },
     {
-        "id": "c3506fdf.463fb8",
+        "id": "b9731532.a20ff",
         "type": "function",
-        "z": "aeca535d.09aeb8",
+        "z": "1136d5e6.f4d182",
         "name": "sql DELETE",
         "func": "var dbTable = flow.get(\"dbTable\");\n// SQL Query\nmsg.topic = `DELETE FROM ${dbTable}\nWHERE rowid IN \n(SELECT rowid FROM ${dbTable} LIMIT 1)`;\n// Error check\nif(dbTable){ return msg; }\nnode.error(\"null dbTable\", msg);",
         "outputs": 1,
         "noerr": 0,
         "x": 460,
-        "y": 120,
+        "y": 140,
         "wires": [
             [
-                "2c15ec6c.6919e4"
+                "156484ac.4de8cb"
             ]
         ]
     },
     {
-        "id": "2c15ec6c.6919e4",
+        "id": "156484ac.4de8cb",
         "type": "link out",
-        "z": "aeca535d.09aeb8",
+        "z": "1136d5e6.f4d182",
         "name": "relational-simple-out",
         "links": [],
         "x": 575,
-        "y": 120,
+        "y": 140,
         "wires": []
     }
 ]

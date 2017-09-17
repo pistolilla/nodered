@@ -1,53 +1,53 @@
 [
     {
-        "id": "877329cb.6367a8",
+        "id": "32acb9e.d4b0fc6",
         "type": "link in",
-        "z": "3129c49d.e0ebb4",
+        "z": "1ff70e3c.8adc5a",
         "name": "relational-master-in",
         "links": [
-            "3e5273a4.6921ec",
-            "26fed268.d22a86"
+            "7d6daaef.d40aec",
+            "f1b2ca64.371148"
         ],
-        "x": 45,
-        "y": 130,
+        "x": 65,
+        "y": 150,
         "wires": [
             [
-                "ae28311.adb26d"
+                "f47a7f0a.41c5c8"
             ]
         ]
     },
     {
-        "id": "ae28311.adb26d",
+        "id": "f47a7f0a.41c5c8",
         "type": "sqlite",
-        "z": "3129c49d.e0ebb4",
-        "mydb": "b4004d74.e51b1",
+        "z": "1ff70e3c.8adc5a",
+        "mydb": "bcb20cf5.6d2a58",
         "name": "db",
-        "x": 160,
-        "y": 130,
+        "x": 180,
+        "y": 150,
         "wires": [
             []
         ]
     },
     {
-        "id": "a74e676e.d9e03",
+        "id": "2c61addc.80b0ea",
         "type": "function",
-        "z": "3129c49d.e0ebb4",
+        "z": "1ff70e3c.8adc5a",
         "name": "sql CREATE",
         "func": "var dbTable = msg.error.message.replace(/.*table: *(.+)$/i,\"$1\");\nmsg.topic = `\nCREATE TABLE IF NOT EXISTS ${dbTable} (\n    device TEXT NOT NULL,\n    parameter TEXT NOT NULL,\n    value NUMERIC NOT NULL,\n    timestamp DATETIME NOT NULL DEFAULT (DATETIME('now','localtime'))\n);`;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 370,
+        "x": 470,
         "y": 40,
         "wires": [
             [
-                "26fed268.d22a86"
+                "7d6daaef.d40aec"
             ]
         ]
     },
     {
-        "id": "232fbe43.71d772",
+        "id": "b8f28ff2.e5fbf",
         "type": "switch",
-        "z": "3129c49d.e0ebb4",
+        "z": "1ff70e3c.8adc5a",
         "name": "",
         "property": "error.message",
         "propertyType": "msg",
@@ -63,57 +63,71 @@
         ],
         "checkall": "true",
         "outputs": 2,
-        "x": 220,
-        "y": 40,
+        "x": 320,
+        "y": 60,
         "wires": [
             [
-                "a74e676e.d9e03"
+                "2c61addc.80b0ea"
             ],
-            []
-        ]
-    },
-    {
-        "id": "d1ca91b3.bd632",
-        "type": "catch",
-        "z": "3129c49d.e0ebb4",
-        "name": "",
-        "scope": [
-            "ae28311.adb26d"
-        ],
-        "x": 90,
-        "y": 40,
-        "wires": [
             [
-                "232fbe43.71d772"
+                "bc12e505.4600b8"
             ]
         ]
     },
     {
-        "id": "72cb2f10.b22d28",
+        "id": "9c842070.30443",
+        "type": "catch",
+        "z": "1ff70e3c.8adc5a",
+        "name": "",
+        "scope": [
+            "f47a7f0a.41c5c8"
+        ],
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [
+                "b8f28ff2.e5fbf"
+            ]
+        ]
+    },
+    {
+        "id": "e48376ca.d67a38",
         "type": "comment",
-        "z": "3129c49d.e0ebb4",
-        "name": "sql execute query",
+        "z": "1ff70e3c.8adc5a",
+        "name": "node for all queries",
         "info": "",
-        "x": 120,
-        "y": 90,
+        "x": 140,
+        "y": 110,
         "wires": []
     },
     {
-        "id": "26fed268.d22a86",
+        "id": "7d6daaef.d40aec",
         "type": "link out",
-        "z": "3129c49d.e0ebb4",
+        "z": "1ff70e3c.8adc5a",
         "name": "",
         "links": [
-            "877329cb.6367a8"
+            "32acb9e.d4b0fc6"
         ],
-        "x": 475,
+        "x": 575,
         "y": 40,
         "wires": []
     },
     {
-        "id": "b4004d74.e51b1",
+        "id": "bc12e505.4600b8",
+        "type": "debug",
+        "z": "1ff70e3c.8adc5a",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 470,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "bcb20cf5.6d2a58",
         "type": "sqlitedb",
         "z": "",
-        "db": "/home/pi/Desktop/node-red.db"
+        "db": "C:\\Users\\usuario\\Desktop\\node-red.db"
     }
 ]
