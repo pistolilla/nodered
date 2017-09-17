@@ -1,52 +1,53 @@
 [
     {
-        "id": "e3b9bdc9.af738",
+        "id": "877329cb.6367a8",
         "type": "link in",
-        "z": "1ff70e3c.8adc5a",
-        "name": "",
+        "z": "3129c49d.e0ebb4",
+        "name": "relational-master-in",
         "links": [
-            "fcacba5.f375c48"
+            "3e5273a4.6921ec",
+            "26fed268.d22a86"
         ],
         "x": 45,
-        "y": 80,
+        "y": 130,
         "wires": [
             [
-                "776a286c.10211"
+                "ae28311.adb26d"
             ]
         ]
     },
     {
-        "id": "ef575866.1dd1e",
+        "id": "ae28311.adb26d",
         "type": "sqlite",
-        "z": "1ff70e3c.8adc5a",
-        "mydb": "bcb20cf5.6d2a58",
+        "z": "3129c49d.e0ebb4",
+        "mydb": "b4004d74.e51b1",
         "name": "db",
-        "x": 450,
-        "y": 80,
+        "x": 160,
+        "y": 130,
         "wires": [
             []
         ]
     },
     {
-        "id": "89fcb9bb.e9ab4",
+        "id": "a74e676e.d9e03",
         "type": "function",
-        "z": "1ff70e3c.8adc5a",
+        "z": "3129c49d.e0ebb4",
         "name": "sql CREATE",
-        "func": "msg.topic = `\nCREATE TABLE IF NOT EXISTS ${msg.payload} (\n    device TEXT NOT NULL,\n    parameter TEXT NOT NULL,\n    value NUMERIC NOT NULL,\n    timestamp DATETIME NOT NULL DEFAULT (DATETIME('now','localtime'))\n);`;\nreturn msg;",
+        "func": "var dbTable = msg.error.message.replace(/.*table: *(.+)$/i,\"$1\");\nmsg.topic = `\nCREATE TABLE IF NOT EXISTS ${dbTable} (\n    device TEXT NOT NULL,\n    parameter TEXT NOT NULL,\n    value NUMERIC NOT NULL,\n    timestamp DATETIME NOT NULL DEFAULT (DATETIME('now','localtime'))\n);`;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 290,
-        "y": 80,
+        "x": 370,
+        "y": 40,
         "wires": [
             [
-                "ef575866.1dd1e"
+                "26fed268.d22a86"
             ]
         ]
     },
     {
-        "id": "776a286c.10211",
+        "id": "232fbe43.71d772",
         "type": "switch",
-        "z": "1ff70e3c.8adc5a",
+        "z": "3129c49d.e0ebb4",
         "name": "",
         "property": "error.message",
         "propertyType": "msg",
@@ -62,43 +63,57 @@
         ],
         "checkall": "true",
         "outputs": 2,
-        "x": 130,
-        "y": 80,
+        "x": 220,
+        "y": 40,
         "wires": [
             [
-                "89fcb9bb.e9ab4"
+                "a74e676e.d9e03"
             ],
+            []
+        ]
+    },
+    {
+        "id": "d1ca91b3.bd632",
+        "type": "catch",
+        "z": "3129c49d.e0ebb4",
+        "name": "",
+        "scope": [
+            "ae28311.adb26d"
+        ],
+        "x": 90,
+        "y": 40,
+        "wires": [
             [
-                "1bd38ee6.bd0fb9"
+                "232fbe43.71d772"
             ]
         ]
     },
     {
-        "id": "1bd38ee6.bd0fb9",
-        "type": "debug",
-        "z": "1ff70e3c.8adc5a",
-        "name": "",
-        "active": true,
-        "console": "false",
-        "complete": "true",
-        "x": 270,
-        "y": 120,
+        "id": "72cb2f10.b22d28",
+        "type": "comment",
+        "z": "3129c49d.e0ebb4",
+        "name": "sql execute query",
+        "info": "",
+        "x": 120,
+        "y": 90,
         "wires": []
     },
     {
-        "id": "57c944d0.a9d0dc",
-        "type": "comment",
-        "z": "1ff70e3c.8adc5a",
-        "name": "catching errors from slaves",
-        "info": "",
-        "x": 150,
+        "id": "26fed268.d22a86",
+        "type": "link out",
+        "z": "3129c49d.e0ebb4",
+        "name": "",
+        "links": [
+            "877329cb.6367a8"
+        ],
+        "x": 475,
         "y": 40,
         "wires": []
     },
     {
-        "id": "bcb20cf5.6d2a58",
+        "id": "b4004d74.e51b1",
         "type": "sqlitedb",
         "z": "",
-        "db": "C:\\Users\\usuario\\Desktop\\node-red.db"
+        "db": "/home/pi/Desktop/node-red.db"
     }
 ]
