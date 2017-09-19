@@ -8,7 +8,7 @@
         "high": "10",
         "inte": "false",
         "x": 130,
-        "y": 190,
+        "y": 170,
         "wires": [
             [
                 "a4ef41bc.d8fb8"
@@ -27,7 +27,7 @@
         "crontab": "",
         "once": false,
         "x": 100,
-        "y": 140,
+        "y": 130,
         "wires": [
             [
                 "b857715f.317ff"
@@ -43,7 +43,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 290,
-        "y": 190,
+        "y": 170,
         "wires": [
             [
                 "c62e976a.2d0318",
@@ -60,7 +60,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 460,
-        "y": 190,
+        "y": 170,
         "wires": [
             [
                 "f1b2ca64.371148"
@@ -93,7 +93,7 @@
         "crontab": "",
         "once": false,
         "x": 100,
-        "y": 240,
+        "y": 220,
         "wires": [
             [
                 "cf91b5dc.42785"
@@ -109,7 +109,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 460,
-        "y": 240,
+        "y": 220,
         "wires": [
             [
                 "f1b2ca64.371148"
@@ -137,7 +137,7 @@
         "name": "INSERTs can also trigger DELETEs in a circular implementation",
         "info": "",
         "x": 260,
-        "y": 100,
+        "y": 90,
         "wires": []
     },
     {
@@ -149,7 +149,7 @@
             "32acb9e.d4b0fc6"
         ],
         "x": 575,
-        "y": 210,
+        "y": 190,
         "wires": []
     },
     {
@@ -161,7 +161,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 460,
-        "y": 140,
+        "y": 130,
         "wires": [
             [
                 "156484ac.4de8cb"
@@ -175,7 +175,7 @@
         "name": "relational-simple-out",
         "links": [],
         "x": 575,
-        "y": 140,
+        "y": 130,
         "wires": []
     }
 ]

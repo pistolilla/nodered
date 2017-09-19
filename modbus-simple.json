@@ -11,7 +11,7 @@
         "coilsBufferSize": 1024,
         "holdingBufferSize": 1024,
         "inputBufferSize": 1024,
-        "x": 490,
+        "x": 240,
         "y": 80,
         "wires": [
             [
@@ -36,7 +36,7 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 290,
+        "x": 90,
         "y": 80,
         "wires": [
             [
@@ -52,7 +52,7 @@
         "active": true,
         "console": "false",
         "complete": "false",
-        "x": 680,
+        "x": 420,
         "y": 80,
         "wires": []
     },
@@ -62,8 +62,8 @@
         "z": "4574539e.e58574",
         "name": "",
         "registerShowMax": 20,
-        "x": 650,
-        "y": 190,
+        "x": 400,
+        "y": 210,
         "wires": []
     },
     {
@@ -72,8 +72,8 @@
         "z": "4574539e.e58574",
         "name": "",
         "registerShowMax": 20,
-        "x": 650,
-        "y": 340,
+        "x": 400,
+        "y": 380,
         "wires": []
     },
     {
@@ -83,11 +83,11 @@
         "name": "",
         "topic": "",
         "payload": "",
-        "payloadType": "date",
+        "payloadType": "str",
         "repeat": "5",
         "crontab": "",
         "once": false,
-        "x": 110,
+        "x": 90,
         "y": 190,
         "wires": [
             [
@@ -99,9 +99,9 @@
         "id": "e7d28bcb.44d66",
         "type": "comment",
         "z": "4574539e.e58574",
-        "name": "Simulador Modbus TCP en puerto IP: 10502",
+        "name": "Modbus TCP/IP master",
         "info": "",
-        "x": 580,
+        "x": 120,
         "y": 30,
         "wires": []
     },
@@ -109,9 +109,9 @@
         "id": "a29c8157.44c6c",
         "type": "comment",
         "z": "4574539e.e58574",
-        "name": "Escritura de 3 valores en puerto TCP: 0",
+        "name": "Write vector length 3 at: 0",
         "info": "",
-        "x": 370,
+        "x": 130,
         "y": 250,
         "wires": []
     },
@@ -119,9 +119,9 @@
         "id": "9816c7d3.37629",
         "type": "comment",
         "z": "4574539e.e58574",
-        "name": "Lectura de 4 valores en puerto TCP: 0",
+        "name": "Read vector length 4 at: 0",
         "info": "",
-        "x": 360,
+        "x": 130,
         "y": 150,
         "wires": []
     },
@@ -132,11 +132,11 @@
         "name": "",
         "topic": "",
         "payload": "",
-        "payloadType": "date",
+        "payloadType": "str",
         "repeat": "1",
         "crontab": "",
         "once": false,
-        "x": 110,
+        "x": 90,
         "y": 290,
         "wires": [
             [
@@ -148,12 +148,12 @@
         "id": "8bb57827.03d7b",
         "type": "modbus-flex-write",
         "z": "4574539e.e58574",
-        "name": "localhost:10502",
+        "name": "10502",
         "showStatusActivities": false,
         "showErrors": false,
         "server": "d6558d01.ba1a38",
-        "x": 460,
-        "y": 340,
+        "x": 360,
+        "y": 330,
         "wires": [
             [
                 "40d77e8f.0864e8"
@@ -165,12 +165,12 @@
         "id": "cc89a38.e6b45e",
         "type": "modbus-flex-getter",
         "z": "4574539e.e58574",
-        "name": "localhost:10502",
+        "name": "10502",
         "showStatusActivities": false,
         "showErrors": false,
         "server": "d6558d01.ba1a38",
-        "x": 460,
-        "y": 190,
+        "x": 360,
+        "y": 160,
         "wires": [
             [],
             [
@@ -186,7 +186,7 @@
         "func": "msg.payload = { \n    'unitid': 1,\n    'fc': 3, \n    'address': 0, \n    'quantity': 4,\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 270,
+        "x": 220,
         "y": 190,
         "wires": [
             [
@@ -202,7 +202,7 @@
         "low": "0",
         "high": "65535",
         "inte": "true",
-        "x": 270,
+        "x": 220,
         "y": 290,
         "wires": [
             [
@@ -225,7 +225,7 @@
         "accumulate": false,
         "timeout": "",
         "count": "3",
-        "x": 400,
+        "x": 360,
         "y": 290,
         "wires": [
             [
@@ -241,8 +241,8 @@
         "func": "msg.payload = { \n    value: msg.payload,\n    'fc': 16,\n    'unitid': 1,\n    'address': 0 ,\n    'quantity': 3,\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 280,
-        "y": 340,
+        "x": 210,
+        "y": 330,
         "wires": [
             [
                 "8bb57827.03d7b"

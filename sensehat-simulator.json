@@ -3,27 +3,17 @@
         "id": "c53a518.28cadb",
         "type": "rpi-sensehatsim in",
         "z": "d707a82.5960858",
-        "name": "simulador SenseHAT",
+        "name": "SenseHAT simulatior",
         "motion": false,
         "env": true,
         "stick": false,
-        "x": 120,
-        "y": 80,
+        "x": 110,
+        "y": 40,
         "wires": [
             [
                 "2c2aec3b.9cb5f4"
             ]
         ]
-    },
-    {
-        "id": "6bf7f4ae.1ee38c",
-        "type": "comment",
-        "z": "d707a82.5960858",
-        "name": "lectura de sensor ambiental",
-        "info": "temperatura\nhumedad\npresión atmosférica",
-        "x": 140,
-        "y": 40,
-        "wires": []
     },
     {
         "id": "2c2aec3b.9cb5f4",
@@ -40,8 +30,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": true,
-        "x": 220,
-        "y": 140,
+        "x": 150,
+        "y": 100,
         "wires": [
             [
                 "d7320d16.37734"
@@ -62,8 +52,8 @@
         "format": "json",
         "qos": "",
         "name": "Quickstart",
-        "x": 590,
-        "y": 140,
+        "x": 510,
+        "y": 100,
         "wires": []
     },
     {
@@ -71,11 +61,11 @@
         "type": "function",
         "z": "d707a82.5960858",
         "name": "formato json",
-        "func": "// Leyendo variables\nvar temperatura = msg.payload.temperature;\nvar humedad = msg.payload.humidity;\nvar presion = msg.payload.pressure;\n\n// Agregando variación +/- 5%\ntemperatura += Math.random() * 0.1 - 0.05;\nhumedad += Math.random() * 0.1 - 0.05;\npresion += Math.random() * 0.1 - 0.05;\n\nmsg.payload = {'d' : {'temperatura' : parseFloat(temperatura.toFixed(2)), 'humedad' : parseFloat(humedad.toFixed(2)), 'presion' : parseFloat(presion.toFixed(2))}};\nreturn msg;",
+        "func": "var temperatura = msg.payload.temperature;\nvar humedad = msg.payload.humidity;\nvar presion = msg.payload.pressure;\n\n// Random variation +/- 5%\ntemperatura += Math.random() * 0.1 - 0.05;\nhumedad += Math.random() * 0.1 - 0.05;\npresion += Math.random() * 0.1 - 0.05;\n\nmsg.payload = {'d' : {'temperatura' : parseFloat(temperatura.toFixed(2)), 'humedad' : parseFloat(humedad.toFixed(2)), 'presion' : parseFloat(presion.toFixed(2))}};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 410,
-        "y": 140,
+        "x": 320,
+        "y": 100,
         "wires": [
             [
                 "3be31a44.aad366",
@@ -91,8 +81,8 @@
         "active": false,
         "console": "false",
         "complete": "payload",
-        "x": 590,
-        "y": 100,
+        "x": 510,
+        "y": 40,
         "wires": []
     },
     {
@@ -108,9 +98,9 @@
         "event": "event",
         "format": "json",
         "qos": "",
-        "name": "Bluemix con dispositivo",
-        "x": 630,
-        "y": 200,
+        "name": "Bluemix as device",
+        "x": 530,
+        "y": 150,
         "wires": []
     },
     {
@@ -126,9 +116,9 @@
         "event": "event",
         "format": "json",
         "qos": "",
-        "name": "Bluemix con gateway",
-        "x": 620,
-        "y": 260,
+        "name": "Bluemix as gateway",
+        "x": 530,
+        "y": 200,
         "wires": []
     },
     {
