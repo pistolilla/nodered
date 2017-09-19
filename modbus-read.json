@@ -1,274 +1,276 @@
 [
     {
-        "id": "8f9bfdb1.63bf78",
+        "id": "e82efba7.73a9",
         "type": "modbus-flex-getter",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "502",
         "showStatusActivities": false,
         "showErrors": false,
-        "server": "d50a2251.78235",
-        "x": 390,
+        "server": "befc1b76.15909",
+        "x": 400,
         "y": 150,
         "wires": [
             [],
             [
-                "864fa911.b89d7"
+                "a3778a22.b4d218"
             ]
         ]
     },
     {
-        "id": "32ab776f.bf4e58",
+        "id": "b2f8740a.398b6",
         "type": "function",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "FC4 4 [2]",
-        "func": "msg.payload = { \n    // User defined:\n    'deviceId': '',\n    'deviceType': 'xeta_supply_voltage',\n    'units': 'Volts',\n    // Modbus:\n    'unitid': 1,\n    'fc': 4, \n    'address': 4, \n    'quantity': 2,\n};\nreturn msg;",
+        "func": "msg.payload = { \n    // User defined:\n    'deviceId': '',\n    'deviceType': 'xeta_supply_voltage',\n    'deviceUnits': 'Volts',\n    // Modbus:\n    'unitid': 1,\n    'fc': 4, \n    'address': 4, \n    'quantity': 2,\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 100,
+        "x": 110,
         "y": 130,
         "wires": [
             [
-                "d6d743e3.fbd5e",
-                "b9a238b4.8e89c8"
+                "ea0a7ed6.00c1f",
+                "b9b58e84.fa41b"
             ]
         ]
     },
     {
-        "id": "786e0797.2a6f78",
+        "id": "d494316d.f1e678",
         "type": "modbus-flex-getter",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "503",
         "showStatusActivities": false,
         "showErrors": false,
-        "server": "69a6ad21.df0c0c",
-        "x": 390,
+        "server": "dfb418ca.2ab62",
+        "x": 400,
         "y": 210,
         "wires": [
             [],
             [
-                "b547abae.fbef98",
-                "b11a915c.41d968"
+                "ea755a75.e0385",
+                "c0d36994.649068"
             ]
         ]
     },
     {
-        "id": "22a2834b.f6354c",
+        "id": "27a289f1.fc3eee",
         "type": "inject",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "",
         "topic": "",
         "payload": "",
         "payloadType": "str",
-        "repeat": "",
+        "repeat": "5",
         "crontab": "",
         "once": false,
-        "x": 90,
+        "x": 100,
         "y": 40,
         "wires": [
             [
-                "32ab776f.bf4e58",
-                "7c565324.7de554",
-                "da917fdd.85391"
+                "b2f8740a.398b6",
+                "e7bdcc8e.25206",
+                "f0c7737e.65e43"
             ]
         ]
     },
     {
-        "id": "b547abae.fbef98",
+        "id": "ea755a75.e0385",
         "type": "modbus-response",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "",
         "registerShowMax": 20,
-        "x": 550,
+        "x": 560,
         "y": 180,
         "wires": []
     },
     {
-        "id": "2b43d357.ef3964",
+        "id": "9a6ea5f7.f6fbd",
         "type": "debug",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "",
-        "active": true,
+        "active": false,
         "console": "false",
         "complete": "true",
-        "x": 590,
+        "x": 600,
         "y": 270,
         "wires": []
     },
     {
-        "id": "7c565324.7de554",
+        "id": "e7bdcc8e.25206",
         "type": "function",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "FC4 6 [2]",
-        "func": "msg.payload = {\n    // User defined:\n    'deviceId': '',\n    'deviceType': 'xeta_temperature',\n    'units': 'Degrees Celsius',\n    // Modbus:\n    'unitid': 1,\n    'fc': 4, \n    'address': 6, \n    'quantity': 2,\n};\nreturn msg;",
+        "func": "msg.payload = {\n    // User defined:\n    'deviceId': '',\n    'deviceType': 'xeta_temperature',\n    'deviceUnits': 'Degrees Celsius',\n    // Modbus:\n    'unitid': 1,\n    'fc': 4, \n    'address': 6, \n    'quantity': 2,\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 100,
+        "x": 110,
         "y": 210,
         "wires": [
             [
-                "d6d743e3.fbd5e"
+                "ea0a7ed6.00c1f"
             ]
         ]
     },
     {
-        "id": "5f4ff9ba.13bec8",
+        "id": "505b27df.11493",
         "type": "catch",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "",
         "scope": null,
-        "x": 470,
+        "x": 480,
         "y": 40,
         "wires": [
             [
-                "4d8490b.48d49f"
+                "95a3c.616d2dc48"
             ]
         ]
     },
     {
-        "id": "4d8490b.48d49f",
+        "id": "95a3c.616d2dc48",
         "type": "debug",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "",
         "active": true,
         "console": "false",
         "complete": "true",
-        "x": 610,
+        "x": 620,
         "y": 40,
         "wires": []
     },
     {
-        "id": "b11a915c.41d968",
+        "id": "c0d36994.649068",
         "type": "function",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "float(CD AB)",
         "func": "// Create a buffer\nvar buf = new ArrayBuffer(4);\n// Create a 16-bit int view of it\nvar ints = new Uint16Array(buf);\n\n// Read input in format \"CD AB\": [6025, 16831]\nvar data = msg.values;\ndata.forEach(function (b, i) {\n    ints[i] = b;\n});\n\n// Create a 32-bit float view of it\nvar floats = new Float32Array(buf);\n// Read the bits as a float; note that by doing this, we're implicitly converting it from a 32-bit float into JavaScript's native 64-bit double\nmsg.result = floats[0];\n// Done\nreturn msg;\n// stackoverflow/40970739",
         "outputs": 1,
         "noerr": 0,
-        "x": 330,
+        "x": 340,
         "y": 270,
         "wires": [
             [
-                "b2d2be6c.3d1c38"
+                "a2294610.756c6"
             ]
         ]
     },
     {
-        "id": "864fa911.b89d7",
+        "id": "a3778a22.b4d218",
         "type": "modbus-response",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "",
         "registerShowMax": 20,
-        "x": 550,
+        "x": 560,
         "y": 120,
         "wires": []
     },
     {
-        "id": "a7ef82b3.3e572",
+        "id": "96e33db0.01e968",
         "type": "comment",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "temperature",
         "info": "",
-        "x": 110,
+        "x": 120,
         "y": 170,
         "wires": []
     },
     {
-        "id": "39f542ce.ad2866",
+        "id": "4502879.9fe1ef8",
         "type": "comment",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "supply voltage",
         "info": "",
-        "x": 120,
+        "x": 130,
         "y": 90,
         "wires": []
     },
     {
-        "id": "b2d2be6c.3d1c38",
+        "id": "a2294610.756c6",
         "type": "function",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "format",
-        "func": "var parameter = msg.input.payload.deviceType;\nvar value = msg.result;\n// Fake variation\nvalue += Math.random() * 0.1 - 0.05;\n// Json format\nmsg.payload = {'d' : {\n    [parameter] : parseFloat(value.toFixed(2)),\n}};\nreturn msg;",
+        "func": "var value = msg.result;\n// Fake variation\nvalue += Math.random() * 0.1 - 0.05;\n// Json format\nmsg.payload = {'d' : {\n    [msg.input.payload.deviceUnits] : parseFloat(value.toFixed(2)),\n}};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 470,
+        "x": 480,
         "y": 270,
         "wires": [
             [
-                "2b43d357.ef3964",
-                "b8d6386a.a3df1"
+                "9a6ea5f7.f6fbd",
+                "926f88c3.85bf58"
             ]
         ]
     },
     {
-        "id": "412d0364.3a0bcc",
+        "id": "5a21709c.7c3028",
         "type": "comment",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "up time",
         "info": "",
-        "x": 90,
+        "x": 100,
         "y": 250,
         "wires": []
     },
     {
-        "id": "da917fdd.85391",
+        "id": "f0c7737e.65e43",
         "type": "function",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "FC4 2 [2]",
-        "func": "msg.payload = {\n    // User defined:\n    'deviceId': '',\n    'deviceType': 'xeta_up_time',\n    'units': 'Days',\n    // Modbus:\n    'unitid': 1,\n    'fc': 4, \n    'address': 2, \n    'quantity': 2,\n};\nreturn msg;",
+        "func": "msg.payload = {\n    // User defined:\n    'deviceId': '',\n    'deviceType': 'xeta_up_time',\n    'deviceUnits': 'Days',\n    // Modbus:\n    'unitid': 1,\n    'fc': 4, \n    'address': 2, \n    'quantity': 2,\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 100,
+        "x": 110,
         "y": 290,
         "wires": [
             [
-                "d6d743e3.fbd5e"
+                "ea0a7ed6.00c1f"
             ]
         ]
     },
     {
-        "id": "d6d743e3.fbd5e",
+        "id": "ea0a7ed6.00c1f",
         "type": "function",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "deviceId",
         "func": "msg.payload.deviceId = \"xeta503\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 260,
+        "x": 270,
         "y": 210,
         "wires": [
             [
-                "786e0797.2a6f78"
+                "d494316d.f1e678"
             ]
         ]
     },
     {
-        "id": "b9a238b4.8e89c8",
+        "id": "b9b58e84.fa41b",
         "type": "function",
-        "z": "d998ad03.4d4",
+        "z": "35460886.9dea5",
         "name": "deviceId",
         "func": "msg.payload.deviceId = \"xeta502\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 260,
+        "x": 270,
         "y": 150,
         "wires": [
             [
-                "8f9bfdb1.63bf78"
+                "e82efba7.73a9"
             ]
         ]
     },
     {
-        "id": "b8d6386a.a3df1",
+        "id": "926f88c3.85bf58",
         "type": "link out",
-        "z": "d998ad03.4d4",
-        "name": "modbus-demos-out",
-        "links": [],
-        "x": 555,
+        "z": "35460886.9dea5",
+        "name": "modbus-read-out",
+        "links": [
+            "d927098f.f65c8"
+        ],
+        "x": 565,
         "y": 310,
         "wires": []
     },
     {
-        "id": "d50a2251.78235",
+        "id": "befc1b76.15909",
         "type": "modbus-client",
         "z": "",
         "name": "",
@@ -291,7 +293,7 @@
         "reconnectTimeout": 2000
     },
     {
-        "id": "69a6ad21.df0c0c",
+        "id": "dfb418ca.2ab62",
         "type": "modbus-client",
         "z": "",
         "name": "",
