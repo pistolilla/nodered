@@ -1,0 +1,98 @@
+[
+    {
+        "id": "d927098f.f65c8",
+        "type": "link in",
+        "z": "690727e3.bcb2e8",
+        "name": "",
+        "links": [
+            "926f88c3.85bf58"
+        ],
+        "x": 45,
+        "y": 80,
+        "wires": [
+            [
+                "69f86ee9.cd7918"
+            ]
+        ]
+    },
+    {
+        "id": "bdb785d0.f48138",
+        "type": "debug",
+        "z": "690727e3.bcb2e8",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "true",
+        "x": 280,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "aa72c286.b5553",
+        "type": "wiotp out",
+        "z": "690727e3.bcb2e8",
+        "authType": "g",
+        "qs": "false",
+        "qsDeviceId": "",
+        "deviceKey": "f3c9629b.4d6e18",
+        "deviceType": "",
+        "deviceId": "",
+        "event": "event",
+        "format": "json",
+        "qos": "",
+        "name": "Bluemix through gateway",
+        "x": 340,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "69f86ee9.cd7918",
+        "type": "function",
+        "z": "690727e3.bcb2e8",
+        "name": "format",
+        "func": "var res = {\n    deviceType: msg.input.payload.deviceType,\n    deviceId: msg.input.payload.deviceId,\n    payload: msg.payload,\n}\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 140,
+        "y": 80,
+        "wires": [
+            [
+                "aa72c286.b5553",
+                "bdb785d0.f48138",
+                "4c0f1552.cbdabc"
+            ]
+        ]
+    },
+    {
+        "id": "4c0f1552.cbdabc",
+        "type": "wiotp out",
+        "z": "690727e3.bcb2e8",
+        "authType": "d",
+        "qs": "true",
+        "qsDeviceId": "70f30c1.5136cf4",
+        "deviceKey": "",
+        "deviceType": "",
+        "deviceId": "",
+        "event": "event",
+        "format": "json",
+        "qos": "",
+        "name": "Quickstart",
+        "x": 300,
+        "y": 130,
+        "wires": []
+    },
+    {
+        "id": "f3c9629b.4d6e18",
+        "type": "wiotp-credentials",
+        "z": "",
+        "name": "raspberryPi",
+        "org": "nzqcwc",
+        "serverName": "",
+        "devType": "raspberryPi",
+        "devId": "raspberrypi01",
+        "keepalive": "60",
+        "cleansession": true,
+        "tls": "",
+        "usetls": false
+    }
+]

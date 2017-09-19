@@ -42,7 +42,7 @@
         "showErrors": false,
         "server": "dfb418ca.2ab62",
         "x": 460,
-        "y": 190,
+        "y": 200,
         "wires": [
             [],
             [
@@ -79,7 +79,7 @@
         "name": "",
         "registerShowMax": 20,
         "x": 620,
-        "y": 160,
+        "y": 170,
         "wires": []
     },
     {
@@ -90,8 +90,8 @@
         "active": false,
         "console": "false",
         "complete": "true",
-        "x": 660,
-        "y": 280,
+        "x": 630,
+        "y": 270,
         "wires": []
     },
     {
@@ -144,8 +144,8 @@
         "func": "// Create a buffer\nvar buf = new ArrayBuffer(4);\n// Create a 16-bit int view of it\nvar ints = new Uint16Array(buf);\n\n// Read input in format \"CD AB\": [6025, 16831]\nvar data = msg.values;\ndata.forEach(function (b, i) {\n    ints[i] = b;\n});\n\n// Create a 32-bit float view of it\nvar floats = new Float32Array(buf);\n// Read the bits as a float; note that by doing this, we're implicitly converting it from a 32-bit float into JavaScript's native 64-bit double\nmsg.result = floats[0];\n// Done\nreturn msg;\n// stackoverflow/40970739",
         "outputs": 1,
         "noerr": 0,
-        "x": 600,
-        "y": 230,
+        "x": 370,
+        "y": 270,
         "wires": [
             [
                 "a2294610.756c6"
@@ -190,8 +190,8 @@
         "func": "var value = msg.result;\n// Fake variation\nvalue += Math.random() * 0.1 - 0.05;\n// Json format\nmsg.payload = {'d' : {\n    [msg.input.payload.deviceUnits] : parseFloat(value.toFixed(2)),\n}};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 540,
-        "y": 280,
+        "x": 510,
+        "y": 270,
         "wires": [
             [
                 "9a6ea5f7.f6fbd",
@@ -234,7 +234,7 @@
         "outputs": 1,
         "noerr": 0,
         "x": 330,
-        "y": 190,
+        "y": 200,
         "wires": [
             [
                 "d494316d.f1e678"
@@ -265,8 +265,8 @@
         "links": [
             "d927098f.f65c8"
         ],
-        "x": 625,
-        "y": 320,
+        "x": 595,
+        "y": 310,
         "wires": []
     },
     {
@@ -277,8 +277,8 @@
         "links": [
             "1c697ff.12b6e"
         ],
-        "x": 215,
-        "y": 220,
+        "x": 235,
+        "y": 230,
         "wires": []
     },
     {
@@ -316,10 +316,10 @@
         "serialStopbits": "1",
         "serialParity": "none",
         "serialConnectionDelay": "100",
-        "unit_id": 1,
-        "commandDelay": 1,
-        "clientTimeout": 1000,
-        "reconnectTimeout": 2000
+        "unit_id": "1",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectTimeout": "2000"
     },
     {
         "id": "dfb418ca.2ab62",

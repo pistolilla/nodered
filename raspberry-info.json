@@ -28,7 +28,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "str",
-        "repeat": "60",
+        "repeat": "15",
         "crontab": "",
         "once": true,
         "x": 90,
@@ -44,35 +44,17 @@
         "id": "d6f6cf49.8bd52",
         "type": "function",
         "z": "4c42ee82.6b9558",
-        "name": "extracting address",
+        "name": "parse",
         "func": "var str = msg.payload;\n// Removing line breaks\nstr = str.replace(/\\n/gi, \" \");\n// Extracting IP address\nstr = str.replace(/.*inet (\\d+\\.\\d+\\.\\d+\\.\\d+).+?global.*/i, \"$1\");\n\nmsg.payload = {'d' : {'ipaddress' : str}};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 350,
+        "x": 310,
         "y": 90,
         "wires": [
             [
-                "425126e3.ba147"
+                "13a81ca6.9bea2b"
             ]
         ]
-    },
-    {
-        "id": "425126e3.ba147",
-        "type": "wiotp out",
-        "z": "4c42ee82.6b9558",
-        "authType": "g",
-        "qs": "false",
-        "qsDeviceId": "",
-        "deviceKey": "f3c9629b.4d6e18",
-        "deviceType": "raspberryPi",
-        "deviceId": "raspberrypi01",
-        "event": "event",
-        "format": "json",
-        "qos": "",
-        "name": "Bluemix a gateway",
-        "x": 550,
-        "y": 90,
-        "wires": []
     },
     {
         "id": "9e0e2518.a6af58",
@@ -99,58 +81,84 @@
         "id": "cdaa7b5d.44b8b",
         "type": "function",
         "z": "4c42ee82.6b9558",
-        "name": "extracting temp",
-        "func": "var temperatura = msg.payload.replace(\"temp=\", \"\").replace(\"'C\\n\", \"\");\nmsg.payload = {'d' : { 'temperatura' : parseFloat(temperatura)}}\nreturn msg;",
+        "name": "parse",
+        "func": "var temp = msg.payload.replace(\"temp=\", \"\").replace(\"'C\\n\", \"\");\nmsg.payload = {'d': {'temperature': parseFloat(temp)}}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 340,
+        "x": 310,
         "y": 150,
         "wires": [
             [
-                "cfbe9bbb.81e16"
+                "5d3ddb1b.922f4c"
             ]
         ]
-    },
-    {
-        "id": "cfbe9bbb.81e16",
-        "type": "wiotp out",
-        "z": "4c42ee82.6b9558",
-        "authType": "g",
-        "qs": "false",
-        "qsDeviceId": "",
-        "deviceKey": "f3c9629b.4d6e18",
-        "deviceType": "raspberryPi",
-        "deviceId": "raspberrypi01",
-        "event": "event",
-        "format": "json",
-        "qos": "",
-        "name": "Bluemix a gateway",
-        "x": 550,
-        "y": 150,
-        "wires": []
     },
     {
         "id": "af4ad5e4.dfea7",
         "type": "comment",
         "z": "4c42ee82.6b9558",
-        "name": "sending readings in parallel can cause alarm inconsistency",
+        "name": "sending readings in parallel can cause alarm inconsistencies",
         "info": "",
-        "x": 420,
+        "x": 460,
         "y": 40,
         "wires": []
     },
     {
-        "id": "f3c9629b.4d6e18",
-        "type": "wiotp-credentials",
-        "z": "",
-        "name": "raspberryPi",
-        "org": "nzqcwc",
-        "serverName": "",
-        "devType": "raspberryPi",
-        "devId": "raspberrypi01",
-        "keepalive": "60",
-        "cleansession": true,
-        "tls": "",
-        "usetls": false
+        "id": "13a81ca6.9bea2b",
+        "type": "rbe",
+        "z": "4c42ee82.6b9558",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "x": 430,
+        "y": 90,
+        "wires": [
+            [
+                "5d3ddb1b.922f4c",
+                "d68dcc64.663ef8"
+            ]
+        ]
+    },
+    {
+        "id": "5d3ddb1b.922f4c",
+        "type": "function",
+        "z": "4c42ee82.6b9558",
+        "name": "deviceId",
+        "func": "msg.input = { 'payload': {\n    'deviceId': 'raspberrypi01',\n    'deviceType': 'raspberryPi',}};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 130,
+        "wires": [
+            [
+                "dfc446f7.6d5c58"
+            ]
+        ]
+    },
+    {
+        "id": "dfc446f7.6d5c58",
+        "type": "link out",
+        "z": "4c42ee82.6b9558",
+        "name": "",
+        "links": [
+            "d927098f.f65c8"
+        ],
+        "x": 665,
+        "y": 130,
+        "wires": []
+    },
+    {
+        "id": "d68dcc64.663ef8",
+        "type": "debug",
+        "z": "4c42ee82.6b9558",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 580,
+        "y": 90,
+        "wires": []
     }
 ]
