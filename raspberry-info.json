@@ -10,8 +10,8 @@
         "timer": "",
         "oldrc": false,
         "name": "ip address",
-        "x": 270,
-        "y": 120,
+        "x": 170,
+        "y": 90,
         "wires": [
             [
                 "d6f6cf49.8bd52"
@@ -27,11 +27,11 @@
         "name": "",
         "topic": "",
         "payload": "",
-        "payloadType": "date",
+        "payloadType": "str",
         "repeat": "60",
         "crontab": "",
         "once": true,
-        "x": 130,
+        "x": 90,
         "y": 40,
         "wires": [
             [
@@ -44,30 +44,17 @@
         "id": "d6f6cf49.8bd52",
         "type": "function",
         "z": "4c42ee82.6b9558",
-        "name": "formato json",
-        "func": "var str = msg.payload;\n// Quitando saltos de línea\nstr = str.replace(/\\n/gi, \" \");\n// Extrayendo dirección ip\nstr = str.replace(/.*inet (\\d+\\.\\d+\\.\\d+\\.\\d+).+?global.*/i, \"$1\");\n\nmsg.payload = {'d' : {'ipaddress' : str}};\nreturn msg;",
+        "name": "extracting address",
+        "func": "var str = msg.payload;\n// Removing line breaks\nstr = str.replace(/\\n/gi, \" \");\n// Extracting IP address\nstr = str.replace(/.*inet (\\d+\\.\\d+\\.\\d+\\.\\d+).+?global.*/i, \"$1\");\n\nmsg.payload = {'d' : {'ipaddress' : str}};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 450,
-        "y": 120,
+        "x": 350,
+        "y": 90,
         "wires": [
             [
-                "4b7cbd9a.b6da94",
                 "425126e3.ba147"
             ]
         ]
-    },
-    {
-        "id": "4b7cbd9a.b6da94",
-        "type": "debug",
-        "z": "4c42ee82.6b9558",
-        "name": "",
-        "active": false,
-        "console": "false",
-        "complete": "false",
-        "x": 630,
-        "y": 100,
-        "wires": []
     },
     {
         "id": "425126e3.ba147",
@@ -83,8 +70,8 @@
         "format": "json",
         "qos": "",
         "name": "Bluemix a gateway",
-        "x": 650,
-        "y": 140,
+        "x": 550,
+        "y": 90,
         "wires": []
     },
     {
@@ -98,8 +85,8 @@
         "timer": "",
         "oldrc": false,
         "name": "cpu temp",
-        "x": 280,
-        "y": 200,
+        "x": 180,
+        "y": 150,
         "wires": [
             [
                 "cdaa7b5d.44b8b"
@@ -112,12 +99,12 @@
         "id": "cdaa7b5d.44b8b",
         "type": "function",
         "z": "4c42ee82.6b9558",
-        "name": "formato json",
+        "name": "extracting temp",
         "func": "var temperatura = msg.payload.replace(\"temp=\", \"\").replace(\"'C\\n\", \"\");\nmsg.payload = {'d' : { 'temperatura' : parseFloat(temperatura)}}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 450,
-        "y": 200,
+        "x": 340,
+        "y": 150,
         "wires": [
             [
                 "cfbe9bbb.81e16"
@@ -138,8 +125,18 @@
         "format": "json",
         "qos": "",
         "name": "Bluemix a gateway",
-        "x": 650,
-        "y": 200,
+        "x": 550,
+        "y": 150,
+        "wires": []
+    },
+    {
+        "id": "af4ad5e4.dfea7",
+        "type": "comment",
+        "z": "4c42ee82.6b9558",
+        "name": "sending readings in parallel can cause alarm inconsistency",
+        "info": "",
+        "x": 420,
+        "y": 40,
         "wires": []
     },
     {

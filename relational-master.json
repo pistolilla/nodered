@@ -8,8 +8,8 @@
             "7d6daaef.d40aec",
             "f1b2ca64.371148"
         ],
-        "x": 65,
-        "y": 150,
+        "x": 45,
+        "y": 130,
         "wires": [
             [
                 "f47a7f0a.41c5c8"
@@ -22,10 +22,12 @@
         "z": "1ff70e3c.8adc5a",
         "mydb": "bcb20cf5.6d2a58",
         "name": "db",
-        "x": 180,
-        "y": 150,
+        "x": 160,
+        "y": 130,
         "wires": [
-            []
+            [
+                "6689b51d.a4fe14"
+            ]
         ]
     },
     {
@@ -36,7 +38,7 @@
         "func": "var dbTable = msg.error.message.replace(/.*table: *(.+)$/i,\"$1\");\nmsg.topic = `\nCREATE TABLE IF NOT EXISTS ${dbTable} (\n    device TEXT NOT NULL,\n    parameter TEXT NOT NULL,\n    value NUMERIC NOT NULL,\n    timestamp DATETIME NOT NULL DEFAULT (DATETIME('now','localtime'))\n);`;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 470,
+        "x": 360,
         "y": 40,
         "wires": [
             [
@@ -63,15 +65,13 @@
         ],
         "checkall": "true",
         "outputs": 2,
-        "x": 320,
-        "y": 60,
+        "x": 220,
+        "y": 40,
         "wires": [
             [
                 "2c61addc.80b0ea"
             ],
-            [
-                "bc12e505.4600b8"
-            ]
+            []
         ]
     },
     {
@@ -82,8 +82,8 @@
         "scope": [
             "f47a7f0a.41c5c8"
         ],
-        "x": 190,
-        "y": 60,
+        "x": 90,
+        "y": 40,
         "wires": [
             [
                 "b8f28ff2.e5fbf"
@@ -94,10 +94,10 @@
         "id": "e48376ca.d67a38",
         "type": "comment",
         "z": "1ff70e3c.8adc5a",
-        "name": "node for all queries",
+        "name": "sql execute query",
         "info": "",
-        "x": 140,
-        "y": 110,
+        "x": 120,
+        "y": 90,
         "wires": []
     },
     {
@@ -108,20 +108,20 @@
         "links": [
             "32acb9e.d4b0fc6"
         ],
-        "x": 575,
+        "x": 465,
         "y": 40,
         "wires": []
     },
     {
-        "id": "bc12e505.4600b8",
+        "id": "6689b51d.a4fe14",
         "type": "debug",
         "z": "1ff70e3c.8adc5a",
         "name": "",
         "active": true,
         "console": "false",
-        "complete": "false",
-        "x": 470,
-        "y": 80,
+        "complete": "payload",
+        "x": 310,
+        "y": 130,
         "wires": []
     },
     {
