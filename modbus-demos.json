@@ -7,8 +7,8 @@
         "showStatusActivities": false,
         "showErrors": false,
         "server": "d50a2251.78235",
-        "x": 310,
-        "y": 130,
+        "x": 390,
+        "y": 150,
         "wires": [
             [],
             [
@@ -21,14 +21,15 @@
         "type": "function",
         "z": "d998ad03.4d4",
         "name": "FC4 4 [2]",
-        "func": "msg.payload = { \n    'description': 'supply_voltage',\n    'units': 'Volts',\n    'unitid': 1,\n    'fc': 4, \n    'address': 4, \n    'quantity': 2,\n};\nreturn msg;",
+        "func": "msg.payload = { \n    // User defined:\n    'deviceId': '',\n    'deviceType': 'supply_voltage',\n    'units': 'Volts',\n    // Modbus:\n    'unitid': 1,\n    'fc': 4, \n    'address': 4, \n    'quantity': 2,\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 130,
+        "x": 100,
         "y": 130,
         "wires": [
             [
-                "786e0797.2a6f78"
+                "d6d743e3.fbd5e",
+                "b9a238b4.8e89c8"
             ]
         ]
     },
@@ -40,7 +41,7 @@
         "showStatusActivities": false,
         "showErrors": false,
         "server": "69a6ad21.df0c0c",
-        "x": 310,
+        "x": 390,
         "y": 210,
         "wires": [
             [],
@@ -66,7 +67,8 @@
         "wires": [
             [
                 "32ab776f.bf4e58",
-                "7c565324.7de554"
+                "7c565324.7de554",
+                "da917fdd.85391"
             ]
         ]
     },
@@ -76,7 +78,7 @@
         "z": "d998ad03.4d4",
         "name": "",
         "registerShowMax": 20,
-        "x": 480,
+        "x": 550,
         "y": 180,
         "wires": []
     },
@@ -88,8 +90,8 @@
         "active": true,
         "console": "false",
         "complete": "true",
-        "x": 610,
-        "y": 230,
+        "x": 590,
+        "y": 270,
         "wires": []
     },
     {
@@ -97,14 +99,14 @@
         "type": "function",
         "z": "d998ad03.4d4",
         "name": "FC4 6 [2]",
-        "func": "msg.payload = { \n    'description': 'temperature',\n    'units': 'Degrees Celsius',\n    'unitid': 1,\n    'fc': 4, \n    'address': 6, \n    'quantity': 2,\n};\nreturn msg;",
+        "func": "msg.payload = {\n    // User defined:\n    'deviceId': '',\n    'deviceType': 'temperature',\n    'units': 'Degrees Celsius',\n    // Modbus:\n    'unitid': 1,\n    'fc': 4, \n    'address': 6, \n    'quantity': 2,\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 130,
+        "x": 100,
         "y": 210,
         "wires": [
             [
-                "786e0797.2a6f78"
+                "d6d743e3.fbd5e"
             ]
         ]
     },
@@ -142,7 +144,7 @@
         "func": "// Create a buffer\nvar buf = new ArrayBuffer(4);\n// Create a 16-bit int view of it\nvar ints = new Uint16Array(buf);\n\n// Read input in format \"CD AB\": [6025, 16831]\nvar data = msg.values;\ndata.forEach(function (b, i) {\n    ints[i] = b;\n});\n\n// Create a 32-bit float view of it\nvar floats = new Float32Array(buf);\n// Read the bits as a float; note that by doing this, we're implicitly converting it from a 32-bit float into JavaScript's native 64-bit double\nmsg.result = floats[0];\n// Done\nreturn msg;\n// stackoverflow/40970739",
         "outputs": 1,
         "noerr": 0,
-        "x": 360,
+        "x": 330,
         "y": 270,
         "wires": [
             [
@@ -156,8 +158,8 @@
         "z": "d998ad03.4d4",
         "name": "",
         "registerShowMax": 20,
-        "x": 480,
-        "y": 100,
+        "x": 550,
+        "y": 120,
         "wires": []
     },
     {
@@ -166,7 +168,7 @@
         "z": "d998ad03.4d4",
         "name": "temperature",
         "info": "",
-        "x": 140,
+        "x": 110,
         "y": 170,
         "wires": []
     },
@@ -176,7 +178,7 @@
         "z": "d998ad03.4d4",
         "name": "supply voltage",
         "info": "",
-        "x": 150,
+        "x": 120,
         "y": 90,
         "wires": []
     },
@@ -184,15 +186,73 @@
         "id": "b2d2be6c.3d1c38",
         "type": "function",
         "z": "d998ad03.4d4",
-        "name": "json format",
-        "func": "var parametro = msg.input.payload.description;\nmsg.payload = {'d' : {\n    [parametro] : msg.result,\n}};\nreturn msg;",
+        "name": "format",
+        "func": "var parameter = msg.input.payload.description;\nvar value = msg.result;\nmsg.payload = {'d' : {\n    [parameter] : value,\n}};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 540,
+        "x": 470,
         "y": 270,
         "wires": [
             [
                 "2b43d357.ef3964"
+            ]
+        ]
+    },
+    {
+        "id": "412d0364.3a0bcc",
+        "type": "comment",
+        "z": "d998ad03.4d4",
+        "name": "up time",
+        "info": "",
+        "x": 90,
+        "y": 250,
+        "wires": []
+    },
+    {
+        "id": "da917fdd.85391",
+        "type": "function",
+        "z": "d998ad03.4d4",
+        "name": "FC4 2 [2]",
+        "func": "msg.payload = {\n    // User defined:\n    'deviceId': '',\n    'deviceType': 'up_time',\n    'units': 'Days',\n    // Modbus:\n    'unitid': 1,\n    'fc': 4, \n    'address': 2, \n    'quantity': 2,\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 100,
+        "y": 290,
+        "wires": [
+            [
+                "d6d743e3.fbd5e"
+            ]
+        ]
+    },
+    {
+        "id": "d6d743e3.fbd5e",
+        "type": "function",
+        "z": "d998ad03.4d4",
+        "name": "deviceId",
+        "func": "msg.payload.deviceId = \"xeta503\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 260,
+        "y": 210,
+        "wires": [
+            [
+                "786e0797.2a6f78"
+            ]
+        ]
+    },
+    {
+        "id": "b9a238b4.8e89c8",
+        "type": "function",
+        "z": "d998ad03.4d4",
+        "name": "deviceId",
+        "func": "msg.payload.deviceId = \"xeta502\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 260,
+        "y": 150,
+        "wires": [
+            [
+                "8f9bfdb1.63bf78"
             ]
         ]
     },
@@ -214,10 +274,10 @@
         "serialStopbits": "1",
         "serialParity": "none",
         "serialConnectionDelay": "100",
-        "unit_id": "1",
-        "commandDelay": "1",
-        "clientTimeout": "1000",
-        "reconnectTimeout": "2000"
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectTimeout": 2000
     },
     {
         "id": "69a6ad21.df0c0c",
@@ -237,9 +297,9 @@
         "serialStopbits": "1",
         "serialParity": "none",
         "serialConnectionDelay": "100",
-        "unit_id": 1,
-        "commandDelay": 1,
-        "clientTimeout": 1000,
-        "reconnectTimeout": 2000
+        "unit_id": "1",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectTimeout": "2000"
     }
 ]
