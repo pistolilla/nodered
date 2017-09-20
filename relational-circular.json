@@ -1,0 +1,114 @@
+[
+    {
+        "id": "9a8018ee.b05d9",
+        "type": "link in",
+        "z": "7c606cf9.db8aac",
+        "name": "",
+        "links": [
+            "2c15ec6c.6919e4"
+        ],
+        "x": 35,
+        "y": 90,
+        "wires": [
+            [
+                "c98adf71.a2deb"
+            ]
+        ]
+    },
+    {
+        "id": "c98adf71.a2deb",
+        "type": "exec",
+        "z": "7c606cf9.db8aac",
+        "command": "df",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "disk usage",
+        "x": 140,
+        "y": 90,
+        "wires": [
+            [
+                "44527a67.25c714"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "44527a67.25c714",
+        "type": "function",
+        "z": "7c606cf9.db8aac",
+        "name": "disk usage",
+        "func": "var str = msg.payload;\n// Removing line breaks\nstr = str.replace(/\\n/gi, \" \");\n// Extracting disk usage percentage\nstr = str.replace(/.*dev\\/root.*?(\\d+)%.*/i, \"$1\");\nmsg.payload = parseFloat(str);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 90,
+        "wires": [
+            [
+                "b550306f.9d2be"
+            ]
+        ]
+    },
+    {
+        "id": "4521356c.24c5dc",
+        "type": "debug",
+        "z": "7c606cf9.db8aac",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 580,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "b550306f.9d2be",
+        "type": "switch",
+        "z": "7c606cf9.db8aac",
+        "name": "> 85",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "85",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 1,
+        "x": 440,
+        "y": 90,
+        "wires": [
+            [
+                "7be71ed9.6669d",
+                "4521356c.24c5dc"
+            ]
+        ]
+    },
+    {
+        "id": "7be71ed9.6669d",
+        "type": "link out",
+        "z": "7c606cf9.db8aac",
+        "name": "",
+        "links": [
+            "877329cb.6367a8"
+        ],
+        "x": 545,
+        "y": 90,
+        "wires": []
+    },
+    {
+        "id": "efc215c6.f52858",
+        "type": "comment",
+        "z": "7c606cf9.db8aac",
+        "name": "given treshold, processes query or not",
+        "info": "",
+        "x": 170,
+        "y": 40,
+        "wires": []
+    }
+]
