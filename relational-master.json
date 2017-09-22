@@ -6,10 +6,11 @@
         "name": "relational-master-in",
         "links": [
             "7d6daaef.d40aec",
-            "f1b2ca64.371148"
+            "f1b2ca64.371148",
+            "fcacba5.f375c48"
         ],
         "x": 45,
-        "y": 130,
+        "y": 150,
         "wires": [
             [
                 "f47a7f0a.41c5c8"
@@ -23,10 +24,10 @@
         "mydb": "bcb20cf5.6d2a58",
         "name": "db",
         "x": 160,
-        "y": 130,
+        "y": 150,
         "wires": [
             [
-                "6689b51d.a4fe14"
+                "5d09ba07.ff927c"
             ]
         ]
     },
@@ -97,7 +98,7 @@
         "name": "sql execute query",
         "info": "",
         "x": 120,
-        "y": 90,
+        "y": 110,
         "wires": []
     },
     {
@@ -116,18 +117,100 @@
         "id": "6689b51d.a4fe14",
         "type": "debug",
         "z": "1ff70e3c.8adc5a",
-        "name": "",
+        "name": "SELECT",
         "active": true,
         "console": "false",
         "complete": "payload",
-        "x": 310,
+        "x": 440,
+        "y": 90,
+        "wires": []
+    },
+    {
+        "id": "5d09ba07.ff927c",
+        "type": "switch",
+        "z": "1ff70e3c.8adc5a",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "SELECT",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "INSERT",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "UPDATE",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 4,
+        "x": 290,
+        "y": 150,
+        "wires": [
+            [
+                "6689b51d.a4fe14"
+            ],
+            [
+                "a994465d.9ae75"
+            ],
+            [
+                "1c26c8f0.4b7de7"
+            ],
+            [
+                "eb67d35e.c2da28"
+            ]
+        ]
+    },
+    {
+        "id": "a994465d.9ae75",
+        "type": "debug",
+        "z": "1ff70e3c.8adc5a",
+        "name": "INSERT",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 440,
         "y": 130,
+        "wires": []
+    },
+    {
+        "id": "1c26c8f0.4b7de7",
+        "type": "debug",
+        "z": "1ff70e3c.8adc5a",
+        "name": "UPDATE",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 440,
+        "y": 170,
+        "wires": []
+    },
+    {
+        "id": "eb67d35e.c2da28",
+        "type": "debug",
+        "z": "1ff70e3c.8adc5a",
+        "name": "otherwise",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 440,
+        "y": 210,
         "wires": []
     },
     {
         "id": "bcb20cf5.6d2a58",
         "type": "sqlitedb",
         "z": "",
-        "db": "C:\\Users\\usuario\\Desktop\\node-red.db"
+        "db": "C:\\Users\\usuario\\Desktop\\iot.db"
     }
 ]
