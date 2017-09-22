@@ -68,13 +68,13 @@
         "id": "b550306f.9d2be",
         "type": "switch",
         "z": "7c606cf9.db8aac",
-        "name": "> 85",
+        "name": "> 50",
         "property": "payload",
         "propertyType": "msg",
         "rules": [
             {
                 "t": "gt",
-                "v": "85",
+                "v": "50",
                 "vt": "str"
             }
         ],
