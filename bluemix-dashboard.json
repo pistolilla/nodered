@@ -1,0 +1,594 @@
+[
+    {
+        "id": "c06405ed.da4c38",
+        "type": "ibmiot in",
+        "z": "e29345.f0da74b8",
+        "authentication": "boundService",
+        "apiKey": "",
+        "inputType": "evt",
+        "deviceId": "",
+        "applicationId": "",
+        "deviceType": "+",
+        "eventType": "+",
+        "commandType": "",
+        "format": "json",
+        "name": "Bluemix",
+        "service": "registered",
+        "allDevices": false,
+        "allApplications": "",
+        "allDeviceTypes": true,
+        "allEvents": true,
+        "allCommands": "",
+        "allFormats": "",
+        "qos": 0,
+        "x": 80,
+        "y": 160,
+        "wires": [
+            [
+                "6d6d782d.46766",
+                "732df10f.8770e"
+            ]
+        ]
+    },
+    {
+        "id": "c41a88d.e2aaaf8",
+        "type": "e-mail",
+        "z": "e29345.f0da74b8",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "name": "polushon@gmail.com",
+        "dname": "mail",
+        "x": 490,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "51a65a38.281f6c",
+        "type": "switch",
+        "z": "e29345.f0da74b8",
+        "name": "",
+        "property": "mqtt",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "raspberryPi",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "generic",
+                "vt": "str"
+            },
+            {
+                "t": "regex",
+                "v": "xeta_supply_voltage.+502",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "xeta_supply_voltage.+503",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "xeta_temperature.+502",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "xeta_temperature.+503",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "xeta_up_time.+502",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "xeta_up_time.+503",
+                "vt": "str",
+                "case": false
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "outputs": 9,
+        "x": 270,
+        "y": 300,
+        "wires": [
+            [
+                "35b38583.9ae932"
+            ],
+            [
+                "5f04d5cb.78bddc"
+            ],
+            [
+                "8f13c73e.4afe5",
+                "b0c8ac0c.13dd18"
+            ],
+            [
+                "8f13c73e.4afe5",
+                "4028629.bdc599c"
+            ],
+            [
+                "8fc32548.d25568",
+                "45543e66.06cb08"
+            ],
+            [
+                "ac2c3802.c1253",
+                "45543e66.06cb08"
+            ],
+            [
+                "63d94d8d.83463c"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "8f13c73e.4afe5",
+        "type": "ui_chart",
+        "z": "e29345.f0da74b8",
+        "name": "",
+        "group": "3d20278d.e3a608",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Volts",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "5",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 520,
+        "y": 250,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5f04d5cb.78bddc",
+        "type": "ui_gauge",
+        "z": "e29345.f0da74b8",
+        "name": "",
+        "group": "358103d9.b15bfc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "wave",
+        "title": "",
+        "label": "cm",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 490,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "6d6d782d.46766",
+        "type": "function",
+        "z": "e29345.f0da74b8",
+        "name": "parse",
+        "func": "msg.mqtt = msg.topic;\nmsg.topic = msg.deviceId;\n// First property name\nmsg.property = Object.keys(msg.payload.d)[0];\n// First property value\nmsg.payload = msg.payload.d[msg.property];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 130,
+        "y": 210,
+        "wires": [
+            [
+                "51a65a38.281f6c",
+                "cab74cd3.b3ba38"
+            ]
+        ]
+    },
+    {
+        "id": "e8dc3100.a96a1",
+        "type": "catch",
+        "z": "e29345.f0da74b8",
+        "name": "",
+        "scope": null,
+        "x": 350,
+        "y": 60,
+        "wires": [
+            [
+                "ee647dce.0b0088"
+            ]
+        ]
+    },
+    {
+        "id": "8fc32548.d25568",
+        "type": "ui_gauge",
+        "z": "e29345.f0da74b8",
+        "name": "",
+        "group": "bf78dda9.43921",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Radio 502",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 650,
+        "y": 310,
+        "wires": []
+    },
+    {
+        "id": "27d7db80.320fdc",
+        "type": "ui_text",
+        "z": "e29345.f0da74b8",
+        "group": "374c1f88.9834a8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Dirección IP",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 680,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "35b38583.9ae932",
+        "type": "switch",
+        "z": "e29345.f0da74b8",
+        "name": "Raspberry",
+        "property": "property",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "temperature",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ipaddress",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 510,
+        "y": 140,
+        "wires": [
+            [
+                "55063ccc.0c31ec"
+            ],
+            [
+                "27d7db80.320fdc"
+            ]
+        ]
+    },
+    {
+        "id": "cab74cd3.b3ba38",
+        "type": "debug",
+        "z": "e29345.f0da74b8",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "true",
+        "x": 270,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "55063ccc.0c31ec",
+        "type": "ui_gauge",
+        "z": "e29345.f0da74b8",
+        "name": "",
+        "group": "bf78dda9.43921",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Raspberry",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 680,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "f200410f.1923d",
+        "type": "function",
+        "z": "e29345.f0da74b8",
+        "name": "format",
+        "func": "// Message body\nmsg.payload = `Sin recibir señal desde hace ${msg.payload}`;\n// Message subject\nmsg.topic = \"Alerta IoT\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 360,
+        "y": 100,
+        "wires": [
+            [
+                "c41a88d.e2aaaf8",
+                "ee647dce.0b0088",
+                "732df10f.8770e"
+            ]
+        ]
+    },
+    {
+        "id": "ee647dce.0b0088",
+        "type": "ui_toast",
+        "z": "e29345.f0da74b8",
+        "position": "top right",
+        "displayTime": "200",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "notification",
+        "x": 510,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "732df10f.8770e",
+        "type": "trigger",
+        "z": "e29345.f0da74b8",
+        "op1": "",
+        "op2": "5 min",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "5",
+        "extend": true,
+        "units": "min",
+        "reset": "",
+        "name": "5 min",
+        "x": 230,
+        "y": 120,
+        "wires": [
+            [
+                "f200410f.1923d"
+            ]
+        ]
+    },
+    {
+        "id": "ac2c3802.c1253",
+        "type": "ui_gauge",
+        "z": "e29345.f0da74b8",
+        "name": "",
+        "group": "bf78dda9.43921",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Radio 503",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 650,
+        "y": 350,
+        "wires": []
+    },
+    {
+        "id": "b0c8ac0c.13dd18",
+        "type": "ui_gauge",
+        "z": "e29345.f0da74b8",
+        "name": "",
+        "group": "3d20278d.e3a608",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Radio 502",
+        "label": "Volts",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "40",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 650,
+        "y": 230,
+        "wires": []
+    },
+    {
+        "id": "4028629.bdc599c",
+        "type": "ui_gauge",
+        "z": "e29345.f0da74b8",
+        "name": "",
+        "group": "3d20278d.e3a608",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Radio 503",
+        "label": "Volts",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "40",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 650,
+        "y": 270,
+        "wires": []
+    },
+    {
+        "id": "45543e66.06cb08",
+        "type": "ui_chart",
+        "z": "e29345.f0da74b8",
+        "name": "",
+        "group": "bf78dda9.43921",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "°C",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "5",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 520,
+        "y": 330,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "63d94d8d.83463c",
+        "type": "ui_text",
+        "z": "e29345.f0da74b8",
+        "group": "358103d9.b15bfc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Días de funcionamiento ",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "x": 690,
+        "y": 390,
+        "wires": []
+    },
+    {
+        "id": "3d20278d.e3a608",
+        "type": "ui_group",
+        "z": "",
+        "name": "Voltaje",
+        "tab": "4e21825e.dcef14",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "358103d9.b15bfc",
+        "type": "ui_group",
+        "z": "",
+        "name": "Nivel de Agua",
+        "tab": "4e21825e.dcef14",
+        "order": 3,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "bf78dda9.43921",
+        "type": "ui_group",
+        "z": "",
+        "name": "Temperatura",
+        "tab": "4e21825e.dcef14",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "374c1f88.9834a8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Raspberry",
+        "tab": "dc5ebdae.b768d",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "4e21825e.dcef14",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Tableros",
+        "icon": "dashboard",
+        "order": 1
+    },
+    {
+        "id": "dc5ebdae.b768d",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Configuración",
+        "icon": "dashboard",
+        "order": 2
+    }
+]
