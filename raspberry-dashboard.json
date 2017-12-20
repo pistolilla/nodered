@@ -1,0 +1,386 @@
+[
+    {
+        "id": "dbc4f457.b5a7",
+        "type": "cpu",
+        "z": "a2807fd0.38ab88",
+        "name": "",
+        "x": 260,
+        "y": 90,
+        "wires": [
+            [
+                "318d8c39.c868d4"
+            ]
+        ]
+    },
+    {
+        "id": "2551c953.ce0dee",
+        "type": "inject",
+        "z": "a2807fd0.38ab88",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "30",
+        "crontab": "",
+        "once": false,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "dbc4f457.b5a7",
+                "b11db3e.6a0285",
+                "85ab93b1.2cf63"
+            ]
+        ]
+    },
+    {
+        "id": "318d8c39.c868d4",
+        "type": "ui_chart",
+        "z": "a2807fd0.38ab88",
+        "name": "",
+        "group": "27e83cc5.d8b7bc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "% CPU",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 590,
+        "y": 90,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b11db3e.6a0285",
+        "type": "exec",
+        "z": "a2807fd0.38ab88",
+        "command": "df",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "disk usage",
+        "x": 260,
+        "y": 140,
+        "wires": [
+            [
+                "23ee45d5.80b57a"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "23ee45d5.80b57a",
+        "type": "function",
+        "z": "a2807fd0.38ab88",
+        "name": "parse",
+        "func": "var str = msg.payload;\n// Removing line breaks\nstr = str.replace(/\\n/gi, \" \");\n// Extracting disk usage percentage\nstr = str.replace(/.*dev\\/root.*?(\\d+)%.*/i, \"$1\");\nmsg.payload = parseFloat(str);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 140,
+        "wires": [
+            [
+                "91b8aaa7.2c6648"
+            ]
+        ]
+    },
+    {
+        "id": "91b8aaa7.2c6648",
+        "type": "ui_gauge",
+        "z": "a2807fd0.38ab88",
+        "name": "",
+        "group": "f4eef9dc.3fe498",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "donut",
+        "title": "Espacio utilizado",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 620,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "c328f7.e8bbe708",
+        "type": "ui_button",
+        "z": "a2807fd0.38ab88",
+        "name": "Limpiar",
+        "group": "f4eef9dc.3fe498",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Limpiar histórico",
+        "color": "",
+        "bgcolor": "DarkRed",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 100,
+        "y": 360,
+        "wires": [
+            [
+                "6f7b0dbb.57b31c"
+            ]
+        ]
+    },
+    {
+        "id": "cc28836f.6bcb68",
+        "type": "function",
+        "z": "a2807fd0.38ab88",
+        "name": "SELECT",
+        "func": "msg.topic = `\nSELECT device, parameter, value, timestamp\nFROM relational_write`;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 310,
+        "wires": [
+            [
+                "6dbae571.fbcf0c"
+            ]
+        ]
+    },
+    {
+        "id": "6dbae571.fbcf0c",
+        "type": "sqlite",
+        "z": "a2807fd0.38ab88",
+        "mydb": "b4004d74.e51b1",
+        "name": "db",
+        "x": 380,
+        "y": 310,
+        "wires": [
+            [
+                "494b77f7.1a4fa8"
+            ]
+        ]
+    },
+    {
+        "id": "494b77f7.1a4fa8",
+        "type": "csv",
+        "z": "a2807fd0.38ab88",
+        "name": "",
+        "sep": "\\t",
+        "hdrin": "",
+        "hdrout": true,
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "device,parameter,value,timestamp",
+        "x": 500,
+        "y": 310,
+        "wires": [
+            [
+                "b3b610df.384298"
+            ]
+        ]
+    },
+    {
+        "id": "b3b610df.384298",
+        "type": "http response",
+        "z": "a2807fd0.38ab88",
+        "name": "",
+        "statusCode": "",
+        "headers": {
+            "content-type": "text/plain",
+            "Content-disposition": "attachment; filename=file.txt"
+        },
+        "x": 630,
+        "y": 310,
+        "wires": []
+    },
+    {
+        "id": "c9170d49.21928",
+        "type": "http in",
+        "z": "a2807fd0.38ab88",
+        "name": "",
+        "url": "/csv",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 310,
+        "wires": [
+            [
+                "cc28836f.6bcb68"
+            ]
+        ]
+    },
+    {
+        "id": "85ab93b1.2cf63",
+        "type": "exec",
+        "z": "a2807fd0.38ab88",
+        "command": "vcgencmd",
+        "addpay": false,
+        "append": "measure_temp",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "cpu temp",
+        "x": 250,
+        "y": 200,
+        "wires": [
+            [
+                "a214969e.d6baf8"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a214969e.d6baf8",
+        "type": "function",
+        "z": "a2807fd0.38ab88",
+        "name": "parse",
+        "func": "var temp = msg.payload.replace(\"temp=\", \"\").replace(\"'C\\n\", \"\");\nmsg.payload = parseFloat(temp);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 200,
+        "wires": [
+            [
+                "8813f8c2.b382d8"
+            ]
+        ]
+    },
+    {
+        "id": "8813f8c2.b382d8",
+        "type": "ui_gauge",
+        "z": "a2807fd0.38ab88",
+        "name": "",
+        "group": "27e83cc5.d8b7bc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temp CPU",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 600,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "6f7b0dbb.57b31c",
+        "type": "function",
+        "z": "a2807fd0.38ab88",
+        "name": "DELETE",
+        "func": "msg.topic = `DELETE FROM relational_write WHERE 1`;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 360,
+        "wires": [
+            [
+                "95d190e5.3372a"
+            ]
+        ]
+    },
+    {
+        "id": "427775fc.08850c",
+        "type": "ui_text",
+        "z": "a2807fd0.38ab88",
+        "group": "f4eef9dc.3fe498",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "Respaldar",
+        "label": "",
+        "format": "<button><a href=\"/csv\" target=\"_blank\">Respaldar histórico</a></button>",
+        "layout": "row-center",
+        "x": 110,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "95d190e5.3372a",
+        "type": "link out",
+        "z": "a2807fd0.38ab88",
+        "name": "",
+        "links": [
+            "877329cb.6367a8"
+        ],
+        "x": 345,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "27e83cc5.d8b7bc",
+        "type": "ui_group",
+        "z": "",
+        "name": "Rendimiento",
+        "tab": "d0c8ed3d.d1c2e8",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "f4eef9dc.3fe498",
+        "type": "ui_group",
+        "z": "",
+        "name": "Disco Local",
+        "tab": "d0c8ed3d.d1c2e8",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b4004d74.e51b1",
+        "type": "sqlitedb",
+        "z": "",
+        "db": "/home/pi/Documents/iot.db"
+    },
+    {
+        "id": "d0c8ed3d.d1c2e8",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Tableros",
+        "icon": "dashboard",
+        "order": 1
+    }
+]
