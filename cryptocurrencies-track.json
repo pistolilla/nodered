@@ -1,57 +1,57 @@
 [
     {
-        "id": "8742dbab.7ac3b8",
+        "id": "b5dd9d36.05c9f",
         "type": "http request",
-        "z": "ced3911c.f8024",
+        "z": "2d0ad0f0.d4004",
         "name": "btc a mxn",
         "method": "GET",
         "ret": "obj",
         "url": "https://api.bitso.com/v3/ticker/?book=btc_mxn",
         "tls": "",
         "x": 280,
-        "y": 120,
+        "y": 160,
         "wires": [
             [
-                "ca473a11.061b88",
-                "d4a9cd24.5f8908"
+                "e51a2104.f3a2f",
+                "9e237ef4.302178"
             ]
         ]
     },
     {
-        "id": "9448472b.8a9f88",
+        "id": "b0282995.e2f1a8",
         "type": "inject",
-        "z": "ced3911c.f8024",
+        "z": "2d0ad0f0.d4004",
         "name": "",
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "repeat": "300",
+        "repeat": "60",
         "crontab": "",
         "once": false,
         "x": 110,
-        "y": 70,
+        "y": 110,
         "wires": [
             [
-                "2b757943.7635e6"
+                "13b8f21b.ba3b4e"
             ]
         ]
     },
     {
-        "id": "d4a9cd24.5f8908",
+        "id": "9e237ef4.302178",
         "type": "debug",
-        "z": "ced3911c.f8024",
+        "z": "2d0ad0f0.d4004",
         "name": "",
         "active": true,
         "console": "false",
         "complete": "true",
         "x": 430,
-        "y": 70,
+        "y": 110,
         "wires": []
     },
     {
-        "id": "ca473a11.061b88",
+        "id": "e51a2104.f3a2f",
         "type": "switch",
-        "z": "ced3911c.f8024",
+        "z": "2d0ad0f0.d4004",
         "name": "btc < X",
         "property": "payload.payload.last",
         "propertyType": "msg",
@@ -68,59 +68,59 @@
         "checkall": "true",
         "outputs": 2,
         "x": 430,
-        "y": 120,
+        "y": 160,
         "wires": [
             [
-                "c0c17889.98fde8"
+                "97b50bab.809488"
             ],
             []
         ]
     },
     {
-        "id": "6a61fcc5.39522c",
+        "id": "cf7b20e9.d13c2",
         "type": "comment",
-        "z": "ced3911c.f8024",
+        "z": "2d0ad0f0.d4004",
         "name": "monitor de bitcoin y ethereum",
         "info": "",
         "x": 130,
-        "y": 30,
+        "y": 70,
         "wires": []
     },
     {
-        "id": "b2547435.97b5f",
+        "id": "6a1bd87f.1ce3b",
         "type": "e-mail",
-        "z": "ced3911c.f8024",
+        "z": "2d0ad0f0.d4004",
         "server": "smtp.sendgrid.net",
         "port": "465",
         "secure": true,
-        "name": "pistolilla58@hotmail.com",
+        "name": "polushon@gmail.com",
         "dname": "email",
         "x": 640,
-        "y": 90,
+        "y": 130,
         "wires": []
     },
     {
-        "id": "462b9f19.3e161",
+        "id": "3a4dab7e.76247c",
         "type": "http request",
-        "z": "ced3911c.f8024",
+        "z": "2d0ad0f0.d4004",
         "name": "eth a mxn",
         "method": "GET",
         "ret": "obj",
         "url": "https://api.bitso.com/v3/ticker/?book=eth_mxn",
         "tls": "",
         "x": 280,
-        "y": 160,
+        "y": 200,
         "wires": [
             [
-                "d4a9cd24.5f8908",
-                "ecdebfb7.729d"
+                "9e237ef4.302178",
+                "92ef3804.b5d418"
             ]
         ]
     },
     {
-        "id": "ecdebfb7.729d",
+        "id": "92ef3804.b5d418",
         "type": "switch",
-        "z": "ced3911c.f8024",
+        "z": "2d0ad0f0.d4004",
         "name": "eth < X",
         "property": "payload.payload.last",
         "propertyType": "msg",
@@ -137,45 +137,138 @@
         "checkall": "true",
         "outputs": 2,
         "x": 440,
-        "y": 160,
+        "y": 200,
         "wires": [
             [
-                "c0c17889.98fde8"
+                "97b50bab.809488"
             ],
             []
         ]
     },
     {
-        "id": "c0c17889.98fde8",
+        "id": "97b50bab.809488",
         "type": "function",
-        "z": "ced3911c.f8024",
+        "z": "2d0ad0f0.d4004",
         "name": "mensaje",
         "func": "var moneda = (msg.payload.payload.book).substring(0,3);\nvar valor = parseFloat(msg.payload.payload.last);\n\n// Mensaje\nmsg.from = \"Bot criptomoneda <no-reply@polushon.com>\"\nmsg.payload = \"Alerta \" + moneda + \": \" + valor + \" < \" + flow.get(moneda);\n\n// Cambiar alerta\nflow.set(moneda, valor);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 590,
-        "y": 140,
+        "y": 180,
         "wires": [
             [
-                "b2547435.97b5f"
+                "6a1bd87f.1ce3b"
             ]
         ]
     },
     {
-        "id": "2b757943.7635e6",
+        "id": "13b8f21b.ba3b4e",
         "type": "function",
-        "z": "ced3911c.f8024",
+        "z": "2d0ad0f0.d4004",
         "name": "flow vars",
-        "func": "// Leyendo por defecto\nvar btc = flow.get(\"btc\")||67000;\nvar eth = flow.get(\"eth\")||4700;\nmsg.payload = eth;\n// Grabando\nflow.set(\"btc\", btc);\nflow.set(\"eth\", eth);\nreturn msg;",
+        "func": "// Leyendo por defecto\nvar btc = flow.get(\"btc\")||300000;\nvar eth = flow.get(\"eth\")||14000;\nvar xrp = flow.get(\"xrp\")||9;\n\nmsg.payload = {'btc' : btc, 'eth' : eth, 'xrp' : xrp};\n\n// Grabando\nflow.set(\"btc\", btc);\nflow.set(\"eth\", eth);\nflow.set(\"xrp\", xrp);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 130,
-        "y": 140,
+        "y": 180,
         "wires": [
             [
-                "8742dbab.7ac3b8",
-                "462b9f19.3e161"
+                "b5dd9d36.05c9f",
+                "3a4dab7e.76247c",
+                "6af2ba4b.089034",
+                "4b2672a0.b2e67c"
             ]
         ]
+    },
+    {
+        "id": "6af2ba4b.089034",
+        "type": "http request",
+        "z": "2d0ad0f0.d4004",
+        "name": "xrp a mxn",
+        "method": "GET",
+        "ret": "obj",
+        "url": "https://api.bitso.com/v3/ticker/?book=xrp_mxn",
+        "tls": "",
+        "x": 280,
+        "y": 240,
+        "wires": [
+            [
+                "9e237ef4.302178",
+                "2ba74c29.d1286c"
+            ]
+        ]
+    },
+    {
+        "id": "2ba74c29.d1286c",
+        "type": "switch",
+        "z": "2d0ad0f0.d4004",
+        "name": "xrp < X",
+        "property": "payload.payload.last",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "xrp",
+                "vt": "flow"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 430,
+        "y": 240,
+        "wires": [
+            [
+                "97b50bab.809488"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "434f03ee.0e13dc",
+        "type": "function",
+        "z": "2d0ad0f0.d4004",
+        "name": "reset",
+        "func": "// Resetear valor (y después comentar)\nflow.set(\"btc\", 350000);\nflow.set(\"eth\", 16000);\nflow.set(\"xrp\", 15);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e77699bd.3030e",
+        "type": "inject",
+        "z": "2d0ad0f0.d4004",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 100,
+        "y": 300,
+        "wires": [
+            [
+                "434f03ee.0e13dc"
+            ]
+        ]
+    },
+    {
+        "id": "4b2672a0.b2e67c",
+        "type": "debug",
+        "z": "2d0ad0f0.d4004",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 361,
+        "y": 60,
+        "wires": []
     }
 ]
