@@ -1,0 +1,357 @@
+[
+    {
+        "id": "9004be43.44916",
+        "type": "http in",
+        "z": "6626dd2.b0c23a4",
+        "name": "/yeiii/",
+        "url": "/yeiii/:id",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 100,
+        "wires": [
+            [
+                "f65e8877.869c9"
+            ]
+        ]
+    },
+    {
+        "id": "f65e8877.869c9",
+        "type": "function",
+        "z": "6626dd2.b0c23a4",
+        "name": "SELECT",
+        "func": "msg.topic = `SELECT \n    *, rowid, \n    ROUND(JULIANDAY(CURRENT_TIMESTAMP) - JULIANDAY(date)) AS age\nFROM support \nWHERE rowid = ${msg.req.params.id}`;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 230,
+        "y": 100,
+        "wires": [
+            [
+                "85b5ddde.d4ed78"
+            ]
+        ]
+    },
+    {
+        "id": "85b5ddde.d4ed78",
+        "type": "sqlite",
+        "z": "6626dd2.b0c23a4",
+        "mydb": "5a285d2f.e8eaec",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "foo.db",
+        "x": 360,
+        "y": 100,
+        "wires": [
+            [
+                "acc8dd15.5c7218",
+                "28a3994b.ea2e26"
+            ]
+        ]
+    },
+    {
+        "id": "6436b9be.02e67",
+        "type": "template",
+        "z": "6626dd2.b0c23a4",
+        "name": "html format",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <head>\n        <title>Echo-support Details</title>\n        <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/journal/bootstrap.min.css\">\n        <link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.1.0/css/all.css\" integrity=\"sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt\" crossorigin=\"anonymous\">\n    </head>\n    <body>\n        \n        <nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\n          <div class=\"collapse navbar-collapse\" id=\"navbarColor02\">\n            <ul class=\"navbar-nav mr-auto\">\n              <li class=\"nav-item\">\n                <a class=\"nav-link\" href=\"#\">Home <span class=\"sr-only\">(current)</span></a>\n              </li>\n              <li class=\"nav-item\">\n                <a class=\"nav-link\" href=\"../table\">Tickets</a>\n              </li>\n              <li class=\"nav-item\">\n                <a class=\"nav-link\" href=\"#\">About</a>\n              </li>\n            </ul>\n            <form class=\"form-inline my-2 my-lg-0\">\n              <input class=\"form-control mr-sm-2\" placeholder=\"Search\" type=\"text\">\n              <button class=\"btn btn-secondary my-2 my-sm-0\" type=\"submit\">Search</button>\n            </form>\n          </div>\n        </nav>\n\n        <table class=\"table table-striped table-bordered table-hover\">\n            {{#payload}}\n            <tr>\n                <th scope=\"col\">Date</th>\n                <td>{{date}} ({{age}} days)</td>\n            </tr>\n            <tr>\n                <th scope=\"col\">Category</th>\n                <td>{{category}}</td>\n            </tr>\n            <tr>\n                <th scope=\"col\">Problem</th>\n                <td>{{details}}</td>\n            </tr>\n            <tr>\n                <th scope=\"col\">UtteranceId</th>\n                <td>{{utteranceId}}</td>\n            </tr>\n            <tr>\n                <th scope=\"col\">CustomerId</th>\n                <td>{{customerId}}</td>\n            </tr>\n            <tr>\n                <th scope=\"col\">DeviceId</th>\n                <td>{{deviceId}}</td>\n            </tr>\n            <tr>\n                <th scope=\"col\">stdout1</th>\n                <td>{{stdout1}}</td>\n            </tr>\n            <tr>\n                <th scope=\"col\">stdout2</th>\n                <td>{{stdout2}}</td>\n            </tr>\n            {{/payload}}\n        </table>\n    </body>\n</html>",
+        "output": "str",
+        "x": 450,
+        "y": 350,
+        "wires": [
+            [
+                "541ba633.c37cb"
+            ]
+        ]
+    },
+    {
+        "id": "65b70323.79dc7c",
+        "type": "http response",
+        "z": "6626dd2.b0c23a4",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 740,
+        "y": 310,
+        "wires": []
+    },
+    {
+        "id": "2747c4f6.48a194",
+        "type": "comment",
+        "z": "6626dd2.b0c23a4",
+        "name": "read from db and print",
+        "info": "",
+        "x": 140,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "4d8c5620.756da8",
+        "type": "debug",
+        "z": "6626dd2.b0c23a4",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 660,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "d1b1c124.491798",
+        "type": "catch",
+        "z": "6626dd2.b0c23a4",
+        "name": "",
+        "scope": null,
+        "x": 530,
+        "y": 60,
+        "wires": [
+            [
+                "4d8c5620.756da8"
+            ]
+        ]
+    },
+    {
+        "id": "f0620f61.da2bf",
+        "type": "join",
+        "z": "6626dd2.b0c23a4",
+        "name": "",
+        "mode": "custom",
+        "build": "merged",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "3",
+        "x": 620,
+        "y": 240,
+        "wires": [
+            [
+                "6436b9be.02e67",
+                "9451b5e8.439388"
+            ]
+        ]
+    },
+    {
+        "id": "ede9803c.80f42",
+        "type": "comment",
+        "z": "6626dd2.b0c23a4",
+        "name": "tool 1",
+        "info": "",
+        "x": 270,
+        "y": 170,
+        "wires": []
+    },
+    {
+        "id": "98185f1f.83b59",
+        "type": "function",
+        "z": "6626dd2.b0c23a4",
+        "name": "stdout2",
+        "func": "//// Creating result object\nmsg.payload = {\n    'stdout2' : msg.payload,\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 280,
+        "wires": [
+            [
+                "f0620f61.da2bf"
+            ]
+        ]
+    },
+    {
+        "id": "cd6cb3c5.694dd",
+        "type": "comment",
+        "z": "6626dd2.b0c23a4",
+        "name": "format output",
+        "info": "",
+        "x": 460,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c40ebb1a.86969",
+        "type": "comment",
+        "z": "6626dd2.b0c23a4",
+        "name": "tool 2",
+        "info": "",
+        "x": 270,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "9513681e.d4c56",
+        "type": "exec",
+        "z": "6626dd2.b0c23a4",
+        "command": "echo",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "10",
+        "oldrc": false,
+        "name": "cmd1",
+        "x": 270,
+        "y": 220,
+        "wires": [
+            [
+                "b3e0dd49.d30948"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "2655a324.7c740c",
+        "type": "exec",
+        "z": "6626dd2.b0c23a4",
+        "command": "echo hola",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "10",
+        "oldrc": false,
+        "name": "cmd2",
+        "x": 270,
+        "y": 330,
+        "wires": [
+            [
+                "98185f1f.83b59"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "acc8dd15.5c7218",
+        "type": "change",
+        "z": "6626dd2.b0c23a4",
+        "name": "utteranceId",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0].utteranceId",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 120,
+        "y": 180,
+        "wires": [
+            [
+                "9513681e.d4c56",
+                "2655a324.7c740c"
+            ]
+        ]
+    },
+    {
+        "id": "28a3994b.ea2e26",
+        "type": "change",
+        "z": "6626dd2.b0c23a4",
+        "name": "payload[0]",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 200,
+        "wires": [
+            [
+                "f0620f61.da2bf"
+            ]
+        ]
+    },
+    {
+        "id": "b3e0dd49.d30948",
+        "type": "change",
+        "z": "6626dd2.b0c23a4",
+        "name": "stdout1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.{\t    \"stdout1\": payload\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450,
+        "y": 240,
+        "wires": [
+            [
+                "f0620f61.da2bf"
+            ]
+        ]
+    },
+    {
+        "id": "9451b5e8.439388",
+        "type": "debug",
+        "z": "6626dd2.b0c23a4",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 720,
+        "y": 150,
+        "wires": []
+    },
+    {
+        "id": "541ba633.c37cb",
+        "type": "change",
+        "z": "6626dd2.b0c23a4",
+        "name": "html header",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers",
+                "pt": "msg",
+                "to": "{\"Content-Type\":\"text/html\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 350,
+        "wires": [
+            [
+                "65b70323.79dc7c"
+            ]
+        ]
+    },
+    {
+        "id": "5a285d2f.e8eaec",
+        "type": "sqlitedb",
+        "z": "",
+        "db": "/Users/levarela/leo/yeiii/foo.db"
+    }
+]

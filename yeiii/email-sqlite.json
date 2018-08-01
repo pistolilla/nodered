@@ -1,0 +1,172 @@
+[
+    {
+        "id": "85db69b2.d803",
+        "type": "debug",
+        "z": "cf8dbee7.747b7",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 340,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "dcc67876.f7fc4",
+        "type": "e-mail in",
+        "z": "cf8dbee7.747b7",
+        "name": "",
+        "protocol": "IMAP",
+        "server": "ballard.amazon.com",
+        "useSSL": true,
+        "port": "1993",
+        "box": "echo-support",
+        "disposition": "Read",
+        "repeat": "10",
+        "x": 80,
+        "y": 80,
+        "wires": [
+            [
+                "78c7b6c2.6f7d38"
+            ]
+        ]
+    },
+    {
+        "id": "79c3284f.9f6b6",
+        "type": "comment",
+        "z": "cf8dbee7.747b7",
+        "name": "read and parse incoming emails",
+        "info": "",
+        "x": 160,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "78c7b6c2.6f7d38",
+        "type": "function",
+        "z": "cf8dbee7.747b7",
+        "name": "parser",
+        "func": "//// Init variables\nvar body = \"\", \n    details = \"\",\n    deviceId = \"\",\n    customerId = \"\",\n    utteranceId = \"\";\n\n//// Reformatting\nmsg.topic = msg.topic.replace(/^.*Amazon Echo Feedback: +/, \"\");\nmsg.date = msg.date.toISOString().replace(/T/, \" \").replace(/\\.\\d+Z/, \"\");\n\n//// Reading body\n// Body is in plain-text\nif (msg.payload)\n    body = msg.payload;\n// Body is in html\nelse if (msg.html) {\n    //body = msg.html;\n}\nvar bodyArr = body.split(\"\\n\");\n\n// Reading rows\nfor (var i in bodyArr) {\n    // Parsing details\n    if (bodyArr[i].match(/ *details: [^ ]+/i)) {\n        details = bodyArr[i].replace(/ *details: +/i, \"\");\n        details = details.replace(/['“”\"]/g, \"\"); // Removing quotes\n    } else if (bodyArr[i].match(/ *device id: [^ ]+/i)) {\n        deviceId = bodyArr[i].replace(/ *device id: +/i, \"\");\n    } else if (bodyArr[i].match(/ *customer id: [^ ]+/i)) {\n        customerId = bodyArr[i].replace(/ *customer id:\\s+/i, \"\");\n    } else if (bodyArr[i].match(/ *utterance id: \\S+/i)) {\n        utteranceId = bodyArr[i].replace(/ *utterance id:\\s+/i, \"\");\n    } \n}\n\n//// Creating result object\nvar res = {\n    'date' : msg.date,\n    'category' : msg.topic,\n    'details': details,\n    'deviceId': deviceId,\n    'customerId': customerId,\n    'utteranceId': utteranceId,\n}\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 200,
+        "y": 80,
+        "wires": [
+            [
+                "85db69b2.d803",
+                "352e443.c154abc"
+            ]
+        ]
+    },
+    {
+        "id": "55701358.56545c",
+        "type": "sqlite",
+        "z": "cf8dbee7.747b7",
+        "mydb": "5a285d2f.e8eaec",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "foo.db",
+        "x": 440,
+        "y": 170,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b0625fa6.724588",
+        "type": "function",
+        "z": "cf8dbee7.747b7",
+        "name": "INSERT",
+        "func": "// SQL Query\nmsg.topic = `INSERT OR IGNORE INTO support (\n    date,\n    category,\n    deviceId,\n    customerId,\n    utteranceId,\n    details\n) VALUES (\n    '${msg.date}',\n    '${msg.category}',\n    '${msg.deviceId}',\n    '${msg.customerId}',\n    '${msg.utteranceId}',\n    '${msg.details}'\n)`;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 170,
+        "wires": [
+            [
+                "55701358.56545c"
+            ]
+        ]
+    },
+    {
+        "id": "f68d337e.b594e8",
+        "type": "catch",
+        "z": "cf8dbee7.747b7",
+        "name": "",
+        "scope": null,
+        "x": 500,
+        "y": 40,
+        "wires": [
+            [
+                "a99c2e0.ee059d"
+            ]
+        ]
+    },
+    {
+        "id": "a99c2e0.ee059d",
+        "type": "debug",
+        "z": "cf8dbee7.747b7",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 660,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "352e443.c154abc",
+        "type": "switch",
+        "z": "cf8dbee7.747b7",
+        "name": "deviceId not null",
+        "property": "deviceId",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": ".+",
+                "vt": "str",
+                "case": false
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 110,
+        "y": 170,
+        "wires": [
+            [
+                "b0625fa6.724588"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c3be826d.71d678",
+        "type": "comment",
+        "z": "cf8dbee7.747b7",
+        "name": "discard if deviceId null",
+        "info": "",
+        "x": 130,
+        "y": 130,
+        "wires": []
+    },
+    {
+        "id": "51a27b77.906604",
+        "type": "comment",
+        "z": "cf8dbee7.747b7",
+        "name": "Table info",
+        "info": "CREATE TABLE support (\n    date DATETIME NOT NULL,\n    category TEXT,\n    deviceId TEXT NOT NULL,\n    customerId TEXT,\n    utteranceId TEXT,\n    details TEXT,\n    hidden INTEGER NOT NULL DEFAULT (0),\nUNIQUE (date, category) ON CONFLICT IGNORE)",
+        "x": 450,
+        "y": 130,
+        "wires": []
+    },
+    {
+        "id": "5a285d2f.e8eaec",
+        "type": "sqlitedb",
+        "z": "",
+        "db": "/Users/levarela/leo/yeiii/foo.db"
+    }
+]

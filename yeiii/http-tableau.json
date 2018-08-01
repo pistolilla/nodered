@@ -1,0 +1,246 @@
+[
+    {
+        "id": "5adf656f.03e6ec",
+        "type": "sqlite",
+        "z": "d13b9683.65d698",
+        "mydb": "5a285d2f.e8eaec",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "foo.db",
+        "x": 290,
+        "y": 140,
+        "wires": [
+            [
+                "48b75059.690df8"
+            ]
+        ]
+    },
+    {
+        "id": "1ca524cf.ce217b",
+        "type": "catch",
+        "z": "d13b9683.65d698",
+        "name": "",
+        "scope": null,
+        "x": 500,
+        "y": 40,
+        "wires": [
+            [
+                "7b9fe261.59f69c"
+            ]
+        ]
+    },
+    {
+        "id": "7b9fe261.59f69c",
+        "type": "debug",
+        "z": "d13b9683.65d698",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 650,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "1d385c50.b662fc",
+        "type": "http in",
+        "z": "d13b9683.65d698",
+        "name": "/table",
+        "url": "/table",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 130,
+        "wires": [
+            [
+                "671aee48.9262b8"
+            ]
+        ]
+    },
+    {
+        "id": "671aee48.9262b8",
+        "type": "function",
+        "z": "d13b9683.65d698",
+        "name": "SELECT",
+        "func": "msg.topic = `SELECT \n    RANDOM()/9223372036854775807.0 AS rndm1,\n    RANDOM()/9223372036854775807.0 AS rndm2,\n    *, rowid, \n    ROUND(JULIANDAY(CURRENT_TIMESTAMP) - JULIANDAY(date)) AS age\nFROM support \nWHERE \n    hidden = 0\n    AND category LIKE '%weather%'\nORDER BY date DESC;`;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 210,
+        "y": 90,
+        "wires": [
+            [
+                "5adf656f.03e6ec"
+            ]
+        ]
+    },
+    {
+        "id": "b38fe89c.71f07",
+        "type": "http response",
+        "z": "d13b9683.65d698",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 720,
+        "y": 230,
+        "wires": []
+    },
+    {
+        "id": "dca75191.903d4",
+        "type": "template",
+        "z": "d13b9683.65d698",
+        "name": "html format",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <head>\n        <title>Echo-support Table</title>\n        <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/journal/bootstrap.min.css\">\n        <link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.1.0/css/all.css\" integrity=\"sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt\" crossorigin=\"anonymous\">\n    </head>\n    <body>\n        \n    <nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\n      <div class=\"collapse navbar-collapse\" id=\"navbarColor02\">\n        <ul class=\"navbar-nav mr-auto\">\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" href=\"#\">Home <span class=\"sr-only\">(current)</span></a>\n          </li>\n          <li class=\"nav-item active\">\n            <a class=\"nav-link\" href=\"../table\">Tickets</a>\n          </li>\n          <li class=\"nav-item\">\n            <a class=\"nav-link\" href=\"#\">About</a>\n          </li>\n        </ul>\n        <form class=\"form-inline my-2 my-lg-0\">\n          <input class=\"form-control mr-sm-2\" placeholder=\"Search\" type=\"text\">\n          <button class=\"btn btn-secondary my-2 my-sm-0\" type=\"submit\">Search</button>\n        </form>\n      </div>\n    </nav>\n        \n        <table class=\"table table-striped table-bordered table-hover\">\n            <tr>\n                <th><i class=\"fas fa-check-circle\"></i></th>\n                <th>Age</th>\n                <th>Problem</th>\n                <th>CustomerId / DeviceId</th>\n                <th>UtteranceId</th>\n                <th>Yeiii</th>\n            </tr>\n            \n            {{#payload}}\n            <tr>\n                <td><a href=\"../delete/{{rowid}}\"><i class=\"fas fa-check-circle\"></i></a></td>\n                <td>{{age}}</td>\n                <td>{{details}}</td>\n                <td>{{customerId}}<br/>{{deviceId}}</td>\n                <td>\n                    {{#utteranceId}}\n                    <a class=\"btn btn-block btn-sm btn-info\" target=\"_blank\" href=\"https://deeopsdashboard.amazon.com/utterances/details?utterance_id={{utteranceId}}\">DeeOps</a>\n                    <a class=\"btn btn-block btn-sm btn-success\" target=\"_blank\" href=\"https://atochadp.amazon.com/alexa/basicSearch?_operation=basicSearch20&_search={{utteranceId}}\">Atocha</a>\n                    {{/utteranceId}}\n                </td>\n                <td>\n                    {{#utteranceId}}\n                    <a class=\"btn btn-block btn-sm btn-danger\" href=\"../yeiii/{{rowid}}\">Yeiii</a>\n                    {{/utteranceId}}\n                </td>\n            </tr>\n            {{/payload}}\n        </table>\n    </body>\n</html>",
+        "output": "str",
+        "x": 550,
+        "y": 170,
+        "wires": [
+            [
+                "1bbd8950.163087"
+            ]
+        ]
+    },
+    {
+        "id": "dd6c5bca.c48948",
+        "type": "comment",
+        "z": "d13b9683.65d698",
+        "name": "read from db and print",
+        "info": "",
+        "x": 130,
+        "y": 50,
+        "wires": []
+    },
+    {
+        "id": "1bbd8950.163087",
+        "type": "function",
+        "z": "d13b9683.65d698",
+        "name": "html header",
+        "func": "// For HTML use the content type line below:\nmsg.headers={\"Content-Type\":\"text/html\"}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 170,
+        "wires": [
+            [
+                "b38fe89c.71f07"
+            ]
+        ]
+    },
+    {
+        "id": "48b75059.690df8",
+        "type": "switch",
+        "z": "d13b9683.65d698",
+        "name": "",
+        "property": "req.url",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "json",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 410,
+        "y": 140,
+        "wires": [
+            [
+                "bf6f9c70.c8c0a8"
+            ],
+            [
+                "dca75191.903d4"
+            ]
+        ]
+    },
+    {
+        "id": "fea53b9a.99e6d8",
+        "type": "http in",
+        "z": "d13b9683.65d698",
+        "name": "/json",
+        "url": "/json",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 90,
+        "wires": [
+            [
+                "671aee48.9262b8"
+            ]
+        ]
+    },
+    {
+        "id": "bf6f9c70.c8c0a8",
+        "type": "function",
+        "z": "d13b9683.65d698",
+        "name": "json header",
+        "func": "// If sending JSON data the content type is:\nmsg.headers={\"Content-Type\":\"application/json\"}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 130,
+        "wires": [
+            [
+                "b38fe89c.71f07"
+            ]
+        ]
+    },
+    {
+        "id": "4839bb1.58859c4",
+        "type": "comment",
+        "z": "d13b9683.65d698",
+        "name": "format outputs",
+        "info": "",
+        "x": 440,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "d5d7718c.88b2e",
+        "type": "http in",
+        "z": "d13b9683.65d698",
+        "name": "/delete/",
+        "url": "/delete/:id",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 200,
+        "wires": [
+            [
+                "671aee48.9262b8",
+                "941b8e25.eec658"
+            ]
+        ]
+    },
+    {
+        "id": "941b8e25.eec658",
+        "type": "function",
+        "z": "d13b9683.65d698",
+        "name": "UPDATE",
+        "func": "msg.topic = `UPDATE support SET hidden = 1 WHERE rowid = ${msg.req.params.id};`;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "5adf656f.03e6ec"
+            ]
+        ]
+    },
+    {
+        "id": "5a285d2f.e8eaec",
+        "type": "sqlitedb",
+        "z": "",
+        "db": "/Users/levarela/leo/yeiii/foo.db"
+    }
+]

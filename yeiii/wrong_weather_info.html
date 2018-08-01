@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Echo-support WDC for Tableau</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://connectors.tableau.com/libs/tableauwdc-2.3.latest.js" type="text/javascript"></script>
+    <script>
+        (function () {
+            // Create the connector object
+            var myConnector = tableau.makeConnector();
+
+            // Define the schema
+            myConnector.getSchema = function (schemaCallback) {
+                var cols = [{
+                    id: "id",
+                    dataType: tableau.dataTypeEnum.string
+                }, {
+                    id: "age",
+                    alias: "Age",
+                    dataType: tableau.dataTypeEnum.int
+                }, {
+                    id: "rndm1",
+                    alias: "Random1",
+                    dataType: tableau.dataTypeEnum.float
+                }, {
+                    id: "rndm2",
+                    alias: "Random2",
+                    dataType: tableau.dataTypeEnum.float
+                }, {
+                    id: "date",
+                    alias: "Date",
+                    dataType: tableau.dataTypeEnum.datetime
+                }, {
+                    id: "details",
+                    alias: "Details",
+                    dataType: tableau.dataTypeEnum.string
+                }];
+
+                var tableSchema = {
+                    id: "wrong_weather_info",
+                    alias: "Echo Feedback",
+                    columns: cols
+                };
+
+                schemaCallback([tableSchema]);
+            };
+
+            // Download the data
+            myConnector.getData = function (table, doneCallback) {
+                $.getJSON("http://localhost:1880/json", function (resp) {
+                    var feat = resp,
+                        tableData = [];
+
+                    // Iterate over the JSON object
+                    for (var i = 0, len = feat.length; i < len; i++) {
+                        tableData.push({
+                            "id": feat[i].rowid,
+                            "age": feat[i].age,
+                            "rndm1": feat[i].rndm1,
+                            "rndm2": feat[i].rndm2,
+                            "details": feat[i].details,
+                            "date": feat[i].date,
+                        });
+                    }
+
+                    table.appendRows(tableData);
+                    doneCallback();
+                });
+            };
+
+            tableau.registerConnector(myConnector);
+
+            // Create event listeners for when the user submits the form
+            $(document).ready(function () {
+                $("#submitButton").click(function () {
+                    tableau.connectionName = "Echo Support Connection"; // This will be the data source name in Tableau
+                    tableau.submit(); // This sends the connector object to Tableau
+                });
+            });
+        })();
+    </script>
+</head>
+
+<body>
+    <button type="button" id="submitButton">Hello world</button>
+</body>
+
+</html>
