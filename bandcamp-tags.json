@@ -1,0 +1,145 @@
+[
+    {
+        "id": "5734163f.7a7458",
+        "type": "link in",
+        "z": "f7bedccb.0c56f",
+        "name": "tags-in",
+        "links": [
+            "356c3f3c.2b49d"
+        ],
+        "x": 35,
+        "y": 100,
+        "wires": [
+            [
+                "23981b54.11294c"
+            ]
+        ]
+    },
+    {
+        "id": "f3ae3a0b.f7156",
+        "type": "debug",
+        "z": "f7bedccb.0c56f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 730,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e5d1b8ad.2d0f58",
+        "type": "catch",
+        "z": "f7bedccb.0c56f",
+        "name": "",
+        "scope": null,
+        "x": 600,
+        "y": 40,
+        "wires": [
+            [
+                "fabb51ba.f7e5a"
+            ]
+        ]
+    },
+    {
+        "id": "fabb51ba.f7e5a",
+        "type": "debug",
+        "z": "f7bedccb.0c56f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 730,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "bfbbc110.4c8e8",
+        "type": "http request",
+        "z": "f7bedccb.0c56f",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "",
+        "tls": "",
+        "proxy": "",
+        "authType": "basic",
+        "x": 610,
+        "y": 220,
+        "wires": [
+            [
+                "c40242c5.9f0dd"
+            ]
+        ]
+    },
+    {
+        "id": "23981b54.11294c",
+        "type": "function",
+        "z": "f7bedccb.0c56f",
+        "name": "url params",
+        "func": "// normalizing url\nvar url = msg.payload.url.replace(/^(https?:)?\\/\\//i, \"https://\");\n\nreturn { url: url };",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 450,
+        "y": 220,
+        "wires": [
+            [
+                "bfbbc110.4c8e8"
+            ]
+        ]
+    },
+    {
+        "id": "70c5dadd.57d2e4",
+        "type": "comment",
+        "z": "f7bedccb.0c56f",
+        "name": "read and parse html",
+        "info": "",
+        "x": 470,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c40242c5.9f0dd",
+        "type": "html",
+        "z": "f7bedccb.0c56f",
+        "name": "a class=\"tag\"",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "a.tag",
+        "ret": "text",
+        "as": "multi",
+        "x": 530,
+        "y": 320,
+        "wires": [
+            [
+                "f3ae3a0b.f7156"
+            ]
+        ]
+    },
+    {
+        "id": "63828fb1.7356b8",
+        "type": "comment",
+        "z": "f7bedccb.0c56f",
+        "name": "css select",
+        "info": "",
+        "x": 520,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "38285907.dedd4e",
+        "type": "comment",
+        "z": "f7bedccb.0c56f",
+        "name": "check if already scraped",
+        "info": "",
+        "x": 170,
+        "y": 60,
+        "wires": []
+    }
+]
