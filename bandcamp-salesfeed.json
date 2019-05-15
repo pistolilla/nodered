@@ -1,8 +1,8 @@
 [
     {
-        "id": "26e67012.c3722",
+        "id": "6cef5757.a0d538",
         "type": "inject",
-        "z": "ed3ee37e.01285",
+        "z": "20d79de8.cb11ea",
         "name": "",
         "topic": "",
         "payload": "",
@@ -15,14 +15,14 @@
         "y": 180,
         "wires": [
             [
-                "454beaa7.472e14"
+                "e66dc272.328fe"
             ]
         ]
     },
     {
-        "id": "a5bb5649.9827f8",
+        "id": "fe1103cd.88fde",
         "type": "http request",
-        "z": "ed3ee37e.01285",
+        "z": "20d79de8.cb11ea",
         "name": "",
         "method": "GET",
         "ret": "obj",
@@ -32,14 +32,14 @@
         "y": 180,
         "wires": [
             [
-                "ff7200c5.df708"
+                "1b4f4b17.17f155"
             ]
         ]
     },
     {
-        "id": "454beaa7.472e14",
+        "id": "e66dc272.328fe",
         "type": "function",
-        "z": "ed3ee37e.01285",
+        "z": "20d79de8.cb11ea",
         "name": "url params",
         "func": "// from last time\nif (flow.get(\"start\") !== undefined) {\n    url = \"https://bandcamp.com/api/salesfeed/1/get?start_date=\" + flow.get(\"start\");\n    return { url: url, flow_start: flow.get(\"start\") };\n}\n// first time\nreturn { url: \"https://bandcamp.com/api/salesfeed/1/get_initial\" };",
         "outputs": 1,
@@ -48,28 +48,28 @@
         "y": 180,
         "wires": [
             [
-                "a5bb5649.9827f8"
+                "fe1103cd.88fde"
             ]
         ]
     },
     {
-        "id": "1e7edbec.e2b5a4",
+        "id": "311a41cd.46e92e",
         "type": "catch",
-        "z": "ed3ee37e.01285",
+        "z": "20d79de8.cb11ea",
         "name": "",
         "scope": null,
         "x": 540,
         "y": 40,
         "wires": [
             [
-                "87a4ec3e.4c6ac"
+                "8dbec2b7.66fde8"
             ]
         ]
     },
     {
-        "id": "87a4ec3e.4c6ac",
+        "id": "8dbec2b7.66fde8",
         "type": "debug",
-        "z": "ed3ee37e.01285",
+        "z": "20d79de8.cb11ea",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -81,9 +81,9 @@
         "wires": []
     },
     {
-        "id": "77c135d3.d9a044",
+        "id": "433f86a9.abffb",
         "type": "function",
-        "z": "ed3ee37e.01285",
+        "z": "20d79de8.cb11ea",
         "name": "reset",
         "func": "flow.set(\"start\", undefined);\nreturn { payload: flow.get(\"start\") };",
         "outputs": 1,
@@ -95,9 +95,9 @@
         ]
     },
     {
-        "id": "f737df15.c09648",
+        "id": "e0e5ae39.394b2",
         "type": "inject",
-        "z": "ed3ee37e.01285",
+        "z": "20d79de8.cb11ea",
         "name": "",
         "topic": "",
         "payload": "",
@@ -110,28 +110,29 @@
         "y": 80,
         "wires": [
             [
-                "77c135d3.d9a044"
+                "433f86a9.abffb"
             ]
         ]
     },
     {
-        "id": "5039aad4.c02664",
+        "id": "5215f949.21d1c8",
         "type": "debug",
-        "z": "ed3ee37e.01285",
+        "z": "20d79de8.cb11ea",
         "name": "",
         "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "payload",
-        "x": 770,
-        "y": 240,
+        "complete": "true",
+        "targetType": "full",
+        "x": 650,
+        "y": 360,
         "wires": []
     },
     {
-        "id": "ff7200c5.df708",
+        "id": "1b4f4b17.17f155",
         "type": "change",
-        "z": "ed3ee37e.01285",
+        "z": "20d79de8.cb11ea",
         "name": "missing vars",
         "rules": [
             {
@@ -158,14 +159,14 @@
         "y": 180,
         "wires": [
             [
-                "8851773d.b87968"
+                "da02aeff.f1346"
             ]
         ]
     },
     {
-        "id": "12e31190.7c5726",
+        "id": "6b524abd.71eb84",
         "type": "switch",
-        "z": "ed3ee37e.01285",
+        "z": "20d79de8.cb11ea",
         "name": "has results?",
         "property": "payload.events",
         "propertyType": "msg",
@@ -180,19 +181,19 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 410,
-        "y": 220,
+        "x": 290,
+        "y": 260,
         "wires": [
             [
-                "e65451ac.4bc7e8"
+                "904cc0bf.89ece"
             ],
             []
         ]
     },
     {
-        "id": "8851773d.b87968",
+        "id": "da02aeff.f1346",
         "type": "function",
-        "z": "ed3ee37e.01285",
+        "z": "20d79de8.cb11ea",
         "name": "checkpoint",
         "func": "// refreshing start\nflow.set(\"start\", msg.payload.end_date);\nreturn msg;",
         "outputs": 1,
@@ -201,15 +202,15 @@
         "y": 220,
         "wires": [
             [
-                "12e31190.7c5726"
+                "6b524abd.71eb84"
             ]
         ]
     },
     {
-        "id": "e65451ac.4bc7e8",
+        "id": "904cc0bf.89ece",
         "type": "change",
-        "z": "ed3ee37e.01285",
-        "name": "items",
+        "z": "20d79de8.cb11ea",
+        "name": "extract info",
         "rules": [
             {
                 "t": "set",
@@ -224,29 +225,30 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 590,
-        "y": 220,
+        "x": 450,
+        "y": 260,
         "wires": [
             [
-                "5039aad4.c02664",
-                "78f086a0.79eab8"
+                "bed1c570.258448"
             ]
         ]
     },
     {
-        "id": "78f086a0.79eab8",
+        "id": "356c3f3c.2b49d",
         "type": "link out",
-        "z": "ed3ee37e.01285",
-        "name": "",
-        "links": [],
-        "x": 715,
-        "y": 200,
+        "z": "20d79de8.cb11ea",
+        "name": "salesfeed-out",
+        "links": [
+            "5734163f.7a7458"
+        ],
+        "x": 615,
+        "y": 400,
         "wires": []
     },
     {
-        "id": "b343da5e.1e98e8",
+        "id": "43163d8b.8d5c7c",
         "type": "comment",
-        "z": "ed3ee37e.01285",
+        "z": "20d79de8.cb11ea",
         "name": "read from api/salesfeed",
         "info": "",
         "x": 120,
@@ -254,13 +256,73 @@
         "wires": []
     },
     {
-        "id": "6ce3ee68.ca3fc",
+        "id": "b0bf7341.4ea1d8",
         "type": "comment",
-        "z": "ed3ee37e.01285",
+        "z": "20d79de8.cb11ea",
         "name": "reset saved checkpoint",
         "info": "",
         "x": 120,
         "y": 40,
         "wires": []
+    },
+    {
+        "id": "bed1c570.258448",
+        "type": "split",
+        "z": "20d79de8.cb11ea",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 350,
+        "y": 320,
+        "wires": [
+            [
+                "824a4603.ed4798"
+            ]
+        ]
+    },
+    {
+        "id": "e59fbae3.001408",
+        "type": "comment",
+        "z": "20d79de8.cb11ea",
+        "name": "stream only albums",
+        "info": "",
+        "x": 530,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "824a4603.ed4798",
+        "type": "switch",
+        "z": "20d79de8.cb11ea",
+        "name": "loose track?",
+        "property": "payload.url",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "bandcamp.com/track",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 510,
+        "y": 360,
+        "wires": [
+            [
+                "5215f949.21d1c8"
+            ],
+            [
+                "356c3f3c.2b49d"
+            ]
+        ]
     }
 ]
