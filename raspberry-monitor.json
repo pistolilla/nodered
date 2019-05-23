@@ -1,0 +1,205 @@
+[
+    {
+        "id": "e462b651.643728",
+        "type": "join",
+        "z": "eb7719e7.1488e8",
+        "name": "join as array",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "4",
+        "x": 450,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "66b3f401.ff85dc",
+        "type": "debug",
+        "z": "eb7719e7.1488e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 710,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "e5e14ec1.9d824",
+        "type": "join",
+        "z": "eb7719e7.1488e8",
+        "name": "join as object",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "5",
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "66b3f401.ff85dc"
+            ]
+        ]
+    },
+    {
+        "id": "b7bdb425.bd1c78",
+        "type": "comment",
+        "z": "eb7719e7.1488e8",
+        "name": "Polling measurements",
+        "info": "",
+        "x": 140,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "7c7d20c2.117a5",
+        "type": "cpu",
+        "z": "eb7719e7.1488e8",
+        "name": "",
+        "x": 270,
+        "y": 120,
+        "wires": [
+            [
+                "e462b651.643728",
+                "e5e14ec1.9d824"
+            ]
+        ]
+    },
+    {
+        "id": "bf2b032b.d994c",
+        "type": "inject",
+        "z": "eb7719e7.1488e8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "9f1c0d25.82d63"
+            ]
+        ]
+    },
+    {
+        "id": "9f1c0d25.82d63",
+        "type": "function",
+        "z": "eb7719e7.1488e8",
+        "name": "bypass",
+        "func": "var bypass = global.get(\"monitor\")||false;\nif (bypass)\n    return msg;\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 100,
+        "y": 120,
+        "wires": [
+            [
+                "7c7d20c2.117a5",
+                "5455b733.4a4268"
+            ]
+        ]
+    },
+    {
+        "id": "e7db00a8.9a9d5",
+        "type": "debug",
+        "z": "eb7719e7.1488e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 630,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "a0fcfa85.383c08",
+        "type": "catch",
+        "z": "eb7719e7.1488e8",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 480,
+        "y": 40,
+        "wires": [
+            [
+                "e7db00a8.9a9d5"
+            ]
+        ]
+    },
+    {
+        "id": "5455b733.4a4268",
+        "type": "exec",
+        "z": "eb7719e7.1488e8",
+        "command": "vcgencmd",
+        "addpay": false,
+        "append": "measure_temp",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "cpu temp",
+        "x": 260,
+        "y": 220,
+        "wires": [
+            [
+                "9716c8e6.e69fc8"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "9716c8e6.e69fc8",
+        "type": "function",
+        "z": "eb7719e7.1488e8",
+        "name": "parse",
+        "func": "var temp = msg.payload.replace(\"temp=\", \"\").replace(\"'C\\n\", \"\");\nmsg.payload = {'d': {'temperature': parseFloat(temp)}}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 430,
+        "y": 220,
+        "wires": [
+            [
+                "1aabdc87.575c93"
+            ]
+        ]
+    },
+    {
+        "id": "1aabdc87.575c93",
+        "type": "function",
+        "z": "eb7719e7.1488e8",
+        "name": "deviceId",
+        "func": "msg.input = { 'payload': {\n    'deviceId': 'raspberrypi01',\n    'deviceType': 'raspberryPi',}};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 220,
+        "wires": [
+            [
+                "66b3f401.ff85dc"
+            ]
+        ]
+    }
+]

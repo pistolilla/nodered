@@ -1,0 +1,194 @@
+[
+    {
+        "id": "b67a19af.404348",
+        "type": "e-mail",
+        "z": "857c8af.de86178",
+        "server": "smtp.sendgrid.net",
+        "port": "465",
+        "secure": true,
+        "tls": false,
+        "name": "polushon@gmail.com",
+        "dname": "email",
+        "x": 430,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "a3bc1614.c43748",
+        "type": "function",
+        "z": "857c8af.de86178",
+        "name": "mensaje",
+        "func": "// Reading IP\nvar str = msg.payload;\n// Removing line breaks\nstr = str.replace(/\\n/gi, \" \");\n// Extracting IP address\nstr = str.replace(/.*inet (\\d+\\.\\d+\\.\\d+\\.\\d+).+?global.*/i, \"$1\");\n\n// Mensaje\nmsg.from = \"Raspberry-bot <no-reply@polushon.com>\"\nmsg.topic = \"ip: \" + str;\nmsg.payload = \"My IP address is http://\" + str + \":1880 This is an automatic message\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 100,
+        "wires": [
+            [
+                "b67a19af.404348"
+            ]
+        ]
+    },
+    {
+        "id": "e960d676.a464d8",
+        "type": "inject",
+        "z": "857c8af.de86178",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 90,
+        "y": 80,
+        "wires": [
+            [
+                "b040fe33.8f15c"
+            ]
+        ]
+    },
+    {
+        "id": "b040fe33.8f15c",
+        "type": "exec",
+        "z": "857c8af.de86178",
+        "command": "ip",
+        "addpay": false,
+        "append": "address",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "ip address",
+        "x": 230,
+        "y": 100,
+        "wires": [
+            [
+                "a3bc1614.c43748"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "932446be.5ae1e8",
+        "type": "alexa-home",
+        "z": "857c8af.de86178",
+        "conf": "2224a77d.bf8488",
+        "device": "59953",
+        "acknoledge": true,
+        "name": "address",
+        "topic": "",
+        "x": 80,
+        "y": 120,
+        "wires": [
+            [
+                "b040fe33.8f15c"
+            ]
+        ]
+    },
+    {
+        "id": "316c91c6.a72d7e",
+        "type": "comment",
+        "z": "857c8af.de86178",
+        "name": "\"Alexa, turn on/off process\"",
+        "info": "",
+        "x": 140,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "1940e1d0.22cb2e",
+        "type": "alexa-home",
+        "z": "857c8af.de86178",
+        "conf": "2224a77d.bf8488",
+        "device": "59954",
+        "acknoledge": true,
+        "name": "monitor",
+        "topic": "",
+        "x": 70,
+        "y": 240,
+        "wires": [
+            [
+                "39797cb5.d772c4"
+            ]
+        ]
+    },
+    {
+        "id": "61315211.75868c",
+        "type": "alexa-home",
+        "z": "857c8af.de86178",
+        "conf": "2224a77d.bf8488",
+        "device": "59955",
+        "acknoledge": true,
+        "name": "search camp",
+        "topic": "",
+        "x": 90,
+        "y": 280,
+        "wires": [
+            [
+                "39797cb5.d772c4"
+            ]
+        ]
+    },
+    {
+        "id": "63462478.81da7c",
+        "type": "debug",
+        "z": "857c8af.de86178",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 630,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "39797cb5.d772c4",
+        "type": "function",
+        "z": "857c8af.de86178",
+        "name": "global vars",
+        "func": "// Updating global value\nvar name = msg.name.replace(\" \", \"\")\nglobal.set(name, msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9e2db62b.86a5e8",
+        "type": "comment",
+        "z": "857c8af.de86178",
+        "name": "\"Alexa, turn on address\" to send email with IP",
+        "info": "",
+        "x": 190,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "3f7619f6.1091c6",
+        "type": "catch",
+        "z": "857c8af.de86178",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 480,
+        "y": 40,
+        "wires": [
+            [
+                "63462478.81da7c"
+            ]
+        ]
+    },
+    {
+        "id": "2224a77d.bf8488",
+        "type": "alexa-home-conf",
+        "z": "",
+        "username": "pistolilla"
+    }
+]
