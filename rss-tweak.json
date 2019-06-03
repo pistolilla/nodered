@@ -1,0 +1,178 @@
+[
+    {
+        "id": "79b65377.d9aa7c",
+        "type": "xml",
+        "z": "5fca565a.918be",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 230,
+        "y": 180,
+        "wires": [
+            [
+                "42367424.d70eec"
+            ]
+        ]
+    },
+    {
+        "id": "639871e4.f55df8",
+        "type": "http request",
+        "z": "5fca565a.918be",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "http://exystence.net/feed",
+        "tls": "",
+        "x": 250,
+        "y": 80,
+        "wires": [
+            [
+                "79b65377.d9aa7c"
+            ]
+        ]
+    },
+    {
+        "id": "42367424.d70eec",
+        "type": "change",
+        "z": "5fca565a.918be",
+        "name": "description",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.rss.channel[0].item",
+                "pt": "msg",
+                "to": "payload.rss.channel[0].item[].\t{\t    \"title\":title[0],\t    \"link\": link[0],\t    \"pubDate\" : pubDate[0],    \t    \"description\": $join(category, \", \")\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "348f01cb.d817de"
+            ]
+        ]
+    },
+    {
+        "id": "348f01cb.d817de",
+        "type": "xml",
+        "z": "5fca565a.918be",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "25a7b532.0c874a"
+            ]
+        ]
+    },
+    {
+        "id": "d1b68e2.80b54f",
+        "type": "http in",
+        "z": "5fca565a.918be",
+        "name": "/exystence",
+        "url": "/exystence",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 100,
+        "y": 80,
+        "wires": [
+            [
+                "639871e4.f55df8"
+            ]
+        ]
+    },
+    {
+        "id": "2ff531c9.b30336",
+        "type": "http response",
+        "z": "5fca565a.918be",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 690,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "f5b213c1.39ab4",
+        "type": "comment",
+        "z": "5fca565a.918be",
+        "name": "end-points",
+        "info": "",
+        "x": 100,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "d5162dc4.4e0918",
+        "type": "comment",
+        "z": "5fca565a.918be",
+        "name": "category as description",
+        "info": "",
+        "x": 400,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "b4a33e05.32c97",
+        "type": "comment",
+        "z": "5fca565a.918be",
+        "name": "Response",
+        "info": "",
+        "x": 440,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "fa12e64a.fafbd",
+        "type": "debug",
+        "z": "5fca565a.918be",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 720,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "25a7b532.0c874a",
+        "type": "change",
+        "z": "5fca565a.918be",
+        "name": "Headers",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers.Content-Type",
+                "pt": "msg",
+                "to": "application/rss+xml",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 260,
+        "wires": [
+            [
+                "fa12e64a.fafbd",
+                "2ff531c9.b30336"
+            ]
+        ]
+    }
+]

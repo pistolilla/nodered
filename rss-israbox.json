@@ -1,0 +1,422 @@
+[
+    {
+        "id": "5c782b8d.02ec24",
+        "type": "http in",
+        "z": "64d08e68.d5feb",
+        "name": "/israbox",
+        "url": "/israbox",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 70,
+        "y": 80,
+        "wires": [
+            [
+                "8f8c52f0.159758"
+            ]
+        ]
+    },
+    {
+        "id": "33234add.74e4e6",
+        "type": "comment",
+        "z": "64d08e68.d5feb",
+        "name": "end-point",
+        "info": "",
+        "x": 80,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "8f8c52f0.159758",
+        "type": "http request",
+        "z": "64d08e68.d5feb",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "https://www.isrbx.net/",
+        "tls": "",
+        "x": 210,
+        "y": 80,
+        "wires": [
+            [
+                "ebc7ba1.c44d748"
+            ]
+        ]
+    },
+    {
+        "id": "ebc7ba1.c44d748",
+        "type": "html",
+        "z": "64d08e68.d5feb",
+        "name": "div",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "div[class=\"story\"]",
+        "ret": "html",
+        "as": "multi",
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [
+                "de3f05cf.e61a88"
+            ]
+        ]
+    },
+    {
+        "id": "f753b5ab.c15f6",
+        "type": "html",
+        "z": "64d08e68.d5feb",
+        "name": "title",
+        "property": "payload",
+        "outproperty": "item.title",
+        "tag": "h2[itemprop=\"name\"] a",
+        "ret": "html",
+        "as": "multi",
+        "x": 90,
+        "y": 240,
+        "wires": [
+            [
+                "9e167ef.00ebd"
+            ]
+        ]
+    },
+    {
+        "id": "18f41687.2115c1",
+        "type": "debug",
+        "z": "64d08e68.d5feb",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 590,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "9e167ef.00ebd",
+        "type": "html",
+        "z": "64d08e68.d5feb",
+        "name": "description",
+        "property": "payload",
+        "outproperty": "item.description",
+        "tag": "span[itemprop=\"genre\"]",
+        "ret": "text",
+        "as": "multi",
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "a205b16a.312848"
+            ]
+        ]
+    },
+    {
+        "id": "a205b16a.312848",
+        "type": "html",
+        "z": "64d08e68.d5feb",
+        "name": "link",
+        "property": "payload",
+        "outproperty": "item.link",
+        "tag": "h2[itemprop=\"name\"] a",
+        "ret": "attr",
+        "as": "multi",
+        "x": 90,
+        "y": 320,
+        "wires": [
+            [
+                "8d4b2655.ad9978"
+            ]
+        ]
+    },
+    {
+        "id": "8d4b2655.ad9978",
+        "type": "html",
+        "z": "64d08e68.d5feb",
+        "name": "datePublished",
+        "property": "payload",
+        "outproperty": "item.datePublished",
+        "tag": "meta[itemprop=\"datePublished\"]",
+        "ret": "attr",
+        "as": "multi",
+        "x": 120,
+        "y": 360,
+        "wires": [
+            [
+                "15cb81b4.1b6086"
+            ]
+        ]
+    },
+    {
+        "id": "50e9f438.543be4",
+        "type": "catch",
+        "z": "64d08e68.d5feb",
+        "name": "",
+        "scope": null,
+        "x": 440,
+        "y": 40,
+        "wires": [
+            [
+                "18f41687.2115c1"
+            ]
+        ]
+    },
+    {
+        "id": "af8c95e8.0b1a1",
+        "type": "join",
+        "z": "64d08e68.d5feb",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "item",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 430,
+        "y": 360,
+        "wires": [
+            [
+                "529daa9a.3223f4"
+            ]
+        ]
+    },
+    {
+        "id": "de3f05cf.e61a88",
+        "type": "change",
+        "z": "64d08e68.d5feb",
+        "name": "parts -> tmp",
+        "rules": [
+            {
+                "t": "move",
+                "p": "parts",
+                "pt": "msg",
+                "to": "_parts",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 290,
+        "y": 160,
+        "wires": [
+            [
+                "f753b5ab.c15f6"
+            ]
+        ]
+    },
+    {
+        "id": "15cb81b4.1b6086",
+        "type": "change",
+        "z": "64d08e68.d5feb",
+        "name": "tmp -> parts",
+        "rules": [
+            {
+                "t": "move",
+                "p": "_parts",
+                "pt": "msg",
+                "to": "parts",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "item.link.href",
+                "pt": "msg",
+                "to": "item.link",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "item.datePublished.content",
+                "pt": "msg",
+                "to": "item.datePublished",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 290,
+        "y": 360,
+        "wires": [
+            [
+                "af8c95e8.0b1a1"
+            ]
+        ]
+    },
+    {
+        "id": "529daa9a.3223f4",
+        "type": "change",
+        "z": "64d08e68.d5feb",
+        "name": "item => payload",
+        "rules": [
+            {
+                "t": "move",
+                "p": "item",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 360,
+        "wires": [
+            [
+                "60a8258.eeb42dc"
+            ]
+        ]
+    },
+    {
+        "id": "82ab605b.e443f",
+        "type": "change",
+        "z": "64d08e68.d5feb",
+        "name": "Headers",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers.Content-Type",
+                "pt": "msg",
+                "to": "application/rss+xml",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 440,
+        "wires": [
+            [
+                "5346bca8.bb105c"
+            ]
+        ]
+    },
+    {
+        "id": "5346bca8.bb105c",
+        "type": "http response",
+        "z": "64d08e68.d5feb",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 530,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "60a8258.eeb42dc",
+        "type": "rss",
+        "z": "64d08e68.d5feb",
+        "name": "",
+        "feedOptionRules": [
+            {
+                "name": "title",
+                "type": "str",
+                "value": "IsraBox"
+            },
+            {
+                "name": "feed_url",
+                "type": "str",
+                "value": "https://ampere.mybluemix.net/israbox"
+            },
+            {
+                "name": "site_url",
+                "type": "str",
+                "value": "https://www.isrbx.net/"
+            }
+        ],
+        "itemOptionRules": [
+            {
+                "name": "title",
+                "type": "item",
+                "value": "title"
+            },
+            {
+                "name": "description",
+                "type": "item",
+                "value": "description"
+            },
+            {
+                "name": "url",
+                "type": "item",
+                "value": "link"
+            },
+            {
+                "name": "guid",
+                "type": "item",
+                "value": "link"
+            },
+            {
+                "name": "date",
+                "type": "item",
+                "value": "datePublished"
+            }
+        ],
+        "x": 270,
+        "y": 440,
+        "wires": [
+            [
+                "82ab605b.e443f"
+            ]
+        ]
+    },
+    {
+        "id": "5c2d5495.3a4194",
+        "type": "comment",
+        "z": "64d08e68.d5feb",
+        "name": "spliting in division per article",
+        "info": "",
+        "x": 160,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "cc2fb380.25619",
+        "type": "comment",
+        "z": "64d08e68.d5feb",
+        "name": "Extracting mandatory info",
+        "info": "",
+        "x": 150,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "16e66f86.0b756",
+        "type": "comment",
+        "z": "64d08e68.d5feb",
+        "name": "rejoin and merge",
+        "info": "",
+        "x": 300,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "e7558a88.4727b",
+        "type": "comment",
+        "z": "64d08e68.d5feb",
+        "name": "response",
+        "info": "",
+        "x": 280,
+        "y": 400,
+        "wires": []
+    }
+]
