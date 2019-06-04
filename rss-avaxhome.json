@@ -1,0 +1,445 @@
+[
+    {
+        "id": "44014eaa.9ce03",
+        "type": "http in",
+        "z": "1eac6a12.d194ae",
+        "name": "/avaxhome",
+        "url": "/avaxhome/:id",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 80,
+        "wires": [
+            [
+                "e5a0a16e.ca36b8"
+            ]
+        ]
+    },
+    {
+        "id": "fdfc52e.62df93",
+        "type": "comment",
+        "z": "1eac6a12.d194ae",
+        "name": "end-point",
+        "info": "",
+        "x": 80,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "8d877d37.7a89b",
+        "type": "http request",
+        "z": "1eac6a12.d194ae",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "",
+        "tls": "",
+        "proxy": "",
+        "x": 390,
+        "y": 80,
+        "wires": [
+            [
+                "344f99e.0273466"
+            ]
+        ]
+    },
+    {
+        "id": "344f99e.0273466",
+        "type": "html",
+        "z": "1eac6a12.d194ae",
+        "name": "div",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "div[class=\"col-md-12 article\"]",
+        "ret": "html",
+        "as": "multi",
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [
+                "eec0271d.e9591"
+            ]
+        ]
+    },
+    {
+        "id": "d52fe629.816bc8",
+        "type": "html",
+        "z": "1eac6a12.d194ae",
+        "name": "title",
+        "property": "payload",
+        "outproperty": "item.title",
+        "tag": "h1 a",
+        "ret": "text",
+        "as": "multi",
+        "x": 90,
+        "y": 240,
+        "wires": [
+            [
+                "59472fbf.af067"
+            ]
+        ]
+    },
+    {
+        "id": "c2f1900a.72cba",
+        "type": "debug",
+        "z": "1eac6a12.d194ae",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 610,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "59472fbf.af067",
+        "type": "html",
+        "z": "1eac6a12.d194ae",
+        "name": "link",
+        "property": "payload",
+        "outproperty": "item.link",
+        "tag": "h1 a",
+        "ret": "attr",
+        "as": "multi",
+        "x": 90,
+        "y": 280,
+        "wires": [
+            [
+                "9432734e.a5816"
+            ]
+        ]
+    },
+    {
+        "id": "9432734e.a5816",
+        "type": "html",
+        "z": "1eac6a12.d194ae",
+        "name": "datePublished",
+        "property": "payload",
+        "outproperty": "item.datePublished",
+        "tag": "div.post-date",
+        "ret": "html",
+        "as": "multi",
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "4dff82a5.412a94"
+            ]
+        ]
+    },
+    {
+        "id": "5e3bed7d.188774",
+        "type": "catch",
+        "z": "1eac6a12.d194ae",
+        "name": "",
+        "scope": null,
+        "x": 460,
+        "y": 40,
+        "wires": [
+            [
+                "c2f1900a.72cba"
+            ]
+        ]
+    },
+    {
+        "id": "2244a0dd.5284e",
+        "type": "join",
+        "z": "1eac6a12.d194ae",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "item",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 430,
+        "y": 320,
+        "wires": [
+            [
+                "eb2d7e6e.6689b"
+            ]
+        ]
+    },
+    {
+        "id": "8a362e35.315ba8",
+        "type": "debug",
+        "z": "1eac6a12.d194ae",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 610,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "eec0271d.e9591",
+        "type": "change",
+        "z": "1eac6a12.d194ae",
+        "name": "parts -> tmp",
+        "rules": [
+            {
+                "t": "move",
+                "p": "parts",
+                "pt": "msg",
+                "to": "_parts",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 270,
+        "y": 160,
+        "wires": [
+            [
+                "d52fe629.816bc8"
+            ]
+        ]
+    },
+    {
+        "id": "4dff82a5.412a94",
+        "type": "change",
+        "z": "1eac6a12.d194ae",
+        "name": "tmp -> parts",
+        "rules": [
+            {
+                "t": "move",
+                "p": "_parts",
+                "pt": "msg",
+                "to": "parts",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "item.link.href",
+                "pt": "msg",
+                "to": "item.link",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "item.datePublished",
+                "pt": "msg",
+                "to": "$replace(item.datePublished, /<strong>.+<\\/strong> */, \"\")",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 290,
+        "y": 320,
+        "wires": [
+            [
+                "2244a0dd.5284e"
+            ]
+        ]
+    },
+    {
+        "id": "eb2d7e6e.6689b",
+        "type": "change",
+        "z": "1eac6a12.d194ae",
+        "name": "item => payload",
+        "rules": [
+            {
+                "t": "move",
+                "p": "item",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 320,
+        "wires": [
+            [
+                "2d5db067.c39638",
+                "8a362e35.315ba8"
+            ]
+        ]
+    },
+    {
+        "id": "2d5db067.c39638",
+        "type": "rss",
+        "z": "1eac6a12.d194ae",
+        "name": "",
+        "feedOptionRules": [
+            {
+                "name": "title",
+                "type": "msg",
+                "value": "req.params.id"
+            },
+            {
+                "name": "feed_url",
+                "type": "str",
+                "value": "https://pistolilla.mybluemix.net/avaxhome"
+            },
+            {
+                "name": "site_url",
+                "type": "msg",
+                "value": "url"
+            }
+        ],
+        "itemOptionRules": [
+            {
+                "name": "title",
+                "type": "item",
+                "value": "title"
+            },
+            {
+                "name": "description",
+                "type": "str",
+                "value": ""
+            },
+            {
+                "name": "url",
+                "type": "item",
+                "value": "link"
+            },
+            {
+                "name": "guid",
+                "type": "item",
+                "value": "link"
+            },
+            {
+                "name": "date",
+                "type": "item",
+                "value": "datePublished"
+            }
+        ],
+        "x": 270,
+        "y": 400,
+        "wires": [
+            [
+                "710ab737.f72a"
+            ]
+        ]
+    },
+    {
+        "id": "710ab737.f72a",
+        "type": "change",
+        "z": "1eac6a12.d194ae",
+        "name": "Headers",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers.Content-Type",
+                "pt": "msg",
+                "to": "application/rss+xml",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 400,
+        "wires": [
+            [
+                "f1d25efd.474ff8"
+            ]
+        ]
+    },
+    {
+        "id": "f1d25efd.474ff8",
+        "type": "http response",
+        "z": "1eac6a12.d194ae",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 530,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "e5a0a16e.ca36b8",
+        "type": "change",
+        "z": "1eac6a12.d194ae",
+        "name": "domain + url",
+        "rules": [
+            {
+                "t": "set",
+                "p": "domain",
+                "pt": "flow",
+                "to": "https://avxhm.se/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "url",
+                "pt": "msg",
+                "to": "$join([$flowContext(\"domain\"), req.params.id])",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 80,
+        "wires": [
+            [
+                "8d877d37.7a89b"
+            ]
+        ]
+    },
+    {
+        "id": "73c34aa5.d7f174",
+        "type": "comment",
+        "z": "1eac6a12.d194ae",
+        "name": "splitting in division per article",
+        "info": "",
+        "x": 160,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d5fc2bdb.732c18",
+        "type": "comment",
+        "z": "1eac6a12.d194ae",
+        "name": "extracting mandatory info",
+        "info": "",
+        "x": 150,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "807e01b2.3c1168",
+        "type": "comment",
+        "z": "1eac6a12.d194ae",
+        "name": "response",
+        "info": "",
+        "x": 280,
+        "y": 360,
+        "wires": []
+    }
+]
