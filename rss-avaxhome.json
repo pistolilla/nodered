@@ -441,5 +441,15 @@
         "x": 280,
         "y": 360,
         "wires": []
+    },
+    {
+        "id": "46a25cb9.b84a4c",
+        "type": "comment",
+        "z": "1eac6a12.d194ae",
+        "name": "flow.domain",
+        "info": "",
+        "x": 230,
+        "y": 40,
+        "wires": []
     }
 ]
