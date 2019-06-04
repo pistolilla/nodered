@@ -336,7 +336,7 @@
             {
                 "name": "feed_url",
                 "type": "str",
-                "value": "https://ampere.mybluemix.net/israbox"
+                "value": "https://pistolilla.mybluemix.net/israbox"
             },
             {
                 "name": "site_url",
