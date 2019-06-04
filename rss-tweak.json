@@ -1,41 +1,24 @@
 [
     {
-        "id": "79b65377.d9aa7c",
+        "id": "10251ca6.597e63",
         "type": "xml",
-        "z": "5fca565a.918be",
+        "z": "a684fcc8.3be12",
         "name": "",
         "property": "payload",
         "attr": "",
         "chr": "",
-        "x": 230,
-        "y": 180,
+        "x": 470,
+        "y": 120,
         "wires": [
             [
-                "42367424.d70eec"
+                "79bf85cc.443664"
             ]
         ]
     },
     {
-        "id": "639871e4.f55df8",
-        "type": "http request",
-        "z": "5fca565a.918be",
-        "name": "",
-        "method": "GET",
-        "ret": "txt",
-        "url": "http://exystence.net/feed",
-        "tls": "",
-        "x": 250,
-        "y": 80,
-        "wires": [
-            [
-                "79b65377.d9aa7c"
-            ]
-        ]
-    },
-    {
-        "id": "42367424.d70eec",
+        "id": "79bf85cc.443664",
         "type": "change",
-        "z": "5fca565a.918be",
+        "z": "a684fcc8.3be12",
         "name": "description",
         "rules": [
             {
@@ -51,106 +34,89 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 370,
-        "y": 180,
+        "x": 310,
+        "y": 220,
         "wires": [
             [
-                "348f01cb.d817de"
+                "e42792a5.21f6b8"
             ]
         ]
     },
     {
-        "id": "348f01cb.d817de",
+        "id": "e42792a5.21f6b8",
         "type": "xml",
-        "z": "5fca565a.918be",
+        "z": "a684fcc8.3be12",
         "name": "",
         "property": "payload",
         "attr": "",
         "chr": "",
-        "x": 430,
-        "y": 260,
+        "x": 370,
+        "y": 300,
         "wires": [
             [
-                "25a7b532.0c874a"
+                "737f9573.a81ddc"
             ]
         ]
     },
     {
-        "id": "d1b68e2.80b54f",
-        "type": "http in",
-        "z": "5fca565a.918be",
-        "name": "/exystence",
-        "url": "/exystence",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 100,
-        "y": 80,
-        "wires": [
-            [
-                "639871e4.f55df8"
-            ]
-        ]
-    },
-    {
-        "id": "2ff531c9.b30336",
+        "id": "53487e1e.292ad8",
         "type": "http response",
-        "z": "5fca565a.918be",
+        "z": "a684fcc8.3be12",
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 690,
-        "y": 260,
+        "x": 630,
+        "y": 300,
         "wires": []
     },
     {
-        "id": "f5b213c1.39ab4",
+        "id": "b008216f.9e0ac8",
         "type": "comment",
-        "z": "5fca565a.918be",
+        "z": "a684fcc8.3be12",
         "name": "end-points",
         "info": "",
-        "x": 100,
+        "x": 80,
         "y": 40,
         "wires": []
     },
     {
-        "id": "d5162dc4.4e0918",
+        "id": "6b775262.062a6c",
         "type": "comment",
-        "z": "5fca565a.918be",
+        "z": "a684fcc8.3be12",
         "name": "category as description",
         "info": "",
-        "x": 400,
-        "y": 140,
+        "x": 340,
+        "y": 180,
         "wires": []
     },
     {
-        "id": "b4a33e05.32c97",
+        "id": "e6020a64.1675a",
         "type": "comment",
-        "z": "5fca565a.918be",
+        "z": "a684fcc8.3be12",
         "name": "Response",
         "info": "",
-        "x": 440,
-        "y": 220,
+        "x": 380,
+        "y": 260,
         "wires": []
     },
     {
-        "id": "fa12e64a.fafbd",
+        "id": "28f11273.529ace",
         "type": "debug",
-        "z": "5fca565a.918be",
+        "z": "a684fcc8.3be12",
         "name": "",
         "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "true",
-        "x": 720,
-        "y": 220,
+        "x": 630,
+        "y": 260,
         "wires": []
     },
     {
-        "id": "25a7b532.0c874a",
+        "id": "737f9573.a81ddc",
         "type": "change",
-        "z": "5fca565a.918be",
+        "z": "a684fcc8.3be12",
         "name": "Headers",
         "rules": [
             {
@@ -166,12 +132,120 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 560,
-        "y": 260,
+        "x": 500,
+        "y": 300,
         "wires": [
             [
-                "fa12e64a.fafbd",
-                "2ff531c9.b30336"
+                "28f11273.529ace",
+                "53487e1e.292ad8"
+            ]
+        ]
+    },
+    {
+        "id": "d989f231.c788f8",
+        "type": "http in",
+        "z": "a684fcc8.3be12",
+        "name": "/newalbumreleases",
+        "url": "/newalbumreleases.net",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "cf185617.b8cd08"
+            ]
+        ]
+    },
+    {
+        "id": "45b690c4.046508",
+        "type": "http request",
+        "z": "a684fcc8.3be12",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "",
+        "tls": "",
+        "proxy": "",
+        "x": 330,
+        "y": 120,
+        "wires": [
+            [
+                "10251ca6.597e63"
+            ]
+        ]
+    },
+    {
+        "id": "a38e45cf.3f1388",
+        "type": "debug",
+        "z": "a684fcc8.3be12",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 630,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "d5afd91e.c1119",
+        "type": "catch",
+        "z": "a684fcc8.3be12",
+        "name": "",
+        "scope": null,
+        "x": 480,
+        "y": 40,
+        "wires": [
+            [
+                "a38e45cf.3f1388"
+            ]
+        ]
+    },
+    {
+        "id": "fe925615.f9c",
+        "type": "http in",
+        "z": "a684fcc8.3be12",
+        "name": "/exystence",
+        "url": "/exystence.net",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 80,
+        "y": 80,
+        "wires": [
+            [
+                "cf185617.b8cd08"
+            ]
+        ]
+    },
+    {
+        "id": "cf185617.b8cd08",
+        "type": "change",
+        "z": "a684fcc8.3be12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "url",
+                "pt": "msg",
+                "to": "$join([\"http:/\", req.url, \"/feed\"])",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 80,
+        "wires": [
+            [
+                "45b690c4.046508"
             ]
         ]
     }
