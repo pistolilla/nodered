@@ -7,7 +7,7 @@
         "property": "payload",
         "attr": "",
         "chr": "",
-        "x": 470,
+        "x": 350,
         "y": 120,
         "wires": [
             [
@@ -34,8 +34,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 150,
-        "y": 220,
+        "x": 130,
+        "y": 200,
         "wires": [
             [
                 "e42792a5.21f6b8"
@@ -50,8 +50,8 @@
         "property": "payload",
         "attr": "",
         "chr": "",
-        "x": 230,
-        "y": 320,
+        "x": 290,
+        "y": 260,
         "wires": [
             [
                 "737f9573.a81ddc"
@@ -65,15 +65,15 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 490,
-        "y": 320,
+        "x": 550,
+        "y": 260,
         "wires": []
     },
     {
         "id": "b008216f.9e0ac8",
         "type": "comment",
         "z": "a684fcc8.3be12",
-        "name": "end-points",
+        "name": "end-point",
         "info": "",
         "x": 80,
         "y": 40,
@@ -85,18 +85,18 @@
         "z": "a684fcc8.3be12",
         "name": "category as description",
         "info": "",
-        "x": 180,
-        "y": 180,
+        "x": 160,
+        "y": 160,
         "wires": []
     },
     {
         "id": "e6020a64.1675a",
         "type": "comment",
         "z": "a684fcc8.3be12",
-        "name": "Response",
+        "name": "response",
         "info": "",
-        "x": 240,
-        "y": 280,
+        "x": 300,
+        "y": 220,
         "wires": []
     },
     {
@@ -109,8 +109,8 @@
         "console": false,
         "tostatus": false,
         "complete": "true",
-        "x": 490,
-        "y": 280,
+        "x": 550,
+        "y": 220,
         "wires": []
     },
     {
@@ -132,29 +132,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 360,
-        "y": 320,
+        "x": 420,
+        "y": 260,
         "wires": [
             [
                 "28f11273.529ace",
                 "53487e1e.292ad8"
-            ]
-        ]
-    },
-    {
-        "id": "d989f231.c788f8",
-        "type": "http in",
-        "z": "a684fcc8.3be12",
-        "name": "/newalbumreleases",
-        "url": "/newalbumreleases.net",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 110,
-        "y": 120,
-        "wires": [
-            [
-                "cf185617.b8cd08"
             ]
         ]
     },
@@ -169,7 +152,7 @@
         "url": "",
         "tls": "",
         "proxy": "",
-        "x": 330,
+        "x": 210,
         "y": 120,
         "wires": [
             [
@@ -187,7 +170,7 @@
         "console": false,
         "tostatus": false,
         "complete": "true",
-        "x": 630,
+        "x": 550,
         "y": 40,
         "wires": []
     },
@@ -197,7 +180,7 @@
         "z": "a684fcc8.3be12",
         "name": "",
         "scope": null,
-        "x": 480,
+        "x": 400,
         "y": 40,
         "wires": [
             [
@@ -206,11 +189,11 @@
         ]
     },
     {
-        "id": "fe925615.f9c",
+        "id": "558e036f.165a24",
         "type": "http in",
         "z": "a684fcc8.3be12",
-        "name": "/exystence",
-        "url": "/exystence.net",
+        "name": "/tweak/:id",
+        "url": "/tweak/:id",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
@@ -218,12 +201,12 @@
         "y": 80,
         "wires": [
             [
-                "cf185617.b8cd08"
+                "f52d41a7.dcf908"
             ]
         ]
     },
     {
-        "id": "cf185617.b8cd08",
+        "id": "f52d41a7.dcf908",
         "type": "change",
         "z": "a684fcc8.3be12",
         "name": "",
@@ -232,8 +215,8 @@
                 "t": "set",
                 "p": "url",
                 "pt": "msg",
-                "to": "$join([\"http:/\", req.url, \"/feed\"])",
-                "tot": "jsonata"
+                "to": "req.params.id",
+                "tot": "msg"
             }
         ],
         "action": "",
@@ -241,7 +224,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 310,
+        "x": 230,
         "y": 80,
         "wires": [
             [
