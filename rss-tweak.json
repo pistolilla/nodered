@@ -25,7 +25,7 @@
                 "t": "set",
                 "p": "payload.rss.channel[0].item",
                 "pt": "msg",
-                "to": "payload.rss.channel[0].item[].\t{\t    \"title\":title[0],\t    \"link\": link[0],\t    \"pubDate\" : pubDate[0],    \t    \"description\": $join(category, \", \")\t}",
+                "to": "payload.rss.channel[0].item[].\t{\t    \"title\":title[0],\t    \"link\": link[0],\t    \"pubDate\" : pubDate[0],    \t    \"description\": $replace($join(category, \", \"), \"Archive, \", \"\")\t}",
                 "tot": "jsonata"
             }
         ],
@@ -34,7 +34,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 310,
+        "x": 150,
         "y": 220,
         "wires": [
             [
@@ -50,8 +50,8 @@
         "property": "payload",
         "attr": "",
         "chr": "",
-        "x": 370,
-        "y": 300,
+        "x": 230,
+        "y": 320,
         "wires": [
             [
                 "737f9573.a81ddc"
@@ -65,8 +65,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 630,
-        "y": 300,
+        "x": 490,
+        "y": 320,
         "wires": []
     },
     {
@@ -85,7 +85,7 @@
         "z": "a684fcc8.3be12",
         "name": "category as description",
         "info": "",
-        "x": 340,
+        "x": 180,
         "y": 180,
         "wires": []
     },
@@ -95,8 +95,8 @@
         "z": "a684fcc8.3be12",
         "name": "Response",
         "info": "",
-        "x": 380,
-        "y": 260,
+        "x": 240,
+        "y": 280,
         "wires": []
     },
     {
@@ -109,8 +109,8 @@
         "console": false,
         "tostatus": false,
         "complete": "true",
-        "x": 630,
-        "y": 260,
+        "x": 490,
+        "y": 280,
         "wires": []
     },
     {
@@ -132,8 +132,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 500,
-        "y": 300,
+        "x": 360,
+        "y": 320,
         "wires": [
             [
                 "28f11273.529ace",
@@ -182,7 +182,7 @@
         "type": "debug",
         "z": "a684fcc8.3be12",
         "name": "",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
