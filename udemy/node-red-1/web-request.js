@@ -1,13 +1,6 @@
 [
     {
-        "id": "3bbfc986.0e2a6e",
-        "type": "tab",
-        "label": "web-request",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "a39b79c1.6d1eb8",
+        "id": "b1efee.a78db81",
         "type": "http in",
         "z": "3bbfc986.0e2a6e",
         "name": "",
@@ -19,42 +12,31 @@
         "y": 80,
         "wires": [
             [
-                "205ce7ef.7d5b68"
+                "403e5573.0be064"
             ]
         ]
     },
     {
-        "id": "208d98a.67a01e8",
+        "id": "fac44983.dccea8",
         "type": "template",
         "z": "3bbfc986.0e2a6e",
         "name": "",
-        "field": "payload",
+        "field": "template.body",
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": " <!DOCTYPE html>\n<html>\n    <head>\n        <link href=\"//stackpath.bootstrapcdn.com/bootswatch/4.3.1/slate/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-FBPbZPVh+7ks5JJ70RJmIaqyGnvMbeJ5JQfEbW0Ac6ErfvEg9yG56JQJuMNptWsH\" crossorigin=\"anonymous\">\n    </head>\n<body>\n\n\n<div class=\"container\">\n    <h1>Feed</h1>\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <table class=\"table\">\n              <thead>\n                <tr>\n                  <th scope=\"col\">Name</th>\n                  <th scope=\"col\">Url</th>\n                  <th scope=\"col\"></th>\n                </tr>\n              </thead>\n              <tbody>\n                {{#payload}}\n                <tr class=\"table-primary\">\n                  <td>{{name}}</td>\n                  <td>{{url}}</td>\n                  <td><a href=\"/monitor/feed/delete/{{rowid}}\" class=\"btn btn-outline-danger\">delete</a></td>\n                </tr>\n                {{/payload}}\n              </tbody>\n            </table> \n        </div>\n        <div class=\"col-md-6\">\n            <form method=\"POST\" action=\"/monitor/feed\">\n                <label for=\"name\">Name</label>\n                <input class=\"form-control\" id=\"name\" name=\"name\">\n                <label for=\"url\">Url</label>\n                <input class=\"form-control\" id=\"url\" name=\"url\">\n                <button type=\"submit\" class=\"btn btn-primary\">Add</button>\n            </form>\n        </div>\n    </div>\n</div>\n</body>\n</html> ",
+        "template": "<div class=\"container\">\n    <h1>Feed</h1>\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <table class=\"table\">\n              <thead>\n                <tr>\n                  <th scope=\"col\">Name</th>\n                  <th scope=\"col\">Url</th>\n                  <th scope=\"col\"></th>\n                </tr>\n              </thead>\n              <tbody>\n                {{#payload}}\n                <tr class=\"table-primary\">\n                  <td>{{name}}</td>\n                  <td>{{url}}</td>\n                  <td><a href=\"/monitor/feed/delete/{{rowid}}\" class=\"btn btn-outline-danger\">delete</a></td>\n                </tr>\n                {{/payload}}\n              </tbody>\n            </table> \n        </div>\n        <div class=\"col-md-6\">\n            <form method=\"POST\" action=\"/monitor/feed\">\n                <label for=\"name\">Name</label>\n                <input class=\"form-control\" id=\"name\" name=\"name\">\n                <label for=\"url\">Url</label>\n                <input class=\"form-control\" id=\"url\" name=\"url\">\n                <button type=\"submit\" class=\"btn btn-primary\">Add</button>\n            </form>\n        </div>\n    </div>\n</div>",
         "output": "str",
         "x": 560,
         "y": 80,
         "wires": [
             [
-                "7e709d76.c53394"
+                "809babd2.e712e8"
             ]
         ]
     },
     {
-        "id": "7e709d76.c53394",
-        "type": "http response",
-        "z": "3bbfc986.0e2a6e",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 710,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "205ce7ef.7d5b68",
+        "id": "403e5573.0be064",
         "type": "sqlite",
         "z": "3bbfc986.0e2a6e",
         "mydb": "bfbd1198.0b8b98",
@@ -65,12 +47,12 @@
         "y": 80,
         "wires": [
             [
-                "208d98a.67a01e8"
+                "fac44983.dccea8"
             ]
         ]
     },
     {
-        "id": "a0f1554e.3a37f8",
+        "id": "aea83e36.31f56",
         "type": "http in",
         "z": "3bbfc986.0e2a6e",
         "name": "",
@@ -82,12 +64,12 @@
         "y": 140,
         "wires": [
             [
-                "7e2fcb75.bf6834"
+                "d87f534a.73a658"
             ]
         ]
     },
     {
-        "id": "7e2fcb75.bf6834",
+        "id": "d87f534a.73a658",
         "type": "template",
         "z": "3bbfc986.0e2a6e",
         "name": "INSERT",
@@ -101,12 +83,12 @@
         "y": 140,
         "wires": [
             [
-                "7c394caf.24af5c"
+                "21ac336b.700144"
             ]
         ]
     },
     {
-        "id": "7c394caf.24af5c",
+        "id": "21ac336b.700144",
         "type": "sqlite",
         "z": "3bbfc986.0e2a6e",
         "mydb": "bfbd1198.0b8b98",
@@ -117,12 +99,12 @@
         "y": 140,
         "wires": [
             [
-                "205ce7ef.7d5b68"
+                "403e5573.0be064"
             ]
         ]
     },
     {
-        "id": "cce5fd5b.b967a8",
+        "id": "e3451fb2.0d60f",
         "type": "http in",
         "z": "3bbfc986.0e2a6e",
         "name": "",
@@ -134,12 +116,12 @@
         "y": 180,
         "wires": [
             [
-                "ec116343.32275"
+                "718ab64.abb4148"
             ]
         ]
     },
     {
-        "id": "ec116343.32275",
+        "id": "718ab64.abb4148",
         "type": "template",
         "z": "3bbfc986.0e2a6e",
         "name": "DELETE",
@@ -153,12 +135,12 @@
         "y": 180,
         "wires": [
             [
-                "7c394caf.24af5c"
+                "21ac336b.700144"
             ]
         ]
     },
     {
-        "id": "8429fcd0.1d5238",
+        "id": "3a7457fa.e7e5c",
         "type": "comment",
         "z": "3bbfc986.0e2a6e",
         "name": "/monitor/feed",
@@ -168,7 +150,7 @@
         "wires": []
     },
     {
-        "id": "eb34ffb8.436778",
+        "id": "5370a3c.e3e47dc",
         "type": "http in",
         "z": "3bbfc986.0e2a6e",
         "name": "",
@@ -180,42 +162,31 @@
         "y": 280,
         "wires": [
             [
-                "ce954653.ee7ad"
+                "d1424033.3c6ef8"
             ]
         ]
     },
     {
-        "id": "e6d82daf.74fe08",
+        "id": "c90a4991.bd9638",
         "type": "template",
         "z": "3bbfc986.0e2a6e",
         "name": "",
-        "field": "payload",
+        "field": "template.body",
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": " <!DOCTYPE html>\n<html>\n    <head>\n        <link href=\"//stackpath.bootstrapcdn.com/bootswatch/4.3.1/slate/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-FBPbZPVh+7ks5JJ70RJmIaqyGnvMbeJ5JQfEbW0Ac6ErfvEg9yG56JQJuMNptWsH\" crossorigin=\"anonymous\">\n    </head>\n<body>\n\n\n<div class=\"container\">\n    <h1>keyword</h1>\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <table class=\"table\">\n              <thead>\n                <tr>\n                  <th scope=\"col\">Expression</th>\n                  <th scope=\"col\"></th>\n                </tr>\n              </thead>\n              <tbody>\n                {{#payload}}\n                <tr class=\"table-primary\">\n                  <td>{{expression}}</td>\n                  <td><a href=\"/monitor/keyword/delete/{{rowid}}\" class=\"btn btn-outline-danger\">delete</a></td>\n                </tr>\n                {{/payload}}\n              </tbody>\n            </table> \n        </div>\n        <div class=\"col-md-6\">\n            <form method=\"POST\" action=\"/monitor/keyword\">\n                <label for=\"expression\">Expression</label>\n                <input class=\"form-control\" id=\"expression\" name=\"expression\">\n                <button type=\"submit\" class=\"btn btn-primary\">Add</button>\n            </form>\n        </div>\n    </div>\n</div>\n</body>\n</html> ",
+        "template": "<div class=\"container\">\n    <h1>keyword</h1>\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            <table class=\"table\">\n              <thead>\n                <tr>\n                  <th scope=\"col\">Expression</th>\n                  <th scope=\"col\"></th>\n                </tr>\n              </thead>\n              <tbody>\n                {{#payload}}\n                <tr class=\"table-primary\">\n                  <td>{{expression}}</td>\n                  <td><a href=\"/monitor/keyword/delete/{{rowid}}\" class=\"btn btn-outline-danger\">delete</a></td>\n                </tr>\n                {{/payload}}\n              </tbody>\n            </table> \n        </div>\n        <div class=\"col-md-6\">\n            <form method=\"POST\" action=\"/monitor/keyword\">\n                <label for=\"expression\">Expression</label>\n                <input class=\"form-control\" id=\"expression\" name=\"expression\">\n                <button type=\"submit\" class=\"btn btn-primary\">Add</button>\n            </form>\n        </div>\n    </div>\n</div>",
         "output": "str",
         "x": 570,
         "y": 280,
         "wires": [
             [
-                "cf8136d0.78b3"
+                "809babd2.e712e8"
             ]
         ]
     },
     {
-        "id": "cf8136d0.78b3",
-        "type": "http response",
-        "z": "3bbfc986.0e2a6e",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 720,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "ce954653.ee7ad",
+        "id": "d1424033.3c6ef8",
         "type": "sqlite",
         "z": "3bbfc986.0e2a6e",
         "mydb": "bfbd1198.0b8b98",
@@ -226,12 +197,12 @@
         "y": 280,
         "wires": [
             [
-                "e6d82daf.74fe08"
+                "c90a4991.bd9638"
             ]
         ]
     },
     {
-        "id": "785f55c6.536294",
+        "id": "3368532.21a7fac",
         "type": "http in",
         "z": "3bbfc986.0e2a6e",
         "name": "",
@@ -243,12 +214,12 @@
         "y": 340,
         "wires": [
             [
-                "51e81a98.42fd2c"
+                "178b21aa.59eac6"
             ]
         ]
     },
     {
-        "id": "51e81a98.42fd2c",
+        "id": "178b21aa.59eac6",
         "type": "template",
         "z": "3bbfc986.0e2a6e",
         "name": "INSERT",
@@ -262,12 +233,12 @@
         "y": 340,
         "wires": [
             [
-                "b989c70a.40f9d8"
+                "d01ac8c4.5dc808"
             ]
         ]
     },
     {
-        "id": "b989c70a.40f9d8",
+        "id": "d01ac8c4.5dc808",
         "type": "sqlite",
         "z": "3bbfc986.0e2a6e",
         "mydb": "bfbd1198.0b8b98",
@@ -278,12 +249,12 @@
         "y": 340,
         "wires": [
             [
-                "ce954653.ee7ad"
+                "d1424033.3c6ef8"
             ]
         ]
     },
     {
-        "id": "ad4f8c77.088e1",
+        "id": "46f2c5c6.8b66dc",
         "type": "http in",
         "z": "3bbfc986.0e2a6e",
         "name": "",
@@ -295,12 +266,12 @@
         "y": 380,
         "wires": [
             [
-                "6e8cb252.be69ac"
+                "88c0c9e0.a7fce"
             ]
         ]
     },
     {
-        "id": "6e8cb252.be69ac",
+        "id": "88c0c9e0.a7fce",
         "type": "template",
         "z": "3bbfc986.0e2a6e",
         "name": "DELETE",
@@ -314,12 +285,12 @@
         "y": 380,
         "wires": [
             [
-                "b989c70a.40f9d8"
+                "d01ac8c4.5dc808"
             ]
         ]
     },
     {
-        "id": "7d5641c5.dd2988",
+        "id": "2de61a9c.f4048e",
         "type": "comment",
         "z": "3bbfc986.0e2a6e",
         "name": "/monitor/keyword",
@@ -329,7 +300,7 @@
         "wires": []
     },
     {
-        "id": "51d81e05.beeec8",
+        "id": "96b4ddb0.ac6be",
         "type": "comment",
         "z": "3bbfc986.0e2a6e",
         "name": "front-end",
@@ -339,26 +310,7 @@
         "wires": []
     },
     {
-        "id": "c4c32ec.05e1c5",
-        "type": "template",
-        "z": "3bbfc986.0e2a6e",
-        "name": "/showcase",
-        "field": "template.body",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "<div class=\"row\">\n{{#payload}}\n<div class=\"col-sm-6 col-md-4 col-lg-2\">\n    <div class=\"card text-white {{^sent}}bg-secondary{{/sent}} m-2\" style=\"max-width: 20rem;\">\n      <div class=\"card-header\"><a href=\"{{link}}\">{{title}}</a></div>\n      <div class=\"card-body\">\n        <p class=\"card-text\">{{description}}</p>\n      </div>\n    </div>\n</div>\n{{/payload}}\n</div>",
-        "output": "str",
-        "x": 710,
-        "y": 480,
-        "wires": [
-            [
-                "38f55a27.85e3c6"
-            ]
-        ]
-    },
-    {
-        "id": "8240c423.e9be9",
+        "id": "39f7d500.863c5c",
         "type": "http in",
         "z": "3bbfc986.0e2a6e",
         "name": "",
@@ -370,13 +322,12 @@
         "y": 520,
         "wires": [
             [
-                "24d7c55c.bcf0ba",
-                "d43d2671.f613b8"
+                "1123002d.e2e5a"
             ]
         ]
     },
     {
-        "id": "c01e3093.7eb278",
+        "id": "ca315672.f0ebe",
         "type": "sqlite",
         "z": "3bbfc986.0e2a6e",
         "mydb": "bfbd1198.0b8b98",
@@ -387,27 +338,12 @@
         "y": 480,
         "wires": [
             [
-                "1105bd0.139a5c3"
+                "769e222f.84a44c"
             ]
         ]
     },
     {
-        "id": "24d7c55c.bcf0ba",
-        "type": "debug",
-        "z": "3bbfc986.0e2a6e",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 350,
-        "y": 560,
-        "wires": []
-    },
-    {
-        "id": "d43d2671.f613b8",
+        "id": "1123002d.e2e5a",
         "type": "template",
         "z": "3bbfc986.0e2a6e",
         "name": "SELECT",
@@ -421,12 +357,12 @@
         "y": 480,
         "wires": [
             [
-                "c01e3093.7eb278"
+                "ca315672.f0ebe"
             ]
         ]
     },
     {
-        "id": "bf14cd6c.5d73e",
+        "id": "ed3745f7.3f208",
         "type": "http in",
         "z": "3bbfc986.0e2a6e",
         "name": "",
@@ -438,81 +374,23 @@
         "y": 480,
         "wires": [
             [
-                "d43d2671.f613b8"
+                "1123002d.e2e5a"
             ]
         ]
     },
     {
-        "id": "6ef97f3d.638c28",
-        "type": "http in",
-        "z": "3bbfc986.0e2a6e",
-        "name": "",
-        "url": "/showcase",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 120,
-        "y": 560,
-        "wires": [
-            [
-                "d43d2671.f613b8"
-            ]
-        ]
-    },
-    {
-        "id": "1105bd0.139a5c3",
-        "type": "switch",
-        "z": "3bbfc986.0e2a6e",
-        "name": "",
-        "property": "req.url",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "cont",
-                "v": "monitor",
-                "vt": "str"
-            },
-            {
-                "t": "cont",
-                "v": "show",
-                "vt": "str"
-            },
-            {
-                "t": "cont",
-                "v": "api",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 3,
-        "x": 550,
-        "y": 480,
-        "wires": [
-            [
-                "c1a8ab24.f68ee8"
-            ],
-            [
-                "c4c32ec.05e1c5"
-            ],
-            [
-                "b1732e14.803e3"
-            ]
-        ]
-    },
-    {
-        "id": "b1732e14.803e3",
+        "id": "723b8770.383bd8",
         "type": "http response",
         "z": "3bbfc986.0e2a6e",
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 890,
-        "y": 560,
+        "x": 930,
+        "y": 600,
         "wires": []
     },
     {
-        "id": "c1a8ab24.f68ee8",
+        "id": "a5598d76.5af7f8",
         "type": "template",
         "z": "3bbfc986.0e2a6e",
         "name": "/monitor",
@@ -520,37 +398,18 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<div class=\"container\">\n    <h1>Latest Stories</h1>\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <table class=\"table\">\n              <thead>\n                <tr>\n                  <th scope=\"col\">Headline</th>\n                  <th scope=\"col\">Summary</th>\n                  <th scope=\"col\">Sent</th>\n                </tr>\n              </thead>\n              <tbody>\n                {{#payload}}\n                <tr class=\"table-primary\">\n                  <td><a href=\"{{link}}\">{{title}}</a></td>\n                  <td>{{description}}</td>\n                  <td>{{#sent}}<i class=\"fas fa-check-circle\"></i>{{/sent}}</td>\n                </tr>\n                {{/payload}}\n              </tbody>\n            </table> \n        </div>\n    </div>\n</div>",
+        "template": "<div class=\"container\">\n    <h1>Latest Stories</h1>\n    <div class=\"row\">\n        <div class=\"col-md-12\">\n            <table class=\"table\">\n              <thead>\n                <tr>\n                  <th scope=\"col\">Headline</th>\n                  <th scope=\"col\">Summary</th>\n                  <th scope=\"col\">Sent</th>\n                </tr>\n              </thead>\n              <tbody>\n                {{#payload}}\n                <tr class=\"table-primary\">\n                  <td><a href=\"{{link}}\">{{title}}</a></td>\n                  <td>{{description}}</td>\n                  <td>{{#sent}}<i class=\"fa fa-check\" aria-hidden=\"true\"></i>{{/sent}}</td>\n                </tr>\n                {{/payload}}\n              </tbody>\n            </table> \n        </div>\n    </div>\n</div>",
         "output": "str",
-        "x": 700,
-        "y": 440,
-        "wires": [
-            [
-                "e8cf19da.911828"
-            ]
-        ]
-    },
-    {
-        "id": "38f55a27.85e3c6",
-        "type": "template",
-        "z": "3bbfc986.0e2a6e",
-        "name": "head",
-        "field": "template.head",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "<script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js\"></script>\n<script src=\"//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js\"></script>\n<link href=\"//stackpath.bootstrapcdn.com/bootswatch/4.3.1/slate/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-FBPbZPVh+7ks5JJ70RJmIaqyGnvMbeJ5JQfEbW0Ac6ErfvEg9yG56JQJuMNptWsH\" crossorigin=\"anonymous\">\n<link rel=\"stylesheet\" href=\"//use.fontawesome.com/releases/v5.1.0/css/all.css\" integrity=\"sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt\" crossorigin=\"anonymous\">",
-        "output": "str",
-        "x": 890,
+        "x": 740,
         "y": 480,
         "wires": [
             [
-                "e76a4d2b.586ee"
+                "809babd2.e712e8"
             ]
         ]
     },
     {
-        "id": "e8cf19da.911828",
+        "id": "809babd2.e712e8",
         "type": "template",
         "z": "3bbfc986.0e2a6e",
         "name": "navbar",
@@ -558,18 +417,37 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<nav class=\"navbar navbar-expand-lg navbar-light bg-light mb-4\">\n  <a class=\"navbar-brand\" href=\"/monitor\">RSS Monitor</a>\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor03\" aria-controls=\"navbarColor03\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n\n  <div class=\"collapse navbar-collapse\" id=\"navbarColor03\">\n    <ul class=\"navbar-nav mr-auto\">\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" href=\"/monitor/feed\">Feed</a>\n      </li>\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" href=\"/monitor/keyword\">Keyword</a>\n      </li>\n    </ul>\n    <form method=\"POST\" action=\"/monitor\" class=\"form-inline my-2 my-lg-0\">\n      <input class=\"form-control mr-sm-2\" type=\"text\" placeholder=\"Search\" name=\"search\" value=\"{{req.body.search}}\">\n      <button class=\"btn btn-secondary my-2 my-sm-0\" type=\"submit\">Search</button>\n    </form>\n  </div>\n</nav>",
+        "template": "<nav class=\"navbar navbar-expand-lg navbar-light bg-light mb-4\">\n  <a class=\"navbar-brand\" href=\"/monitor\">RSS Monitor</a>\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarColor03\" aria-controls=\"navbarColor03\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n\n  <div class=\"collapse navbar-collapse\" id=\"navbarColor03\">\n    <ul class=\"navbar-nav mr-auto\">\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" href=\"/monitor/showcase\">Showcase</a>\n      </li>\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" href=\"/monitor/feed\">Feeds</a>\n      </li>\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" href=\"/monitor/keyword\">Keywords</a>\n      </li>\n    </ul>\n    <form method=\"POST\" action=\"/monitor\" class=\"form-inline my-2 my-lg-0\">\n      <input name=\"search\" value=\"{{req.body.search}}\" class=\"form-control mr-sm-2\" type=\"text\" placeholder=\"Search\">\n      <button class=\"btn btn-secondary my-2 my-sm-0\" type=\"submit\">Search</button>\n    </form>\n  </div>\n</nav>",
         "output": "str",
-        "x": 880,
-        "y": 440,
+        "x": 920,
+        "y": 480,
         "wires": [
             [
-                "38f55a27.85e3c6"
+                "d6b932df.bf129"
             ]
         ]
     },
     {
-        "id": "e76a4d2b.586ee",
+        "id": "d6b932df.bf129",
+        "type": "template",
+        "z": "3bbfc986.0e2a6e",
+        "name": "head",
+        "field": "template.head",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js\"></script>\n<script src=\"//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js\" integrity=\"sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o\" crossorigin=\"anonymous\"></script>\n<link href=\"//stackpath.bootstrapcdn.com/bootswatch/4.3.1/slate/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-FBPbZPVh+7ks5JJ70RJmIaqyGnvMbeJ5JQfEbW0Ac6ErfvEg9yG56JQJuMNptWsH\" crossorigin=\"anonymous\">\n<link href=\"//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css\" rel=\"stylesheet\" integrity=\"sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN\" crossorigin=\"anonymous\">",
+        "output": "str",
+        "x": 930,
+        "y": 520,
+        "wires": [
+            [
+                "3f64d481.178edc"
+            ]
+        ]
+    },
+    {
+        "id": "3f64d481.178edc",
         "type": "template",
         "z": "3bbfc986.0e2a6e",
         "name": "html",
@@ -577,57 +455,134 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "<!DOCTYPE html>\n<html>\n    <head>\n        {{{template.head}}}    \n    </head>\n    <body>\n        {{{template.navbar}}}\n        {{{template.body}}}\n    </body>\n</html> ",
+        "template": "<!DOCTYPE html>\n<html>\n    <head>\n        {{{template.head}}}\n    </head>\n    <body>\n        {{{template.navbar}}}\n        {{{template.body}}}\n    </body>\n</html> ",
         "output": "str",
-        "x": 890,
-        "y": 520,
+        "x": 930,
+        "y": 560,
         "wires": [
             [
-                "b1732e14.803e3"
+                "723b8770.383bd8"
             ]
         ]
     },
     {
-        "id": "405524d4.1807c4",
+        "id": "ecd6ba1c.72aca",
         "type": "http in",
         "z": "3bbfc986.0e2a6e",
         "name": "",
-        "url": "/api",
+        "url": "/monitor/showcase",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 100,
-        "y": 640,
+        "x": 140,
+        "y": 560,
         "wires": [
             [
-                "d43d2671.f613b8"
+                "1123002d.e2e5a"
             ]
         ]
     },
     {
-        "id": "f993e4ce.be841",
+        "id": "769e222f.84a44c",
+        "type": "switch",
+        "z": "3bbfc986.0e2a6e",
+        "name": "",
+        "property": "req.url",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "/monitor",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "/monitor/showcase",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "/monitor/api/match",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 550,
+        "y": 500,
+        "wires": [
+            [
+                "a5598d76.5af7f8"
+            ],
+            [
+                "8d560db1.b3c"
+            ],
+            [
+                "723b8770.383bd8"
+            ]
+        ]
+    },
+    {
+        "id": "8d560db1.b3c",
+        "type": "template",
+        "z": "3bbfc986.0e2a6e",
+        "name": "/showcase",
+        "field": "template.body",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<div class=\"row\">\n    {{#payload}}\n    <div class=\"col-sm-6 col-md-4 col-lg-2\">\n        <div class=\"card text-white {{^sent}}bg-secondary{{/sent}} m-2\" style=\"max-width: 20rem;\">\n          <div class=\"card-header\"><a href=\"{{link}}\">{{title}}</a></div>\n          <div class=\"card-body\">\n            <p class=\"card-text\">{{description}}</p>\n          </div>\n        </div>\n    </div>\n    {{/payload}}\n</div>",
+        "output": "str",
+        "x": 750,
+        "y": 520,
+        "wires": [
+            [
+                "d6b932df.bf129"
+            ]
+        ]
+    },
+    {
+        "id": "1783226.748f25e",
         "type": "comment",
         "z": "3bbfc986.0e2a6e",
-        "name": "/api",
+        "name": "front-end",
         "info": "",
-        "x": 90,
+        "x": 100,
         "y": 600,
         "wires": []
     },
     {
-        "id": "5939fa74.1d1a34",
+        "id": "58cf3ded.0a3034",
         "type": "http in",
         "z": "3bbfc986.0e2a6e",
         "name": "",
-        "url": "/api",
+        "url": "/monitor/api/match",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 640,
+        "wires": [
+            [
+                "1123002d.e2e5a"
+            ]
+        ]
+    },
+    {
+        "id": "4e010af3.c3acdc",
+        "type": "http in",
+        "z": "3bbfc986.0e2a6e",
+        "name": "",
+        "url": "/monitor/api/match",
         "method": "post",
         "upload": false,
         "swaggerDoc": "",
-        "x": 100,
+        "x": 150,
         "y": 680,
         "wires": [
             [
-                "d43d2671.f613b8"
+                "1123002d.e2e5a"
             ]
         ]
     },
