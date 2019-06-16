@@ -1,8 +1,8 @@
 [
     {
-        "id": "eec781b7.ccf08",
+        "id": "13e44949.218097",
         "type": "inject",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "",
         "topic": "",
         "payload": "",
@@ -11,18 +11,18 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 100,
+        "x": 120,
         "y": 40,
         "wires": [
             [
-                "eda8d061.827a3"
+                "69c1aa45.9f7f8c"
             ]
         ]
     },
     {
-        "id": "eda8d061.827a3",
+        "id": "69c1aa45.9f7f8c",
         "type": "http request",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "",
         "method": "GET",
         "ret": "txt",
@@ -35,14 +35,14 @@
         "y": 80,
         "wires": [
             [
-                "16b9d0b6.087fe7"
+                "b2b0a55b.68af68"
             ]
         ]
     },
     {
-        "id": "21ad26d5.4e46fa",
+        "id": "98b210f0.2341a",
         "type": "debug",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "",
         "active": true,
         "tosidebar": true,
@@ -50,14 +50,14 @@
         "tostatus": false,
         "complete": "true",
         "targetType": "full",
-        "x": 310,
-        "y": 460,
+        "x": 350,
+        "y": 520,
         "wires": []
     },
     {
-        "id": "16b9d0b6.087fe7",
+        "id": "b2b0a55b.68af68",
         "type": "html",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "div",
         "property": "payload",
         "outproperty": "payload",
@@ -68,14 +68,34 @@
         "y": 80,
         "wires": [
             [
-                "9a4e0bde.e2b7d"
+                "71c0cbe8.366e1c"
             ]
         ]
     },
     {
-        "id": "3cfb4291.b438ae",
+        "id": "3eb5a9c8.1d14e6",
+        "type": "comment",
+        "z": "fa6c5b80.841c78",
+        "name": "splitting div's per article",
+        "info": "",
+        "x": 520,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "3305df0d.a7ef3",
+        "type": "comment",
+        "z": "fa6c5b80.841c78",
+        "name": "extracting info",
+        "info": "",
+        "x": 110,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "5ec8e6c7.9c042",
         "type": "html",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "title",
         "property": "payload",
         "outproperty": "item.title",
@@ -86,14 +106,14 @@
         "y": 160,
         "wires": [
             [
-                "365525df.64e17a"
+                "7e9f91db.0aa7a"
             ]
         ]
     },
     {
-        "id": "365525df.64e17a",
+        "id": "7e9f91db.0aa7a",
         "type": "html",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "link",
         "property": "payload",
         "outproperty": "item.link",
@@ -104,32 +124,32 @@
         "y": 200,
         "wires": [
             [
-                "14e519be.9213d6"
+                "1e351cf3.a0f1a3"
             ]
         ]
     },
     {
-        "id": "a2c0121f.a3cc7",
+        "id": "8225d9cc.74d5e",
         "type": "html",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "description",
         "property": "payload",
         "outproperty": "item.description",
         "tag": "div.story__summary",
-        "ret": "text",
+        "ret": "html",
         "as": "multi",
         "x": 110,
         "y": 240,
         "wires": [
             [
-                "95b9715f.c08f48"
+                "823df70.0b1eb08"
             ]
         ]
     },
     {
-        "id": "14e519be.9213d6",
+        "id": "1e351cf3.a0f1a3",
         "type": "change",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "date",
         "rules": [
             {
@@ -149,14 +169,14 @@
         "y": 200,
         "wires": [
             [
-                "a2c0121f.a3cc7"
+                "8225d9cc.74d5e"
             ]
         ]
     },
     {
-        "id": "7ab22e7f.6f2678",
+        "id": "ce348ac0.dd14b8",
         "type": "join",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "",
         "mode": "custom",
         "build": "array",
@@ -177,14 +197,14 @@
         "y": 320,
         "wires": [
             [
-                "62d3af03.302e"
+                "ecb25f75.283918"
             ]
         ]
     },
     {
-        "id": "9a4e0bde.e2b7d",
+        "id": "71c0cbe8.366e1c",
         "type": "change",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "",
         "rules": [
             {
@@ -204,14 +224,14 @@
         "y": 120,
         "wires": [
             [
-                "3cfb4291.b438ae"
+                "5ec8e6c7.9c042"
             ]
         ]
     },
     {
-        "id": "95b9715f.c08f48",
+        "id": "823df70.0b1eb08",
         "type": "change",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "",
         "rules": [
             {
@@ -231,52 +251,25 @@
         "y": 320,
         "wires": [
             [
-                "7ab22e7f.6f2678"
+                "ce348ac0.dd14b8"
             ]
         ]
     },
     {
-        "id": "62d3af03.302e",
-        "type": "change",
-        "z": "c233b1a4.5decc",
-        "name": "",
-        "rules": [
-            {
-                "t": "move",
-                "p": "item",
-                "pt": "msg",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 440,
-        "y": 320,
-        "wires": [
-            [
-                "a1f58619.4a16c"
-            ]
-        ]
-    },
-    {
-        "id": "a1f58619.4a16c",
+        "id": "e75d4742.512db8",
         "type": "rss",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "",
         "feedOptionRules": [
             {
                 "name": "title",
                 "type": "str",
-                "value": "NBCSports"
+                "value": "ProBasketball Talk"
             },
             {
                 "name": "feed_url",
                 "type": "str",
-                "value": "http://localhost:1880/rss/nbcsports"
+                "value": "localhost:1880/rss/nbcsports"
             },
             {
                 "name": "site_url",
@@ -311,19 +304,66 @@
                 "value": "date"
             }
         ],
-        "x": 210,
+        "x": 250,
         "y": 400,
         "wires": [
             [
-                "21ad26d5.4e46fa",
-                "a4fa3d34.30645"
+                "98b210f0.2341a",
+                "38f738d3.74831"
             ]
         ]
     },
     {
-        "id": "d6009ae.4e3e068",
+        "id": "8aa91872.096b9",
+        "type": "comment",
+        "z": "fa6c5b80.841c78",
+        "name": "RSS Response",
+        "info": "",
+        "x": 280,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "e2ba95df.ea41b8",
+        "type": "comment",
+        "z": "fa6c5b80.841c78",
+        "name": "re-join and merge",
+        "info": "",
+        "x": 130,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ecb25f75.283918",
+        "type": "change",
+        "z": "fa6c5b80.841c78",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "item",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 320,
+        "wires": [
+            [
+                "e75d4742.512db8"
+            ]
+        ]
+    },
+    {
+        "id": "d9305246.a58508",
         "type": "http in",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "",
         "url": "/rss/nbcsports",
         "method": "get",
@@ -333,25 +373,25 @@
         "y": 80,
         "wires": [
             [
-                "eda8d061.827a3"
+                "69c1aa45.9f7f8c"
             ]
         ]
     },
     {
-        "id": "f47d4273.9cae5",
+        "id": "dcb37f0f.169f38",
         "type": "http response",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 470,
+        "x": 570,
         "y": 400,
         "wires": []
     },
     {
-        "id": "a4fa3d34.30645",
+        "id": "38f738d3.74831",
         "type": "change",
-        "z": "c233b1a4.5decc",
+        "z": "fa6c5b80.841c78",
         "name": "header",
         "rules": [
             {
@@ -367,52 +407,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 340,
+        "x": 400,
         "y": 400,
         "wires": [
             [
-                "f47d4273.9cae5"
+                "dcb37f0f.169f38"
             ]
         ]
-    },
-    {
-        "id": "b051bddb.58d948",
-        "type": "comment",
-        "z": "c233b1a4.5decc",
-        "name": "splitting div's per article",
-        "info": "",
-        "x": 520,
-        "y": 40,
-        "wires": []
-    },
-    {
-        "id": "e844f3dd.a990c8",
-        "type": "comment",
-        "z": "c233b1a4.5decc",
-        "name": "extracting info",
-        "info": "",
-        "x": 110,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "40a2d255.490344",
-        "type": "comment",
-        "z": "c233b1a4.5decc",
-        "name": "rejoin and merge",
-        "info": "",
-        "x": 120,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "9ca877c4.4ff11",
-        "type": "comment",
-        "z": "c233b1a4.5decc",
-        "name": "web response",
-        "info": "",
-        "x": 230,
-        "y": 360,
-        "wires": []
     }
 ]
