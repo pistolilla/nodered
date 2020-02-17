@@ -1,0 +1,199 @@
+[
+    {
+        "id": "cbcaee90.449f8",
+        "type": "http request",
+        "z": "873498ae.2c7ec8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "http://192.240.102.133:12227/played.html?sid=1",
+        "tls": "",
+        "proxy": "",
+        "authType": "basic",
+        "x": 270,
+        "y": 80,
+        "wires": [
+            [
+                "c0088113.fbebd"
+            ]
+        ]
+    },
+    {
+        "id": "bbe51bf5.fef75",
+        "type": "debug",
+        "z": "873498ae.2c7ec8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 680,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "c0088113.fbebd",
+        "type": "html",
+        "z": "873498ae.2c7ec8",
+        "name": "",
+        "property": "payload",
+        "outproperty": "payload",
+        "tag": "tr",
+        "ret": "html",
+        "as": "multi",
+        "x": 420,
+        "y": 80,
+        "wires": [
+            [
+                "fff1caae.2c478"
+            ]
+        ]
+    },
+    {
+        "id": "fff1caae.2c478",
+        "type": "switch",
+        "z": "873498ae.2c7ec8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "<td>\\d+:\\d+:\\d+</td>.*",
+                "vt": "str",
+                "case": false
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 280,
+        "y": 120,
+        "wires": [
+            [
+                "678b6e03.9ad7f8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3841ba2d.546ae6",
+        "type": "join",
+        "z": "873498ae.2c7ec8",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "1",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 560,
+        "y": 120,
+        "wires": [
+            [
+                "bbe51bf5.fef75",
+                "66407ff2.0868"
+            ]
+        ]
+    },
+    {
+        "id": "678b6e03.9ad7f8",
+        "type": "change",
+        "z": "873498ae.2c7ec8",
+        "name": "artist - track",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"info\": $replace(payload, /^<td>.+<\\/td><td>([^<]+)<\\/td>.*/, \"$1\"),\t    \"artist\": $replace(payload, /^<td>.+<\\/td><td>([^<]+?) - ([^<]+)<\\/td>.*/, \"$1\"),\t    \"track\": $replace(payload, /^<td>.+<\\/td><td>([^<]+?) - ([^<]+)<\\/td>.*/, \"$2\")\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 120,
+        "wires": [
+            [
+                "3841ba2d.546ae6"
+            ]
+        ]
+    },
+    {
+        "id": "66407ff2.0868",
+        "type": "http response",
+        "z": "873498ae.2c7ec8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 680,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "380c020b.83ba7e",
+        "type": "http in",
+        "z": "873498ae.2c7ec8",
+        "name": "",
+        "url": "/playlist",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 120,
+        "wires": [
+            [
+                "cbcaee90.449f8"
+            ]
+        ]
+    },
+    {
+        "id": "eb8aa6a2.8b934",
+        "type": "inject",
+        "z": "873498ae.2c7ec8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 100,
+        "y": 80,
+        "wires": [
+            [
+                "cbcaee90.449f8"
+            ]
+        ]
+    },
+    {
+        "id": "dbe69f69.e8193",
+        "type": "comment",
+        "z": "873498ae.2c7ec8",
+        "name": "Reading from centova front-end",
+        "info": "",
+        "x": 330,
+        "y": 40,
+        "wires": []
+    }
+]
