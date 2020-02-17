@@ -30,8 +30,8 @@
         "tostatus": false,
         "complete": "true",
         "targetType": "full",
-        "x": 680,
-        "y": 80,
+        "x": 690,
+        "y": 40,
         "wires": []
     },
     {
@@ -107,7 +107,7 @@
         "wires": [
             [
                 "bbe51bf5.fef75",
-                "66407ff2.0868"
+                "8a40b73e.6aa2a"
             ]
         ]
     },
@@ -145,7 +145,7 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 680,
+        "x": 830,
         "y": 120,
         "wires": []
     },
@@ -194,6 +194,50 @@
         "info": "",
         "x": 330,
         "y": 40,
+        "wires": []
+    },
+    {
+        "id": "8a40b73e.6aa2a",
+        "type": "change",
+        "z": "873498ae.2c7ec8",
+        "name": "headers",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers.Access-Control-Allow-Origin",
+                "pt": "msg",
+                "to": "*",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "headers.Content-Type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 120,
+        "wires": [
+            [
+                "66407ff2.0868"
+            ]
+        ]
+    },
+    {
+        "id": "4792268.4048dd8",
+        "type": "comment",
+        "z": "873498ae.2c7ec8",
+        "name": "Enabling CORS",
+        "info": "",
+        "x": 720,
+        "y": 80,
         "wires": []
     }
 ]
