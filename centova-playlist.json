@@ -7,7 +7,7 @@
         "method": "GET",
         "ret": "txt",
         "paytoqs": false,
-        "url": "http://192.240.102.133:12227/played.html?sid=1",
+        "url": "http://whsh4u-clients.com:9389/played.html?sid=1",
         "tls": "",
         "proxy": "",
         "authType": "basic",
