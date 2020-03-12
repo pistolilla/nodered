@@ -1,0 +1,100 @@
+[
+    {
+        "id": "8e01ac12.d4ccf",
+        "type": "math",
+        "z": "46dbb2c8.3c499c",
+        "name": "fx",
+        "operation": "sqrt",
+        "x": 340,
+        "y": 140,
+        "wires": [
+            [
+                "e47d2c77.920db"
+            ]
+        ]
+    },
+    {
+        "id": "45951b18.6c6d54",
+        "type": "inject",
+        "z": "46dbb2c8.3c499c",
+        "name": "valid input",
+        "topic": "",
+        "payload": "4.4333",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 80,
+        "wires": [
+            [
+                "8e01ac12.d4ccf"
+            ]
+        ]
+    },
+    {
+        "id": "e47d2c77.920db",
+        "type": "debug",
+        "z": "46dbb2c8.3c499c",
+        "name": "answer",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 560,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "4f32a45c.40cebc",
+        "type": "catch",
+        "z": "46dbb2c8.3c499c",
+        "name": "catch invalid input",
+        "scope": [
+            "8e01ac12.d4ccf"
+        ],
+        "x": 290,
+        "y": 260,
+        "wires": [
+            [
+                "6956c0a6.375f8"
+            ]
+        ]
+    },
+    {
+        "id": "6956c0a6.375f8",
+        "type": "debug",
+        "z": "46dbb2c8.3c499c",
+        "name": "caught",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 540,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "3b6726a8.47551a",
+        "type": "inject",
+        "z": "46dbb2c8.3c499c",
+        "name": "invalid input",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "8e01ac12.d4ccf"
+            ]
+        ]
+    }
+]

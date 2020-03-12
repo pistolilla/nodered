@@ -1,0 +1,17 @@
+{
+  "name": "node-red-contrib-math",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mathNode.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "math": "mathNode.js"
+    }
+  }
+}

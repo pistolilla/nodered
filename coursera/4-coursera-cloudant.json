@@ -1,0 +1,249 @@
+[
+    {
+        "id": "7731f57.f06e78c",
+        "type": "debug",
+        "z": "f8db0d96.513d58",
+        "name": "Watson IoT Output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 590,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "11ba75e3.38717a",
+        "type": "inject",
+        "z": "f8db0d96.513d58",
+        "name": "id: device2 temp: 10",
+        "topic": "device2",
+        "payload": "{\"d\":{\"temperature\": 10}}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "5da01dbe.e7ce84"
+            ]
+        ]
+    },
+    {
+        "id": "5d7494db.293f4c",
+        "type": "inject",
+        "z": "f8db0d96.513d58",
+        "name": "id: device1 temp: 10",
+        "topic": "device1",
+        "payload": "{\"d\":{\"temperature\": 10}}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 150,
+        "y": 60,
+        "wires": [
+            [
+                "5da01dbe.e7ce84"
+            ]
+        ]
+    },
+    {
+        "id": "5da01dbe.e7ce84",
+        "type": "function",
+        "z": "f8db0d96.513d58",
+        "name": "Replace with your solution",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 60,
+        "wires": [
+            [
+                "5d4d1e5a.f2f778"
+            ]
+        ]
+    },
+    {
+        "id": "8defd874.4161d",
+        "type": "inject",
+        "z": "f8db0d96.513d58",
+        "name": "id: device1 temp: 30",
+        "topic": "device1",
+        "payload": "{\"d\":{\"temperature\": 30}}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "5da01dbe.e7ce84"
+            ]
+        ]
+    },
+    {
+        "id": "516d9f3c.42fd4",
+        "type": "inject",
+        "z": "f8db0d96.513d58",
+        "name": "id: device2 temp: 30",
+        "topic": "device2",
+        "payload": "{\"d\":{\"temperature\": 30}}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "5da01dbe.e7ce84"
+            ]
+        ]
+    },
+    {
+        "id": "c6db0279.da4de",
+        "type": "cloudant out",
+        "z": "f8db0d96.513d58",
+        "name": "insert",
+        "cloudant": "",
+        "database": "coursera-cloudant",
+        "service": "pistolilla-node-red-cloudantNoSQLDB",
+        "payonly": true,
+        "operation": "insert",
+        "x": 690,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "8c699c1.3e100e",
+        "type": "cloudant in",
+        "z": "f8db0d96.513d58",
+        "name": "search by id",
+        "cloudant": "",
+        "database": "coursera-cloudant",
+        "service": "pistolilla-node-red-cloudantNoSQLDB",
+        "search": "_id_",
+        "design": "",
+        "index": "",
+        "x": 570,
+        "y": 120,
+        "wires": [
+            [
+                "f5688368.942f08"
+            ]
+        ]
+    },
+    {
+        "id": "5d4d1e5a.f2f778",
+        "type": "change",
+        "z": "f8db0d96.513d58",
+        "name": "query",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.d",
+                "pt": "msg",
+                "to": "d",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "topic",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 120,
+        "wires": [
+            [
+                "8c699c1.3e100e"
+            ]
+        ]
+    },
+    {
+        "id": "f5688368.942f08",
+        "type": "change",
+        "z": "f8db0d96.513d58",
+        "name": "document",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "response",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"_id\": topic,\t    \"_rev\": response._rev,\t    \"screen\": d.temperature > 29 ? \"on\" : \"off\"\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "move",
+                "p": "topic",
+                "pt": "msg",
+                "to": "deviceId",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 160,
+        "wires": [
+            [
+                "80ff9286.38f86",
+                "7731f57.f06e78c"
+            ]
+        ]
+    },
+    {
+        "id": "80ff9286.38f86",
+        "type": "switch",
+        "z": "f8db0d96.513d58",
+        "name": "screen",
+        "property": "payload.screen",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "response.screen",
+                "vt": "msg"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 550,
+        "y": 160,
+        "wires": [
+            [],
+            [
+                "c6db0279.da4de"
+            ]
+        ]
+    }
+]
